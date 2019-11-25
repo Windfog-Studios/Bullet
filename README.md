@@ -1,7 +1,7 @@
 # Bullet
 
 ## Introduction
-Platformed game created by two students from Terrassa
+Car racing game for Physics II subject at university.
 
 ## Controls 
 ### Gameplay
