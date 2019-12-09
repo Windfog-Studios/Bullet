@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "p2List.h"
 #include "Primitive.h"
+#include "PhysVehicle3D.h"
 
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
@@ -27,6 +28,7 @@ public:
 
 	void AddBodyToWorld(btRigidBody* body);
 	void RemoveBodyFromWorld(btRigidBody* body);
+	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
 
 	PhysBody3D* RayCast(const vec3& Origin, const vec3& Direction, vec3& HitPoint = vec3());
 
@@ -44,7 +46,9 @@ private:
 	btSequentialImpulseConstraintSolver*	solver;
 	btDiscreteDynamicsWorld*				world;
 	DebugDrawer*							debug_draw;
-	p2List<btPoint2PointConstraint*>		p2pconstraints;
+	btDefaultVehicleRaycaster*				vehicle_raycaster;
+
+	p2List<btTypedConstraintType*>			constraints;
 };
 
 class DebugDrawer : public btIDebugDraw

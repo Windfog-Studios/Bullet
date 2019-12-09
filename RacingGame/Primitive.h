@@ -71,6 +71,9 @@ public:
 
 	float GetRadius() const;
 	float GetHeight() const;
+
+	void SetRadius(float radius);
+	void SetHeight(float height);
 protected:
 	void InnerRender() const;
 private:

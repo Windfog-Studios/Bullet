@@ -206,6 +206,14 @@ float Cylinder::GetHeight() const
 	return height;
 }
 
+void Cylinder::SetRadius(float n_radius) {
+	radius = n_radius;
+}
+
+void Cylinder::SetHeight(float n_height) {
+	height = n_height;
+}
+
 void Cylinder::InnerRender() const
 {
 	glPushMatrix();
