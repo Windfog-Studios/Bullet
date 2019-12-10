@@ -19,7 +19,7 @@ bool ModuleSceneIntro::Start()
 	int k = 0;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->LookAt(vec3(App->player->position.x, App->player->position.y, App->player->position.z));
 
 	const int SnakeLength = 7;
 	const float StartingSize = 0.5f;
@@ -32,7 +32,7 @@ bool ModuleSceneIntro::Start()
 	{
 		Sphere* s = new Sphere(Size);
 		primitives.PushBack(s);
-		s->SetPos(XPos, 10.f, 2.5f);
+		s->SetPos(XPos, 10.f, -2.5f);
 		//TODO 2: Link all the spheres with your P2P constraints
 		if (n > 0)
 		{
@@ -40,8 +40,6 @@ bool ModuleSceneIntro::Start()
 		}
 		k = n;
 	}
-
-	//TODO 4: Link some other spheres with your Hinge constraint
 
 	XPos = 10.f;
 	Size = StartingSize;

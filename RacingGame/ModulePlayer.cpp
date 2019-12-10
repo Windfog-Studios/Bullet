@@ -141,6 +141,9 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
+	position = vehicle->position;
+
+	App->camera->LookAt(vec3(position.x, position.y, position.z));
 
 	vehicle->Render();
 
