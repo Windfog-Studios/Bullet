@@ -44,13 +44,25 @@ void PhysVehicle3D::Render()
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
 	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
 	offset = offset.rotate(q.getAxis(), q.getAngle());
-
 	position.x = chassis.transform.M[12] += offset.getX();
 	position.y = chassis.transform.M[13] += offset.getY();
 	position.z = chassis.transform.M[14] += offset.getZ();
+	chassis.color = Green;
+
+	Cube trunk(info.trunk_size);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&trunk.transform);
+	btQuaternion qlh = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 tr_offset(info.trunk_offset.x, info.trunk_offset.y, info.trunk_offset.z);
+	tr_offset = tr_offset.rotate(qlh.getAxis(), qlh.getAngle());
+	trunk.transform.M[12] += tr_offset.getX();
+	trunk.transform.M[13] += tr_offset.getY();
+	trunk.transform.M[14] += tr_offset.getZ();
+	trunk.color = White;
+
 	//LOG("Position x: %.2f y: %.2f z: %.2f", position.x, position.y, position.z);
 
 	chassis.Render();
+	trunk.Render();
 }
 
 // ----------------------------------------------------------------------------
