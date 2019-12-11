@@ -12,6 +12,7 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 
 	Position = vec3(-1.0f, 5.0f, -7.5f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -42,6 +43,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
+	float vehicle_speed;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
@@ -57,6 +59,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
+	vehicle_position = App->player->position;
+	vehicle_speed = App->player->vehicle->GetKmh();
+
+	Position.x = vehicle_position.x;
+	Position.z = vehicle_position.z -10;
 
 	// Mouse motion ----------------
 
