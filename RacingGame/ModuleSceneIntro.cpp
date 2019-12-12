@@ -149,8 +149,11 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 
 }
 
-void ModuleSceneIntro::addCheckPoint(int pos_x, int pos_y, int pos_z)
-{//TODO: Change pos_x, pos_y and pos_z to vec3
-	//I didn't put vec3 directly because it crashed
-	
+void ModuleSceneIntro::addCheckPoint(vec3 pos)
+{
+	Cube checkpoint;
+	checkpoint.SetPos(pos.x, pos.y, pos.z);
+	checkpoint.color = Green;
+
+	//checkpointList.PushBack(checkpoint);
 }

@@ -2,9 +2,10 @@
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
+#include "Primitive.h"
 
 class Primitive;
-class  PhysBody3D;
+class PhysBody3D;
 
 class ModuleSceneIntro : public Module
 {
@@ -21,11 +22,12 @@ public:
 	bool CleanUp();
 
 	//Check points
-	void addCheckPoint(int pos_x, int pos_y, int pos_z);
-	p2DynArray<PhysBody3D> checkpointList;
+	void addCheckPoint(vec3 pos);
+	//p2DynArray<Cube> checkpointList; //TODO: this crashes
 private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 
 	p2DynArray<Primitive*> primitives;
+	
 };
