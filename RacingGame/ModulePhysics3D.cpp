@@ -112,7 +112,7 @@ update_status ModulePhysics3D::Update(float dt)
 		glDisable(GL_LIGHTING);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		world->debugDrawWorld();
-		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHTING);		
 	}
 
 	return UPDATE_CONTINUE;
