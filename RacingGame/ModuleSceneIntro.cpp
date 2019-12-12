@@ -148,3 +148,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 	body2->parentPrimitive->color = color;
 
 }
+
+void ModuleSceneIntro::addCheckPoint(int pos_x, int pos_y, int pos_z)
+{//TODO: Change pos_x, pos_y and pos_z to vec3
+	//I didn't put vec3 directly because it crashed
+	
+}

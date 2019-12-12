@@ -20,6 +20,9 @@ public:
 
 	bool CleanUp();
 
+	//Check points
+	void addCheckPoint(int pos_x, int pos_y, int pos_z);
+	p2DynArray<PhysBody3D> checkpointList;
 private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
