@@ -186,8 +186,23 @@ void ModuleSceneIntro::CreateBuildings()
 
 void ModuleSceneIntro::CreatePizza()
 {
-	Cube* pizza = new Cube({ 2, 0.2f, 2 }, 0);
-	primitives.PushBack(pizza);
-	pizza->SetPos(5, 1, 0);
-	pizza->color = Red;
+	// pizza 1
+	{
+		Cube* base1 = new Cube({ 2, 0.2f, 2 }, 0);
+		primitives.PushBack(base1);
+		base1->SetPos(5, 1, 0);
+		base1->color = Beige;
+
+		Cube* tape1 = new Cube({ 2, 0.2f, 2 }, 0);
+		primitives.PushBack(tape1);
+		tape1->SetPos(7, 1.1f, 0);
+		tape1->transform.rotate(45, vec3(1, 0, 0));
+		tape1->color = Beige;
+
+		Cylinder* pizza1 = new Cylinder(1, 0.1f, 0);
+		primitives.PushBack(pizza1);
+		pizza1->SetPos(5, 1.1f, 0);
+		pizza1->color = Red;
+
+	}
 }
