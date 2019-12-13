@@ -234,6 +234,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	btCollisionShape* colShape = new btBoxShape(btVector3(info.chassis_size.x * 0.5f, info.chassis_size.y * 0.5f, info.chassis_size.z * 0.5f));
 	btCollisionShape* colShape2 = new btBoxShape(btVector3(info.trunk_size.x * 0.5f, info.trunk_size.y * 0.5f, info.trunk_size.z * 0.5f));
+	btCollisionShape* colShape3 = new btBoxShape(btVector3(info.cabin_size.x * 0.5f, info.cabin_size.y * 0.5f, info.cabin_size.z * 0.5f));
 	//shapes.add(colShape);
 
 	btTransform trans;
