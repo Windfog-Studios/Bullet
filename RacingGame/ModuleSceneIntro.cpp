@@ -27,9 +27,11 @@ bool ModuleSceneIntro::Start()
 	const float BallDistance = 0.3f;
 
 	CreateBuildings();
+	CreatePizza();
 
 	float XPos = 0.f;
 	float Size = StartingSize;
+	/*
 	for (int n = 0; n < SnakeLength; n++)
 	{
 		Sphere* s = new Sphere(Size);
@@ -42,9 +44,11 @@ bool ModuleSceneIntro::Start()
 		}
 		k = n;
 	}
+	*/
 
 	XPos = 10.f;
 	Size = StartingSize;
+	/*
 	for (int n = 0; n < SnakeLength; n++)
 	{
 		Sphere* s = new Sphere(Size);
@@ -58,7 +62,7 @@ bool ModuleSceneIntro::Start()
 		}
 		k++;
 	}
-
+	*/
 	return ret;
 }
 
@@ -167,4 +171,12 @@ void ModuleSceneIntro::CreateBuildings()
 	building->color = Red;
 	building->SetPos(0, 10, 0);
 	building->ChangeSize({ 2,2,2 });
+}
+
+void ModuleSceneIntro::CreatePizza()
+{
+	Cube* pizza = new Cube({ 2, 0.2f, 2 }, 0);
+	primitives.PushBack(pizza);
+	pizza->SetPos(5, 1, 0);
+	pizza->color = Red;
 }
