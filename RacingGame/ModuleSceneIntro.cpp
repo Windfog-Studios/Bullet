@@ -166,17 +166,27 @@ void ModuleSceneIntro::addCheckPoint(vec3 pos)
 
 void ModuleSceneIntro::CreateBuildings()
 {
-	//Collider limit buildings
+	//Collider limit buildings	
 	{
-		Cube* limit_building0 = new Cube({ 100, 50, 30 }, 10000);
-		limit_building0->color = Red;
-		limit_building0->SetPos(0, 0, 170);
-		primitives.PushBack(limit_building0);
+		//Map limits at (x,y,z) = (175, y, 180)		
+		{//Map limits front (x,y,180)
+			Cube* front_limit_building0 = new Cube({ 100, 40, 30 }, 10000);
+			front_limit_building0->color = Grey;
+			front_limit_building0->SetPos(140, 0, 180);
+			primitives.PushBack(front_limit_building0);
+		}
+		{//Map limits left (175,y,z)
+			Cube* left_limit_building0 = new Cube({ 30, 70, 30 }, 10000);
+			left_limit_building0->color = Grey;
+			left_limit_building0->SetPos(175, 0, 150);
+			primitives.PushBack(left_limit_building0);
+		}
+		{//Map limits right
 
-		Cube* limit_building1 = new Cube({ 10, 50, 30 }, 10000);
-		limit_building1->color = Red;
-		limit_building1->SetPos(300, 0, 100);
-		primitives.PushBack(limit_building1);
+		}
+		{//Map limits back
+		
+		}
 	}
 	//City buildings
 	{
