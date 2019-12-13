@@ -26,6 +26,8 @@ bool ModuleSceneIntro::Start()
 	const float SizeIncrement = 0.2f;
 	const float BallDistance = 0.3f;
 
+	CreateBuildings();
+
 	float XPos = 0.f;
 	float Size = StartingSize;
 	for (int n = 0; n < SnakeLength; n++)
@@ -120,7 +122,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(vec3(0, 1, 0));
 	p.axis = true;
 	p.Render();
-
+	
 	if (App->debug == true)
 		HandleDebugInput();
 
@@ -156,4 +158,13 @@ void ModuleSceneIntro::addCheckPoint(vec3 pos)
 	checkpoint.color = Green;
 
 	//checkpointList.PushBack(checkpoint);
+}
+
+void ModuleSceneIntro::CreateBuildings()
+{
+	Cube* building = new Cube();
+	primitives.PushBack(building);
+	building->color = Red;
+	building->SetPos(0, 10, 0);
+	building->ChangeSize({ 2,2,2 });
 }
