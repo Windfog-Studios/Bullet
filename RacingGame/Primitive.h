@@ -42,6 +42,7 @@ class Cube : public Primitive
 {
 public :
 	Cube(const vec3& size = vec3(1.f,1.f,1.f), float mass = 1.f);
+	void ChangeSize(vec3 newSize) { size = newSize; };
 
 	vec3 GetSize() const;
 protected:
