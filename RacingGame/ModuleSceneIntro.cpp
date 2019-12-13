@@ -174,6 +174,26 @@ void ModuleSceneIntro::CreateBuildings()
 			front_limit_building0->color = Grey;
 			front_limit_building0->SetPos(140, 0, 180);
 			primitives.PushBack(front_limit_building0);
+
+			Cube* front_limit_building1 = new Cube({ 70, 70, 30 }, 10000);
+			front_limit_building1->color = Grey;
+			front_limit_building1->SetPos(60, 0, 180);
+			primitives.PushBack(front_limit_building1);
+
+			Cube* front_limit_building2 = new Cube({ 100, 30, 30 }, 10000);
+			front_limit_building2->color = Grey;
+			front_limit_building2->SetPos(-20, 0, 180);
+			primitives.PushBack(front_limit_building2);
+
+			Cube* front_limit_building3 = new Cube({ 50, 100, 30 }, 10000);
+			front_limit_building3->color = Grey;
+			front_limit_building3->SetPos(-100, 50, 180);
+			primitives.PushBack(front_limit_building3);
+
+			Cube* front_limit_building4 = new Cube({ 50, 70, 30 }, 10000);
+			front_limit_building4->color = Grey;
+			front_limit_building4->SetPos(-130, 0, 180);
+			primitives.PushBack(front_limit_building4);
 		}
 		{//Map limits left (175,y,z)
 			Cube* left_limit_building0 = new Cube({ 30, 70, 30 }, 10000);
