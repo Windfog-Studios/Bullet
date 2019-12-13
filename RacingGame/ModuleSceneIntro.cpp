@@ -162,9 +162,20 @@ void ModuleSceneIntro::addCheckPoint(vec3 pos)
 
 void ModuleSceneIntro::CreateBuildings()
 {
-	Cube* building = new Cube();
-	primitives.PushBack(building);
-	building->color = Red;
-	building->SetPos(0, 10, 0);
-	building->ChangeSize({ 2,2,2 });
+	//Collider limit buildings
+	{
+		Cube* limit_building0 = new Cube({ 100, 50, 30 }, 10000);
+		limit_building0->color = Red;
+		limit_building0->SetPos(0, 0, 170);
+		primitives.PushBack(limit_building0);
+
+		Cube* limit_building1 = new Cube({ 10, 50, 30 }, 10000);
+		limit_building1->color = Red;
+		limit_building1->SetPos(300, 0, 100);
+		primitives.PushBack(limit_building1);
+	}
+	//City buildings
+	{
+
+	}
 }
