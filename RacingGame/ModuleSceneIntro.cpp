@@ -169,12 +169,12 @@ void ModuleSceneIntro::CreateBuildings()
 	//Collider limit buildings
 	{
 		Cube* limit_building0 = new Cube({ 100, 50, 30 }, 10000);
-		limit_building0->color = Red;
+		limit_building0->color = Grey;
 		limit_building0->SetPos(0, 0, 170);
 		primitives.PushBack(limit_building0);
 
 		Cube* limit_building1 = new Cube({ 10, 50, 30 }, 10000);
-		limit_building1->color = Red;
+		limit_building1->color = Grey;
 		limit_building1->SetPos(300, 0, 100);
 		primitives.PushBack(limit_building1);
 	}
