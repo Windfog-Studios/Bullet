@@ -216,15 +216,16 @@ void ModuleSceneIntro::CreateBuildings()
 
 void ModuleSceneIntro::CreatePizza()
 {
+	float tape_angle = 60.f;
 	// pizza 1
 	{
 		Cube* base1 = new Cube({ 2, 0.2f, 2 }, 0);
 		primitives.PushBack(base1);
 		base1->SetPos(5, 1, 0);
 		base1->color = Beige;
-
+		
 		Cube* tape1 = new Cube({ 2, 0.2f, 2 }, 0);
-		tape1->transform.rotate(60.f, vec3(0, 0, 1));
+		tape1->transform.rotate(tape_angle, vec3(0, 0, 1));
 		primitives.PushBack(tape1);
 		tape1->SetPos(6.5f, 1.9f, 0);
 		tape1->color = Beige;
@@ -258,7 +259,7 @@ void ModuleSceneIntro::CreateFence()
 		//TODO 2: Link all the spheres with your P2P constraints
 		if (n > 0)
 		{
-			//App->physics->AddConstraintP2P(*fence, **primitives.At(n - 1), btVector3(fence->axis, btVector3(-fence->GetRadius(), 0, 0));
+			//App->physics->AddConstraintP2P(*fence, **primitives.At(n - 1), btVector3(fence->body.GetBody.), btVector3(-fence->GetSize));
 		}
 		k = n;
 	}
