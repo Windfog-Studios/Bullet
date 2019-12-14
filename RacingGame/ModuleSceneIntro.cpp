@@ -200,6 +200,26 @@ void ModuleSceneIntro::CreateBuildings()
 			left_limit_building0->color = Grey;
 			left_limit_building0->SetPos(175, 0, 150);
 			primitives.PushBack(left_limit_building0);
+
+			Cube* left_limit_building1 = new Cube({ 30, 50, 60 }, 10000);
+			left_limit_building1->color = Grey;
+			left_limit_building1->SetPos(175, 0, 105);
+			primitives.PushBack(left_limit_building1);
+
+			Cube* left_limit_building2 = new Cube({ 30, 40, 100 }, 10000);
+			left_limit_building2->color = Grey;
+			left_limit_building2->SetPos(175, 0, 25);
+			primitives.PushBack(left_limit_building2);
+
+			Cube* left_limit_building3 = new Cube({ 30, 70, 30 }, 10000);
+			left_limit_building3->color = Grey;
+			left_limit_building3->SetPos(175, 0, -40);
+			primitives.PushBack(left_limit_building3);
+
+			Cube* left_limit_building4 = new Cube({ 30, 60, 120 }, 10000);
+			left_limit_building4->color = Grey;
+			left_limit_building4->SetPos(175, 0, -95);
+			primitives.PushBack(left_limit_building4);
 		}
 		{//Map limits right
 
