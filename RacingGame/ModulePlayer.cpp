@@ -146,11 +146,17 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-	position = vehicle->position;
 
-	if (!(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN))
+	position = vehicle->position;
+	vec3 forward = vehicle->GetForwardVector();
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		vec3 forward = vehicle->GetForwardVector();
+		//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+		App->camera->LookAt(vec3(position.x, position.y, position.z));
+	}
+	else
+	{
 		App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 	}
