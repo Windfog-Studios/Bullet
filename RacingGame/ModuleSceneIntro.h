@@ -31,8 +31,5 @@ public:
 private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
-	Sphere* test_sphere;
-
 	p2DynArray<Primitive*> primitives;
-	
 };

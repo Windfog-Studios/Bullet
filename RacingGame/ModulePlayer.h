@@ -22,6 +22,7 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
+	Cube* sensor;
 	float turn;
 	float acceleration;
 	float brake;

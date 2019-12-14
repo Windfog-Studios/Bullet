@@ -93,9 +93,13 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 
+	sensor = new Cube(4,0);
+	sensor->body.collision_listeners.PushBack(App->scene_intro);
+
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
-	
+	vehicle->collision_listeners.PushBack(App->scene_intro);
+
 	return true;
 }
 
@@ -152,7 +156,6 @@ update_status ModulePlayer::Update(float dt)
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 		App->camera->LookAt(vec3(position.x, position.y, position.z));
 	}
 	else
@@ -161,8 +164,12 @@ update_status ModulePlayer::Update(float dt)
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 	}
 
+	sensor->SetPos(vehicle->position.x, vehicle->position.y, vehicle->position.z - 0.5);
+	sensor->body.SetAsSensor(true);
+	sensor->Update();
 
 	vehicle->Render();
+	sensor->Render();
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());

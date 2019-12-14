@@ -138,9 +138,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	//test_sphere->body.SetPos(App->player->vehicle->position.x, App->player->vehicle->position.y, App->player->vehicle->position.z - 5);
-	//test_sphere->body.SetPos(App->player->vehicle->position.x - forward.x, 5,App->player->vehicle->position.z - forward.z - 5);
-
 	return UPDATE_CONTINUE;
 }
 
@@ -161,6 +158,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 	body1->parentPrimitive->color = color;
 	body2->parentPrimitive->color = color;
 
+	LOG("Collision");
 }
 
 void ModuleSceneIntro::addCheckPoint(vec3 pos)
@@ -293,23 +291,28 @@ void ModuleSceneIntro::CreatePizza()
 	float tape_angle = 60.f;
 	// pizza 1
 	{
-		Cube* base1 = new Cube({ 2, 0.2f, 2 }, 0);
-		primitives.PushBack(base1);
-		base1->SetPos(5, 1, 0);
-		base1->color = Beige;
+		Cube* base = new Cube({ 2, 0.2f, 2 }, 0);
+		primitives.PushBack(base);
+		base->SetPos(5, 1, 0);
+		base->color = Beige;
+		//base->body.SetAsSensor(true);
+		base->body.collision_listeners.PushBack(this);
 		
-		Cube* tape1 = new Cube({ 2, 0.2f, 2 }, 0);
-		tape1->transform.rotate(tape_angle, vec3(0, 0, 1));
-		primitives.PushBack(tape1);
-		tape1->SetPos(6.5f, 1.9f, 0);
-		tape1->color = Beige;
+		Cube* tape = new Cube({ 2, 0.2f, 2 }, 0);
+		tape->transform.rotate(tape_angle, vec3(0, 0, 1));
+		primitives.PushBack(tape);
+		tape->SetPos(6.5f, 1.9f, 0);
+		tape->color = Beige;
+		tape->body.collision_listeners.PushBack(this);
+		//tape->body.SetAsSensor(true);
 
-		Cylinder* pizza1 = new Cylinder(0.8, 0.1f, 0);
-		pizza1->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pizza1);
-		pizza1->SetPos(5, 1.1f, 0);
-		pizza1->color = Red;
-
+		Cylinder* pizza = new Cylinder(0.8, 0.1f, 0);
+		pizza->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pizza);
+		pizza->SetPos(5, 1.1f, 0);
+		pizza->color = Red;
+		//pizza->body.SetAsSensor(true);
+		pizza->body.collision_listeners.PushBack(this);
 	}
 }
 

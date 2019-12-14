@@ -2,6 +2,7 @@
 #include "Primitive.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 #include "p2Log.h"
+#include "Application.h"
 
 // ----------------------------------------------------------------------------
 VehicleInfo::~VehicleInfo()
