@@ -180,7 +180,7 @@ void ModuleSceneIntro::CreateBuildings()
 			front_limit_building1->SetPos(60, 0, 180);
 			primitives.PushBack(front_limit_building1);
 
-			Cube* front_limit_building2 = new Cube({ 100, 30, 30 }, 10000);
+			Cube* front_limit_building2 = new Cube({ 100, 50, 30 }, 10000);
 			front_limit_building2->color = Grey;
 			front_limit_building2->SetPos(-20, 0, 180);
 			primitives.PushBack(front_limit_building2);
@@ -222,33 +222,56 @@ void ModuleSceneIntro::CreateBuildings()
 			primitives.PushBack(left_limit_building4);
 		}
 		{//Map limits right
-			Cube* left_limit_building0 = new Cube({ 30, 70, 30 }, 10000);
-			left_limit_building0->color = Grey;
-			left_limit_building0->SetPos(-175, 0, 150);
-			primitives.PushBack(left_limit_building0);
+			Cube* right_limit_building0 = new Cube({ 30, 70, 30 }, 10000);
+			right_limit_building0->color = Grey;
+			right_limit_building0->SetPos(-175, 0, 150);
+			primitives.PushBack(right_limit_building0);
 
-			Cube* left_limit_building1 = new Cube({ 30, 50, 60 }, 10000);
-			left_limit_building1->color = Grey;
-			left_limit_building1->SetPos(-175, 0, 105);
-			primitives.PushBack(left_limit_building1);
+			Cube* right_limit_building1 = new Cube({ 30, 50, 60 }, 10000);
+			right_limit_building1->color = Grey;
+			right_limit_building1->SetPos(-175, 0, 105);
+			primitives.PushBack(right_limit_building1);
 
-			Cube* left_limit_building2 = new Cube({ 30, 40, 100 }, 10000);
-			left_limit_building2->color = Grey;
-			left_limit_building2->SetPos(-175, 0, 25);
-			primitives.PushBack(left_limit_building2);
+			Cube* right_limit_building2 = new Cube({ 30, 40, 100 }, 10000);
+			right_limit_building2->color = Grey;
+			right_limit_building2->SetPos(-175, 0, 25);
+			primitives.PushBack(right_limit_building2);
 
-			Cube* left_limit_building3 = new Cube({ 30, 120, 80 }, 10000);
-			left_limit_building3->color = Grey;
-			left_limit_building3->SetPos(-150, 0, -40);
-			primitives.PushBack(left_limit_building3);
+			Cube* right_limit_building3 = new Cube({ 30, 120, 80 }, 10000);
+			right_limit_building3->color = Grey;
+			right_limit_building3->SetPos(-150, 0, -40);
+			primitives.PushBack(right_limit_building3);
 
-			Cube* left_limit_building4 = new Cube({ 30, 60, 90 }, 10000);
-			left_limit_building4->color = Grey;
-			left_limit_building4->SetPos(-175, 0, -125);
-			primitives.PushBack(left_limit_building4);
+			Cube* right_limit_building4 = new Cube({ 30, 60, 90 }, 10000);
+			right_limit_building4->color = Grey;
+			right_limit_building4->SetPos(-175, 0, -125);
+			primitives.PushBack(right_limit_building4);
 		}
 		{//Map limits back
-		
+			Cube* back_limit_building0 = new Cube({ 100, 40, 30 }, 10000);
+			back_limit_building0->color = Grey;
+			back_limit_building0->SetPos(140, 0, -180);
+			primitives.PushBack(back_limit_building0);
+
+			Cube* back_limit_building1 = new Cube({ 70, 70, 30 }, 10000);
+			back_limit_building1->color = Grey;
+			back_limit_building1->SetPos(60, 0, -180);
+			primitives.PushBack(back_limit_building1);
+
+			Cube* back_limit_building2 = new Cube({ 100, 50, 30 }, 10000);
+			back_limit_building2->color = Grey;
+			back_limit_building2->SetPos(-20, 0, -180);
+			primitives.PushBack(back_limit_building2);
+
+			Cube* back_limit_building3 = new Cube({ 50, 100, 30 }, 10000);
+			back_limit_building3->color = Grey;
+			back_limit_building3->SetPos(-100, 50, -180);
+			primitives.PushBack(back_limit_building3);
+
+			Cube* back_limit_building4 = new Cube({ 50, 70, 30 }, 10000);
+			back_limit_building4->color = Grey;
+			back_limit_building4->SetPos(-130, 0, -180);
+			primitives.PushBack(back_limit_building4);
 		}
 	}
 	//City buildings
