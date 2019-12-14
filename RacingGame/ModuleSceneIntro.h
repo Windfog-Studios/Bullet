@@ -21,6 +21,7 @@ public:
 
 	void CreateBuildings();
 	void CreatePizza();
+	void CreateFence();
 
 	bool CleanUp();
 
