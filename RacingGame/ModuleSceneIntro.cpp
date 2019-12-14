@@ -32,6 +32,10 @@ bool ModuleSceneIntro::Start()
 	
 	float XPos = 10.f;
 	float Size = StartingSize;
+
+	//test_sphere = new Sphere(1);
+	//primitives.PushBack(test_sphere);
+
 	/*
 	for (int n = 0; n < SnakeLength; n++)
 	{
@@ -133,6 +137,9 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
+
+	//test_sphere->body.SetPos(App->player->vehicle->position.x, App->player->vehicle->position.y, App->player->vehicle->position.z - 5);
+	//test_sphere->body.SetPos(App->player->vehicle->position.x - forward.x, 5,App->player->vehicle->position.z - forward.z - 5);
 
 	return UPDATE_CONTINUE;
 }
