@@ -44,6 +44,7 @@ public :
 	Cube(const vec3& size = vec3(1.f,1.f,1.f), float mass = 1.f);
 
 	vec3 GetSize() const;
+	void SetSize(vec3 new_size);
 protected:
 	void InnerRender() const;
 private:

@@ -5,7 +5,7 @@
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 1000.0f
+#define MAX_ACCELERATION 1500.0f
 #define TURN_DEGREES 15.0f * DEGTORAD
 #define BRAKE_POWER 1000.0f
 
@@ -20,6 +20,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void RestartGame();
 
 public:
 
@@ -28,5 +29,7 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+	int max_speed;
 	vec3 position;
+	vec3 initial_position;
 };

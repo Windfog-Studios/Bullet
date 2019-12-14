@@ -93,12 +93,13 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 
-	sensor = new Cube(4,0);
+	sensor = new Cube(4);
 	sensor->body.collision_listeners.PushBack(this);
-	App->scene_intro->GetPrimitivesList().PushBack(sensor);
+	sensor->body.SetAsSensor(true);
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
+	initial_position = vehicle->position;
 
 	return true;
 }
@@ -116,7 +117,7 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
 		acceleration = MAX_ACCELERATION;
 	}
@@ -135,7 +136,6 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		//brake = BRAKE_POWER;
 		acceleration = -MAX_ACCELERATION;
 	}
 
@@ -164,12 +164,11 @@ update_status ModulePlayer::Update(float dt)
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 	}
 
-	sensor->SetPos(vehicle->position.x, vehicle->position.y, vehicle->position.z - 0.5);
-	sensor->body.SetAsSensor(true);
 	sensor->Update();
+	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
 	vehicle->Render();
-	sensor->Render();
+	//sensor->Render();
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
@@ -182,4 +181,8 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 	LOG("Collision");
 }
 
+void ModulePlayer::RestartGame() {
+	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
+	acceleration = -MAX_ACCELERATION;
+}
 

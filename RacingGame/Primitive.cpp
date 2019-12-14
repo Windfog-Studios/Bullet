@@ -123,6 +123,11 @@ vec3 Cube::GetSize() const
 	return size;
 }
 
+void Cube::SetSize(vec3 new_size)
+{
+	size = new_size;
+}
+
 void Cube::InnerRender() const
 {	
 	float sx = size.x * 0.5f;
