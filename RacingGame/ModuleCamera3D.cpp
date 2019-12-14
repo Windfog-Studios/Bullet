@@ -60,11 +60,7 @@ update_status ModuleCamera3D::Update(float dt)
 	Position += newPos;
 	Reference += newPos;
 
-	vehicle_position = App->player->position;
 	vehicle_speed = App->player->vehicle->GetKmh();
-
-	Position.x = vehicle_position.x;
-	Position.z = vehicle_position.z -12.5f;
 
 	// Mouse motion ----------------
 

@@ -37,10 +37,9 @@ public:
 	void SetSpeed(vec3 speed);
 	void Push(vec3 force);
 	void Stop();
-
-private:
 	void SetBody(btCollisionShape* shape, Primitive* parent, float mass);
 
+private:
 	btRigidBody* body;
 	btCollisionShape* colShape;
 	btDefaultMotionState* motionState;
