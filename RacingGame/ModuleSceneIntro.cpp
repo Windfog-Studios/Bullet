@@ -224,15 +224,43 @@ void ModuleSceneIntro::CreatePizza()
 		base1->color = Beige;
 
 		Cube* tape1 = new Cube({ 2, 0.2f, 2 }, 0);
+		tape1->transform.rotate(60.f, vec3(0, 0, 1));
 		primitives.PushBack(tape1);
-		tape1->SetPos(7, 1.1f, 0);
-		tape1->transform.rotate(45, vec3(1, 0, 0));
+		tape1->SetPos(6.5f, 1.9f, 0);
 		tape1->color = Beige;
 
-		Cylinder* pizza1 = new Cylinder(1, 0.1f, 0);
+		Cylinder* pizza1 = new Cylinder(0.8, 0.1f, 0);
+		pizza1->transform.rotate(90.f, vec3(0, 0, 1));
 		primitives.PushBack(pizza1);
 		pizza1->SetPos(5, 1.1f, 0);
 		pizza1->color = Red;
 
 	}
+}
+
+void ModuleSceneIntro::CreateFence()
+{
+	int k = 0;
+
+	const int SnakeLength = 7;
+	const float StartingSize = 0.5f;
+	const float SizeIncrement = 0.2f;
+	const float BallDistance = 0.3f;
+
+	float XPos = 0.f;
+	float Size = StartingSize;
+
+	for (int n = 0; n < SnakeLength; n++)
+	{
+		Cube* fence = new Cube({ 2, 0.2f, 2 }, 10000);
+		primitives.PushBack(fence);
+		fence->SetPos(XPos, 10.f, -2.5f);
+		//TODO 2: Link all the spheres with your P2P constraints
+		if (n > 0)
+		{
+			//App->physics->AddConstraintP2P(*fence, **primitives.At(n - 1), btVector3(fence->axis, btVector3(-fence->GetRadius(), 0, 0));
+		}
+		k = n;
+	}
+
 }
