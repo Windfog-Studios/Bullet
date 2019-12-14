@@ -99,7 +99,6 @@ void ModuleSceneIntro::HandleDebugInput()
 		//TODO: NEW CODE
 		//A snippet of new code that may be useful for you. Nothing to do here really
 
-
 		//Get a vector indicating the direction from the camera viewpoint to the "mouse"
 		const vec2 mousePos(((float)App->input->GetMouseX() / (float)App->window->Width()) * 2.f - 1.f,
 			-((float)App->input->GetMouseY() / (float)App->window->Height()) * 2.f + 1.f);
@@ -158,7 +157,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 	body1->parentPrimitive->color = color;
 	body2->parentPrimitive->color = color;
 
-	LOG("Collision");
 }
 
 void ModuleSceneIntro::addCheckPoint(vec3 pos)
@@ -295,7 +293,7 @@ void ModuleSceneIntro::CreatePizza()
 		primitives.PushBack(base);
 		base->SetPos(5, 1, 0);
 		base->color = Beige;
-		//base->body.SetAsSensor(true);
+		base->body.SetAsSensor(true);
 		base->body.collision_listeners.PushBack(this);
 		
 		Cube* tape = new Cube({ 2, 0.2f, 2 }, 0);
@@ -303,15 +301,15 @@ void ModuleSceneIntro::CreatePizza()
 		primitives.PushBack(tape);
 		tape->SetPos(6.5f, 1.9f, 0);
 		tape->color = Beige;
+		tape->body.SetAsSensor(true);
 		tape->body.collision_listeners.PushBack(this);
-		//tape->body.SetAsSensor(true);
 
 		Cylinder* pizza = new Cylinder(0.8, 0.1f, 0);
 		pizza->transform.rotate(90.f, vec3(0, 0, 1));
 		primitives.PushBack(pizza);
 		pizza->SetPos(5, 1.1f, 0);
 		pizza->color = Red;
-		//pizza->body.SetAsSensor(true);
+		pizza->body.SetAsSensor(true);
 		pizza->body.collision_listeners.PushBack(this);
 	}
 }

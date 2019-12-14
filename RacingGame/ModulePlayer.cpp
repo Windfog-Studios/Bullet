@@ -94,11 +94,11 @@ bool ModulePlayer::Start()
 	car.wheels[2].steering = false;
 
 	sensor = new Cube(4,0);
-	sensor->body.collision_listeners.PushBack(App->scene_intro);
+	sensor->body.collision_listeners.PushBack(this);
+	App->scene_intro->GetPrimitivesList().PushBack(sensor);
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
-	vehicle->collision_listeners.PushBack(App->scene_intro);
 
 	return true;
 }
@@ -158,7 +158,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		App->camera->LookAt(vec3(position.x, position.y, position.z));
 	}
-	else
+	else if (!App->debug)
 	{
 		App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
@@ -178,5 +178,8 @@ update_status ModulePlayer::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
+	LOG("Collision");
+}
 
 

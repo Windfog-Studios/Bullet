@@ -16,6 +16,7 @@ public:
 	bool Start();
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
+	bool CleanUp();
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 
@@ -23,8 +24,7 @@ public:
 	void CreatePizza();
 	void CreateFence();
 
-	bool CleanUp();
-
+	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	//Check points
 	void addCheckPoint(vec3 pos);
 	//p2DynArray<Cube> checkpointList; //TODO: this crashes
