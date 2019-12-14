@@ -26,10 +26,11 @@ bool ModuleSceneIntro::Start()
 	const float SizeIncrement = 0.2f;
 	const float BallDistance = 0.3f;
 
+	CreateFence();
 	CreateBuildings();
 	CreatePizza();
-
-	float XPos = 0.f;
+	
+	float XPos = 10.f;
 	float Size = StartingSize;
 	/*
 	for (int n = 0; n < SnakeLength; n++)
@@ -44,11 +45,10 @@ bool ModuleSceneIntro::Start()
 		}
 		k = n;
 	}
-	*/
-
-	XPos = 10.f;
+	
+	XPos = 20.f;
 	Size = StartingSize;
-	/*
+	
 	for (int n = 0; n < SnakeLength; n++)
 	{
 		Sphere* s = new Sphere(Size);
@@ -63,6 +63,7 @@ bool ModuleSceneIntro::Start()
 		k++;
 	}
 	*/
+	
 	return ret;
 }
 
@@ -316,18 +317,37 @@ void ModuleSceneIntro::CreateFence()
 
 	float XPos = 0.f;
 	float Size = StartingSize;
-
+	
+	Cylinder* c = new Cylinder(0.5, 4, 0);
+	c->transform.rotate(90.f, vec3(0, 0, 1));
+	primitives.PushBack(c);
+	c->SetPos(20, 2, 0);
+	c->color = Red;
+	
+	
+	Cylinder* c2 = new Cylinder(0.5, 4, 0);
+	c2->transform.rotate(90.f, vec3(0, 0, 1));
+	primitives.PushBack(c2);
+	c2->SetPos(30, 2, 0);
+	c2->color = Red;
+	/*
 	for (int n = 0; n < SnakeLength; n++)
 	{
-		Cube* fence = new Cube({ 2, 0.2f, 2 }, 10000);
-		primitives.PushBack(fence);
-		fence->SetPos(XPos, 10.f, -2.5f);
+		Sphere* s = new Sphere(Size);
+		primitives.PushBack(s);
+		s->SetPos(15, 10.f, -2.5f);
+				
 		//TODO 2: Link all the spheres with your P2P constraints
 		if (n > 0)
 		{
-			//App->physics->AddConstraintP2P(*fence, **primitives.At(n - 1), btVector3(fence->body.GetBody.), btVector3(-fence->GetSize));
+			App->physics->AddConstraintP2P(*c, *s, btVector3(c->GetRadius(), -2, 0), btVector3(-s->GetRadius(), 0, 0));
+			App->physics->AddConstraintP2P(*s, **primitives.At(n - 1), btVector3(s->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
+			App->physics->AddConstraintP2P(*c2, **primitives.At(n - 1), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
 		}
+		
+		
 		k = n;
 	}
-
+	*/
+	
 }
