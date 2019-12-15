@@ -292,10 +292,64 @@ void ModuleSceneIntro::CreateBuildings()
 			primitives.PushBack(back_limit_building4);
 		}
 	}
-	//City buildings
-	{
+	//City buildings 1
+		{
+			Cube* city_building0 = new Cube({ 30, 20, 30 }, 10000);
+			city_building0->color = Grey;
+			city_building0->SetPos(120, 0, 130);
+			primitives.PushBack(city_building0);
 
-	}
+			Cube* city_building1 = new Cube({ 30, 40, 30 }, 10000);
+			city_building1->color = Grey;
+			city_building1->SetPos(120, 0, 100);
+			primitives.PushBack(city_building1);
+
+			Cube* city_building2 = new Cube({ 30, 50, 30 }, 10000);
+			city_building2->color = Grey;
+			city_building2->SetPos(120, 0, 70);
+			primitives.PushBack(city_building2);
+
+			Cube* city_building3 = new Cube({ 30, 30, 80 }, 10000);
+			city_building3->color = Grey;
+			city_building3->SetPos(120, 0, 30);
+			primitives.PushBack(city_building3);
+
+			Cube* city_building4 = new Cube({ 30, 30, 30 }, 10000);
+			city_building4->color = Grey;
+			city_building4->SetPos(120, 0, -70);
+			primitives.PushBack(city_building4);
+
+			Cube* city_building5 = new Cube({ 30, 70, 50 }, 10000);
+			city_building5->color = Grey;
+			city_building5->SetPos(100, 0, -110);
+			primitives.PushBack(city_building5);
+		}
+
+	//City buildings 2
+		{
+			Cube* city_building6 = new Cube({ 40, 30, 50 }, 10000);
+			city_building6->color = Grey;
+			city_building6->SetPos(100, 0, -110);
+			primitives.PushBack(city_building6);
+
+			Cube* city_building7 = new Cube({ 60, 50, 50 }, 10000);
+			city_building7->color = Grey;
+			city_building7->SetPos(0, 0, -110);
+			primitives.PushBack(city_building7);
+
+			Cube* city_building8 = new Cube({ 40, 70, 50 }, 10000);
+			city_building8->color = Grey;
+			city_building8->SetPos(-70, 0, -110);
+			primitives.PushBack(city_building8);
+		}
+
+	//City buildings 3
+		{
+			Cube* city_building9 = new Cube({ 40, 70, 50 }, 10000);
+			city_building9->color = Grey;
+			city_building9->SetPos(-70, 0, -110);
+			primitives.PushBack(city_building9);
+		}
 }
 
 void ModuleSceneIntro::CreatePizza()
