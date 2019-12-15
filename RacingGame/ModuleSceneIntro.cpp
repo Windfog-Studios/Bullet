@@ -206,7 +206,7 @@ void ModuleSceneIntro::CreateBuildings()
 
 			Cube* front_limit_building3 = new Cube({ 50, 100, 30 }, 10000);
 			front_limit_building3->color = Grey;
-			front_limit_building3->SetPos(-100, 50, 180);
+			front_limit_building3->SetPos(-100, 50, 170);
 			primitives.PushBack(front_limit_building3);
 
 			Cube* front_limit_building4 = new Cube({ 50, 70, 30 }, 10000);
@@ -253,7 +253,7 @@ void ModuleSceneIntro::CreateBuildings()
 
 			Cube* right_limit_building2 = new Cube({ 30, 40, 158 }, 10000);
 			right_limit_building2->color = Grey;
-			right_limit_building2->SetPos(-175, 0, 25);
+			right_limit_building2->SetPos(-170, 0, 0);
 			primitives.PushBack(right_limit_building2);
 
 			Cube* right_limit_building4 = new Cube({ 30, 60, 90 }, 10000);
