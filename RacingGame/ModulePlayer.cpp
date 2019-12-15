@@ -92,8 +92,8 @@ bool ModulePlayer::Start()
 	car.wheels[2].drive = false;
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
-
-	sensor = new Cube(4);
+	
+	sensor = new Cube(5);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
@@ -165,6 +165,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	sensor->Update();
+	sensor->body.GetBody()->applyForce(btVector3(0,10,0),btVector3(0,0,0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
 	vehicle->Render();
