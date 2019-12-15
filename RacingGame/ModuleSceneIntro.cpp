@@ -139,6 +139,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 update_status ModuleSceneIntro::Update(float dt)
 {
 	Plane p(vec3(0, 1, 0));
+	p.color = Dark_Grey;
 	p.axis = true;
 	p.Render();
 	

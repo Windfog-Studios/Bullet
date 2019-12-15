@@ -33,3 +33,4 @@ extern Color Beige;
 extern Color Black;
 extern Color White;
 extern Color Grey;
+extern Color Dark_Grey;
