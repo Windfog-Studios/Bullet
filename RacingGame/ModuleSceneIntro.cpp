@@ -250,15 +250,10 @@ void ModuleSceneIntro::CreateBuildings()
 			right_limit_building1->SetPos(-175, 0, 105);
 			primitives.PushBack(right_limit_building1);
 
-			Cube* right_limit_building2 = new Cube({ 30, 40, 100 }, 10000);
+			Cube* right_limit_building2 = new Cube({ 30, 40, 158 }, 10000);
 			right_limit_building2->color = Grey;
 			right_limit_building2->SetPos(-175, 0, 25);
 			primitives.PushBack(right_limit_building2);
-
-			Cube* right_limit_building3 = new Cube({ 30, 120, 80 }, 10000);
-			right_limit_building3->color = Grey;
-			right_limit_building3->SetPos(-150, 0, -40);
-			primitives.PushBack(right_limit_building3);
 
 			Cube* right_limit_building4 = new Cube({ 30, 60, 90 }, 10000);
 			right_limit_building4->color = Grey;
@@ -332,23 +327,35 @@ void ModuleSceneIntro::CreateBuildings()
 			city_building6->SetPos(100, 0, -110);
 			primitives.PushBack(city_building6);
 
-			Cube* city_building7 = new Cube({ 60, 50, 50 }, 10000);
+			Cube* city_building7 = new Cube({ 55, 50, 50 }, 10000);
 			city_building7->color = Grey;
-			city_building7->SetPos(0, 0, -110);
+			city_building7->SetPos(15, 0, -110);
 			primitives.PushBack(city_building7);
 
-			Cube* city_building8 = new Cube({ 40, 70, 50 }, 10000);
+			Cube* city_building8 = new Cube({ 90, 70, 50 }, 10000);
 			city_building8->color = Grey;
-			city_building8->SetPos(-70, 0, -110);
+			city_building8->SetPos(-80, 0, -110);
 			primitives.PushBack(city_building8);
 		}
 
 	//City buildings 3
 		{
-			Cube* city_building9 = new Cube({ 40, 70, 50 }, 10000);
+			
+			Cube* city_building9 = new Cube({ 50, 30, 70 }, 10000);
 			city_building9->color = Grey;
-			city_building9->SetPos(-70, 0, -110);
+			city_building9->SetPos(-100, 0, -50);
 			primitives.PushBack(city_building9);
+
+			Cube* city_building10 = new Cube({ 50, 30, 50 }, 10000);
+			city_building10->color = Grey;
+			city_building10->SetPos(-100, 0, 40);
+			primitives.PushBack(city_building10);
+
+			Cube* city_building11 = new Cube({ 50, 50, 60 }, 10000);
+			city_building11->color = Grey;
+			city_building11->SetPos(-100, 0, 90);
+			primitives.PushBack(city_building11);
+			
 		}
 }
 
