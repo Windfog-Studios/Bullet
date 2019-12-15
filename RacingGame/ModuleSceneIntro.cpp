@@ -509,6 +509,7 @@ void ModuleSceneIntro::CreateFence()
 	float XPos = 0.f;
 	float Size = StartingSize;
 
+	/*
 	Cylinder* c = new Cylinder(0.5, 4, 0);
 	c->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c);
@@ -521,6 +522,7 @@ void ModuleSceneIntro::CreateFence()
 	primitives.PushBack(c2);
 	c2->SetPos(30, 2, 0);
 	c2->color = Red;
+	*/
 
 	/*
 	for (int n = 0; n < SnakeLength; n++)
