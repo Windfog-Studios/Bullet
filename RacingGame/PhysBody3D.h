@@ -48,6 +48,7 @@ private:
 public:
 	Primitive* parentPrimitive;
 	p2DynArray<Module*> collision_listeners;
+	bool isPizza = false;
 };
 
 #endif // __PhysBody3D_H__

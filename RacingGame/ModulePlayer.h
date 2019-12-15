@@ -2,11 +2,12 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "Timer.h"
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 1500.0f
-#define TURN_DEGREES 15.0f * DEGTORAD
+#define MAX_ACCELERATION 1750.0f
+#define TURN_DEGREES 17.5f * DEGTORAD
 #define BRAKE_POWER 1000.0f
 
 class ModulePlayer : public Module
@@ -26,6 +27,10 @@ public:
 
 	PhysVehicle3D* vehicle;
 	Cube* sensor;
+	Cube* timer_cube;
+	Timer timer;
+	float max_time;
+	float time_left;
 	float turn;
 	float acceleration;
 	float brake;

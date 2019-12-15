@@ -96,6 +96,15 @@ void Primitive::SetPos(float x, float y, float z)
 	body.SetTransform(&transform);
 }
 
+//------------------------------------------------------------
+
+vec3 Primitive::GetPos() const {
+	vec3 position(body.GetBody()->getCenterOfMassPosition().x(),
+		body.GetBody()->getCenterOfMassPosition().y(),
+		body.GetBody()->getCenterOfMassPosition().z());
+	return position;
+}
+
 // ------------------------------------------------------------
 void Primitive::SetRotation(float angle, const vec3 &u)
 {

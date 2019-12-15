@@ -6,6 +6,17 @@
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
+	//pizza positions
+	pizza_position[0] = (0, 0, 0);
+	pizza_position[1] = (1, 1, 1);
+	pizza_position[2] = (2, 2, 2);
+	pizza_position[3] = (3, 3, 3);
+	pizza_position[4] = (4, 4, 4);
+	pizza_position[5] = (5, 5, 5);
+	pizza_position[6] = (6, 6, 6);
+	pizza_position[7] = (7, 7, 7);
+	pizza_position[8] = (8, 8, 8);
+	pizza_position[9] = (9, 9, 9);
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -136,6 +147,9 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
+
+	//pizza_pointer->base->body.SetPos(pizza_pointer->pizza->GetPos().x, pizza_pointer->pizza->GetPos().y -0.1f, pizza_pointer->pizza->GetPos().z);
+	//pizza_pointer->tape->body.SetPos(pizza_pointer->pizza->GetPos().x + 1.5f, pizza_pointer->pizza->GetPos().y + 0.8f, pizza_pointer->pizza->GetPos().z);
 
 	return UPDATE_CONTINUE;
 }
@@ -287,31 +301,33 @@ void ModuleSceneIntro::CreateBuildings()
 void ModuleSceneIntro::CreatePizza()
 {
 	float tape_angle = 60.f;
-	// pizza 1
-	{
-		Cube* base = new Cube({ 2, 0.2f, 2 }, 0);
-		primitives.PushBack(base);
-		base->SetPos(5, 1, 0);
-		base->color = Beige;
-		base->body.SetAsSensor(true);
-		base->body.collision_listeners.PushBack(this);
-		
-		Cube* tape = new Cube({ 2, 0.2f, 2 }, 0);
-		tape->transform.rotate(tape_angle, vec3(0, 0, 1));
-		primitives.PushBack(tape);
-		tape->SetPos(6.5f, 1.9f, 0);
-		tape->color = Beige;
-		tape->body.SetAsSensor(true);
-		tape->body.collision_listeners.PushBack(this);
+	Pizza pizza;
 
-		Cylinder* pizza = new Cylinder(0.8, 0.1f, 0);
-		pizza->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pizza);
-		pizza->SetPos(5, 1.1f, 0);
-		pizza->color = Red;
-		pizza->body.SetAsSensor(true);
-		pizza->body.collision_listeners.PushBack(this);
-	}
+		pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
+		primitives.PushBack(pizza.base);
+		pizza.base->SetPos(5, 1, 0);
+		pizza.base->color = Beige;
+		pizza.base->body.SetAsSensor(true);
+		pizza.base->body.collision_listeners.PushBack(this);
+		
+		pizza.tape = new Cube({ 2, 0.2f, 2 }, 0);
+		pizza.tape->transform.rotate(tape_angle, vec3(0, 0, 1));
+		primitives.PushBack(pizza.tape);
+		pizza.tape->SetPos(6.5f, 1.9f, 0);
+		pizza.tape->color = Beige;
+		pizza.tape->body.SetAsSensor(true);
+		pizza.tape->body.collision_listeners.PushBack(this);
+
+		pizza.pizza = new Cylinder(0.8, 0.1f, 0);
+		pizza.pizza->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pizza.pizza);
+		pizza.pizza->SetPos(5, 1.1f, 0);
+		pizza.pizza->color = Red;
+		pizza.pizza->body.SetAsSensor(true);
+		pizza.pizza->body.collision_listeners.PushBack(this);
+		pizza.pizza->body.isPizza = true;
+
+		pizza_pointer = &pizza;
 }
 
 void ModuleSceneIntro::CreateFence()
@@ -325,7 +341,7 @@ void ModuleSceneIntro::CreateFence()
 
 	float XPos = 0.f;
 	float Size = StartingSize;
-	
+
 	Cylinder* c = new Cylinder(0.5, 4, 0);
 	c->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c);
@@ -338,6 +354,7 @@ void ModuleSceneIntro::CreateFence()
 	primitives.PushBack(c2);
 	c2->SetPos(30, 2, 0);
 	c2->color = Red;
+
 	/*
 	for (int n = 0; n < SnakeLength; n++)
 	{

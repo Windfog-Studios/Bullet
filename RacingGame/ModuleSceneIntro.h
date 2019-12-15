@@ -7,6 +7,14 @@
 class Primitive;
 class PhysBody3D;
 
+#define MAX_PIZZA_POSITIONS 10
+
+struct Pizza {
+	Cube* tape;
+	Cylinder* pizza;
+	Cube* base;
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -32,4 +40,8 @@ private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 	p2DynArray<Primitive*> primitives;
+public:
+	int p = 0;
+	vec3 pizza_position[MAX_PIZZA_POSITIONS];
+	Pizza* pizza_pointer;
 };

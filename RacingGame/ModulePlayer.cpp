@@ -8,6 +8,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
+	max_time = 20;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -97,9 +98,14 @@ bool ModulePlayer::Start()
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
+	timer_cube = new Cube(vec3(0.75, 0.05, 0.05));
+	timer_cube->color = Green;
+
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
 	initial_position = vehicle->position;
+
+	timer.Start();
 
 	return true;
 }
@@ -116,6 +122,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
+	vec3 forward = vehicle->GetForwardVector();
 
 	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
@@ -147,13 +154,7 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
-
-	position = vehicle->position;
-	vec3 forward = vehicle->GetForwardVector();
-
+	//camera control
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		App->camera->LookAt(vec3(position.x, position.y, position.z));
@@ -164,26 +165,51 @@ update_status ModulePlayer::Update(float dt)
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 	}
 
+	vehicle->ApplyEngineForce(acceleration);
+	vehicle->Turn(turn);
+	vehicle->Brake(brake);
+
+	//update sensor and timer
 	sensor->Update();
-	sensor->body.GetBody()->applyForce(btVector3(0,10,0),btVector3(0,0,0));
+	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
+	time_left = max_time - timer.Read() * 0.001f;
+	timer_cube->Update();
+	timer_cube->SetSize(vec3(0.75 * (time_left/max_time), 0.05, 0.05));
+	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.15, App->camera->Position.z + forward.z);
+
+	position = vehicle->position;
+
+	//Render
+	timer_cube->Render();
 	vehicle->Render();
 	//sensor->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "Racing Game %.1f Time left %.2f Km/h", vehicle->GetKmh(), time_left);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
-	LOG("Collision");
-}
-
 void ModulePlayer::RestartGame() {
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
 	acceleration = -MAX_ACCELERATION;
+}
+
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
+
+	if (body2->isPizza)
+	{
+		if (App->scene_intro->p < MAX_PIZZA_POSITIONS) { App->scene_intro->p++;}
+		else { App->scene_intro->p = 0;}
+
+		body2->SetPos(App->scene_intro->pizza_position[App->scene_intro->p].x,
+			App->scene_intro->pizza_position[App->scene_intro->p].y,
+			App->scene_intro->pizza_position[App->scene_intro->p].z);
+	}
+
 }
 
