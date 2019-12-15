@@ -290,12 +290,7 @@ void ModuleSceneIntro::CreateBuildings()
 	}
 	//City buildings 1
 		{
-			Cube* city_building0 = new Cube({ 30, 20, 30 }, 10000);
-			city_building0->color = Grey;
-			city_building0->SetPos(120, 0, 130);
-			primitives.PushBack(city_building0);
-
-			Cube* city_building1 = new Cube({ 30, 40, 30 }, 10000);
+			Cube* city_building1 = new Cube({ 30, 40, 40 }, 10000);
 			city_building1->color = Grey;
 			city_building1->SetPos(120, 0, 100);
 			primitives.PushBack(city_building1);
@@ -341,7 +336,6 @@ void ModuleSceneIntro::CreateBuildings()
 
 	//City buildings 3
 		{
-			
 			Cube* city_building9 = new Cube({ 50, 30, 70 }, 10000);
 			city_building9->color = Grey;
 			city_building9->SetPos(-100, 0, -50);
@@ -357,6 +351,60 @@ void ModuleSceneIntro::CreateBuildings()
 			city_building11->SetPos(-100, 0, 90);
 			primitives.PushBack(city_building11);
 			
+		}
+
+	//City buildings 4
+		{
+			Cube* city_building12 = new Cube({ 50, 30, 30 }, 10000);
+			city_building12->color = Grey;
+			city_building12->SetPos(-50, 0, 110);
+			primitives.PushBack(city_building12);
+
+			Cube* city_building13 = new Cube({ 20, 40, 30 }, 10000);
+			city_building13->color = Grey;
+			city_building13->SetPos( -20, 0, 110);
+			primitives.PushBack(city_building13);
+
+			Cube* city_building14 = new Cube({ 50, 50, 30 }, 10000);
+			city_building14->color = Grey;
+			city_building14->SetPos( 50, 0, 110);
+			primitives.PushBack(city_building14);
+		}
+
+	//City buildings 5
+		{
+			Cube* city_building15 = new Cube({ 20, 30, 40 }, 10000);
+			city_building15->color = Grey;
+			city_building15->SetPos(-40, 0, -40);
+			primitives.PushBack(city_building15);
+
+			Cube* city_building16 = new Cube({ 20, 50, 60 }, 10000);
+			city_building16->color = Grey;
+			city_building16->SetPos(-40, 0, 40);
+			primitives.PushBack(city_building16);
+		}
+
+	//City buildings 6
+		{
+			Cube* city_building17 = new Cube({ 20, 10, 20 }, 10000);
+			city_building17->color = Grey;
+			city_building17->SetPos(-20, 0, 60);
+			primitives.PushBack(city_building17);
+
+			Cube* city_building18 = new Cube({ 20, 20, 20 }, 10000);
+			city_building18->color = Grey;
+			city_building18->SetPos( 0, 0, 60);
+			primitives.PushBack(city_building18);
+
+			Cube* city_building19 = new Cube({ 20, 30, 20 }, 10000);
+			city_building19->color = Grey;
+			city_building19->SetPos(40, 0, 60);
+			primitives.PushBack(city_building19);
+
+			Cube* city_building20 = new Cube({ 24, 40, 20 }, 10000);
+			city_building20->color = Grey;
+			city_building20->SetPos( 60, 0, 60);
+			primitives.PushBack(city_building20);
 		}
 }
 
