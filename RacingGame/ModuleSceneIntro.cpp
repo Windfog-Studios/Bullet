@@ -109,9 +109,6 @@ void ModuleSceneIntro::HandleDebugInput()
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		//TODO: NEW CODE
-		//A snippet of new code that may be useful for you. Nothing to do here really
-
 		//Get a vector indicating the direction from the camera viewpoint to the "mouse"
 		const vec2 mousePos(((float)App->input->GetMouseX() / (float)App->window->Width()) * 2.f - 1.f,
 			-((float)App->input->GetMouseY() / (float)App->window->Height()) * 2.f + 1.f);
@@ -554,3 +551,11 @@ void ModuleSceneIntro::CreateFence()
 	App->physics->AddConstraintP2P(*c2, **primitives.At(n), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
 	*/
 }
+
+void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
+{
+	pizza_pointer->base->SetPos(x, y, z);
+	pizza_pointer->pizza->SetPos(x, y, z);
+	
+}
+

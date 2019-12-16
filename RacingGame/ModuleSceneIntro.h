@@ -10,7 +10,7 @@ class PhysBody3D;
 #define MAX_PIZZA_POSITIONS 10
 
 struct Pizza {
-	Cube* tape;
+	Cube* tape;	
 	Cylinder* pizza;
 	Cube* base;
 };
@@ -31,6 +31,8 @@ public:
 	void CreateBuildings();
 	void CreatePizza();
 	void CreateFence();
+
+	void changePizzaPosition(int x, int y, int z);
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	//Check points
