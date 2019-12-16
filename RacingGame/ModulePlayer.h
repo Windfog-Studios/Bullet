@@ -39,4 +39,5 @@ public:
 	vec3 initial_position;
 
 	unsigned int motorcycle = 0;
+	unsigned int start = 0;
 };

@@ -108,6 +108,7 @@ bool ModulePlayer::Start()
 	timer.Start();
 
 	motorcycle = App->audio->LoadFx("Motorcycle.wav");
+	start = App->audio->LoadFx("Start.wav");
 	
 	return true;
 }
@@ -125,11 +126,18 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 	vec3 forward = vehicle->GetForwardVector();
+	
+	if ((App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
+	{
+		App->audio->PlayFx(start);
+		App->audio->VolumeMusic(1);
+	}
 
 	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
 		acceleration = MAX_ACCELERATION;
-		App->audio->PlayFx(motorcycle);
+		//must be changed
+		//App->audio->PlayFx(motorcycle)
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
