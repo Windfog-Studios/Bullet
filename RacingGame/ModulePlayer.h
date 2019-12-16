@@ -37,4 +37,6 @@ public:
 	int max_speed;
 	vec3 position;
 	vec3 initial_position;
+
+	unsigned int motorcycle = 0;
 };

@@ -107,6 +107,8 @@ bool ModulePlayer::Start()
 
 	timer.Start();
 
+	motorcycle = App->audio->LoadFx("Motorcycle.wav");
+	
 	return true;
 }
 
@@ -127,6 +129,7 @@ update_status ModulePlayer::Update(float dt)
 	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
 		acceleration = MAX_ACCELERATION;
+		App->audio->PlayFx(motorcycle);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
