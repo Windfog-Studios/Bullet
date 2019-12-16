@@ -30,6 +30,7 @@ bool ModuleSceneIntro::Start()
 	int k = 0;
 
 	App->audio->PlayMusic("Italian_music.ogg", 1);
+	App->audio->VolumeMusic(20);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(App->player->position.x, App->player->position.y, App->player->position.z));
 
