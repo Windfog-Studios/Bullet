@@ -43,6 +43,7 @@ bool ModuleSceneIntro::Start()
 	CreateFence();
 	CreateBuildings();
 	CreatePizza();
+	CreateDecoration();
 	
 	float XPos = 10.f;
 	float Size = StartingSize;
@@ -554,4 +555,36 @@ void ModuleSceneIntro::CreateFence()
 	
 	App->physics->AddConstraintP2P(*c2, **primitives.At(n), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
 	*/
+}
+
+void ModuleSceneIntro::CreateDecoration()
+{
+	{
+		Cube* sidewalk1 = new Cube({ 35, 1, 45 }, 0);
+		sidewalk1->color = Bright_Grey;
+		sidewalk1->SetPos(120, 0, 110);
+		primitives.PushBack(sidewalk1);
+		//sidewalk1->body.SetAsSensor(true);
+		/*
+		Cube* city_building2 = new Cube({ 30, 50, 30 }, 10000);
+		city_building2->color = Darker_Grey;
+		city_building2->SetPos(120, 0, 70);
+		primitives.PushBack(city_building2);
+
+		Cube* city_building3 = new Cube({ 30, 30, 80 }, 10000);
+		city_building3->color = Bright_Grey;
+		city_building3->SetPos(120, 0, 30);
+		primitives.PushBack(city_building3);
+
+		Cube* city_building4 = new Cube({ 30, 30, 30 }, 10000);
+		city_building4->color = Bright_Grey;
+		city_building4->SetPos(120, 0, -70);
+		primitives.PushBack(city_building4);
+
+		Cube* city_building5 = new Cube({ 30, 70, 50 }, 10000);
+		city_building5->color = Darker_Grey;
+		city_building5->SetPos(100, 0, -110);
+		primitives.PushBack(city_building5);
+		*/
+	}
 }

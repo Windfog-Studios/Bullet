@@ -31,6 +31,7 @@ public:
 	void CreateBuildings();
 	void CreatePizza();
 	void CreateFence();
+	void CreateDecoration();
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	//Check points
