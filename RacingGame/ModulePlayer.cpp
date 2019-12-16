@@ -108,8 +108,7 @@ bool ModulePlayer::Start()
 	timer.Start();
 
 	motorcycle = App->audio->LoadFx("Motorcycle.wav");
-	start = App->audio->LoadFx("Start.wav");
-
+	
 	btRigidBody* test_body;
 
 	test_body = (btRigidBody*)vehicle->GetBody();
@@ -133,17 +132,10 @@ update_status ModulePlayer::Update(float dt)
 	
 	//Input
 
-	if ((App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
-	{
-		App->audio->PlayFx(start);
-		App->audio->VolumeMusic(1);
-	}
-
 	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
 		acceleration = MAX_ACCELERATION;
-		//must be changed
-		//App->audio->PlayFx(motorcycle)
+		//App->audio->PlayFx(motorcycle);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
