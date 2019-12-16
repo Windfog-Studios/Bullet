@@ -16,6 +16,11 @@ PhysBody3D::PhysBody3D()
 	
 }
 
+PhysBody3D::PhysBody3D(btRigidBody* body) : body(body)
+{
+	body->setUserPointer(this);
+}
+
 // ---------------------------------------------------------
 PhysBody3D::~PhysBody3D()
 {
@@ -142,4 +147,10 @@ void PhysBody3D::SetAsSensor(bool is_sensor) {
 		else
 			body->setCollisionFlags(body->getCollisionFlags() &~ btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	}
+}
+
+void PhysBody3D::SetAngularVelocity(float x, float y, float z)
+{
+	btVector3 v(x, y, z);
+	body->setAngularVelocity(v);
 }

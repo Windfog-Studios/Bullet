@@ -152,8 +152,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	//pizza_pointer->base->body.SetPos(pizza_pointer->pizza->GetPos().x, pizza_pointer->pizza->GetPos().y -0.1f, pizza_pointer->pizza->GetPos().z);
-	//pizza_pointer->tape->body.SetPos(pizza_pointer->pizza->GetPos().x + 1.5f, pizza_pointer->pizza->GetPos().y + 0.8f, pizza_pointer->pizza->GetPos().z);
+	pizza_pointer->base->SetPos(pizza_position->x, pizza_position->y -0.1f, pizza_position->z);
+	pizza_pointer->tape->SetPos(pizza_position->x + 1.5f, pizza_position->y + 0.8f, pizza_position->z);
 
 	return UPDATE_CONTINUE;
 }
@@ -173,7 +173,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 	Color color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
 
 	body1->parentPrimitive->color = color;
-	body2->parentPrimitive->color = color;
+	//body2->parentPrimitive->color = color;
 
 }
 

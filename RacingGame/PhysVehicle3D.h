@@ -56,10 +56,10 @@ public:
 	void Turn(float degrees);
 	float GetKmh() const;
 	vec3 GetForwardVector() const;
+
 public:
 
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
 	vec3 position;
-	btRigidBody* body;
 };
