@@ -171,8 +171,25 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else if (!App->debug)
 	{
-		//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+		if (!top_view)
+		{
+			App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+		}
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		if (top_view) {
+			top_view = false;
+		}
+		else
+		{
+			top_view = true;
+			App->camera->Position.x = 0.0f;
+			App->camera->Position.y = 350.0f;
+			App->camera->Position.z = 0.0f;
+		}
 	}
 
 	vehicle->ApplyEngineForce(acceleration);

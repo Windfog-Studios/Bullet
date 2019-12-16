@@ -38,6 +38,7 @@ public:
 	int max_speed;
 	vec3 position;
 	vec3 initial_position;
+	bool top_view = false;
 
 	unsigned int motorcycle = 0;
 	unsigned int mamma_mia = 0;
