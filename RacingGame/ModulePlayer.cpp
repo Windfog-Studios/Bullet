@@ -51,10 +51,10 @@ bool ModulePlayer::Start()
 
 	float half_width = car.chassis_size.x*0.5f;
 	float half_length = car.chassis_size.z*0.5f;
-	
+
 	vec3 direction(0,-1,0);
 	vec3 axis(-1,0,0);
-	
+
 	car.num_wheels = 3;
 	car.wheels = new Wheel[3];
 
@@ -93,7 +93,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].drive = false;
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
-	
+
 	sensor = new Cube(4);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
@@ -108,7 +108,8 @@ bool ModulePlayer::Start()
 	timer.Start();
 
 	motorcycle = App->audio->LoadFx("Motorcycle.wav");
-	
+	mamma_mia = App->audio->LoadFx("MammaMia.wav");
+
 	btRigidBody* test_body;
 
 	test_body = (btRigidBody*)vehicle->GetBody();
@@ -129,13 +130,13 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 	vec3 forward = vehicle->GetForwardVector();
-	
+
 	//Input
 
 	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
 	{
 		acceleration = MAX_ACCELERATION;
-		//App->audio->PlayFx(motorcycle);
+		App->audio->PlayFx(motorcycle);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -226,8 +227,15 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 
 	time_left = max_time - timer.Read() * 0.001f;
 
+	if (time_left <= 0)
+	{
+		App->audio->PlayFx(mamma_mia);
+	}
+
 	//timer_cube->Update();
+
 	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+
 }
