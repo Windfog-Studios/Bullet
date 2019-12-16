@@ -29,6 +29,7 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 	int k = 0;
 
+	App->audio->PlayMusic("Italian_music.ogg", 1);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(App->player->position.x, App->player->position.y, App->player->position.z));
 
@@ -480,31 +481,32 @@ void ModuleSceneIntro::CreatePizza()
 	float tape_angle = 60.f;
 	Pizza pizza;
 
-		pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
-		primitives.PushBack(pizza.base);
-		pizza.base->SetPos(5, 1, 0);
-		pizza.base->color = Beige;
-		pizza.base->body.SetAsSensor(true);
-		pizza.base->body.collision_listeners.PushBack(this);
-		
-		pizza.tape = new Cube({ 2, 0.2f, 2 }, 0);
-		pizza.tape->transform.rotate(tape_angle, vec3(0, 0, 1));
-		primitives.PushBack(pizza.tape);
-		pizza.tape->SetPos(6.5f, 1.9f, 0);
-		pizza.tape->color = Beige;
-		pizza.tape->body.SetAsSensor(true);
-		pizza.tape->body.collision_listeners.PushBack(this);
+	pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
+	primitives.PushBack(pizza.base);
+	pizza.base->SetPos(5, 1, 0);
+	pizza.base->color = Beige;
+	pizza.base->body.SetAsSensor(true);
+	pizza.base->body.collision_listeners.PushBack(this);
 
-		pizza.pizza = new Cylinder(0.8, 0.1f, 0);
-		pizza.pizza->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pizza.pizza);
-		pizza.pizza->SetPos(5, 1.1f, 0);
-		pizza.pizza->color = Red;
-		pizza.pizza->body.SetAsSensor(true);
-		pizza.pizza->body.collision_listeners.PushBack(this);
-		pizza.pizza->body.isPizza = true;
+	pizza.tape = new Cube({ 2, 0.2f, 2 }, 0);
+	pizza.tape->transform.rotate(tape_angle, vec3(0, 0, 1));
+	primitives.PushBack(pizza.tape);
+	pizza.tape->SetPos(6.5f, 1.9f, 0);
+	pizza.tape->color = Beige;
+	pizza.tape->body.SetAsSensor(true);
+	pizza.tape->body.collision_listeners.PushBack(this);
 
-		pizza_pointer = &pizza;
+	pizza.pizza = new Cylinder(0.8, 0.1f, 0);
+	pizza.pizza->transform.rotate(90.f, vec3(0, 0, 1));
+	primitives.PushBack(pizza.pizza);
+	pizza.pizza->SetPos(5, 1.1f, 0);
+	pizza.pizza->color = Red;
+	pizza.pizza->body.SetAsSensor(true);
+	pizza.pizza->body.collision_listeners.PushBack(this);
+	pizza.pizza->body.isPizza = true;
+
+	pizza_pointer = &pizza;
+
 }
 
 void ModuleSceneIntro::CreateFence()
@@ -518,40 +520,36 @@ void ModuleSceneIntro::CreateFence()
 
 	float XPos = 0.f;
 	float Size = StartingSize;
-
 	/*
+	
 	Cylinder* c = new Cylinder(0.5, 4, 0);
 	c->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c);
 	c->SetPos(20, 2, 0);
 	c->color = Red;
-	
+
+	Sphere* s = new Sphere(Size);
+	primitives.PushBack(s);
+		
+	App->physics->AddConstraintP2P(*c, *s, btVector3(c->GetRadius(), 0, 0), btVector3(s->GetRadius(), 0, 0));
+		
+	for (int n = 0; n < SnakeLength; n++)
+	{
+		//TODO 2: Link all the spheres with your P2P constraints
+		if (n > 0)
+		{			
+			App->physics->AddConstraintP2P(*s, **primitives.At(n - 1), btVector3(s->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
+		}
+				
+		k = n;
+	}
 	
 	Cylinder* c2 = new Cylinder(0.5, 4, 0);
 	c2->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c2);
 	c2->SetPos(30, 2, 0);
 	c2->color = Red;
-	*/
-
-	/*
-	for (int n = 0; n < SnakeLength; n++)
-	{
-		Sphere* s = new Sphere(Size);
-		primitives.PushBack(s);
-		s->SetPos(15, 10.f, -2.5f);
-				
-		//TODO 2: Link all the spheres with your P2P constraints
-		if (n > 0)
-		{
-			App->physics->AddConstraintP2P(*c, *s, btVector3(c->GetRadius(), -2, 0), btVector3(-s->GetRadius(), 0, 0));
-			App->physics->AddConstraintP2P(*s, **primitives.At(n - 1), btVector3(s->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
-			App->physics->AddConstraintP2P(*c2, **primitives.At(n - 1), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
-		}
-		
-		
-		k = n;
-	}
-	*/
 	
+	App->physics->AddConstraintP2P(*c2, **primitives.At(n), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
+	*/
 }
