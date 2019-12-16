@@ -94,7 +94,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 	
-	sensor = new Cube(5);
+	sensor = new Cube(4);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
@@ -127,6 +127,8 @@ update_status ModulePlayer::Update(float dt)
 	turn = acceleration = brake = 0.0f;
 	vec3 forward = vehicle->GetForwardVector();
 	
+	//Input
+
 	if ((App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
 	{
 		App->audio->PlayFx(start);
@@ -181,15 +183,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	//update sensor and timer
-	sensor->Update();
-	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
-	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
-
-	time_left = max_time - timer.Read() * 0.001f;
-	timer_cube->Update();
-	timer_cube->SetSize(vec3(0.75 * (time_left/max_time), 0.05, 0.05));
-	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
-	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.15, App->camera->Position.z + forward.z);
+	UpdateSensorAndBar(forward);
 
 	position = vehicle->position;
 
@@ -198,12 +192,12 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 	//sensor->Render();
 
+	if (time_left <= 0)
+		RestartGame();
+
 	char title[80];
 	sprintf_s(title, "Racing Game %.1f Km/h Time left %.2f", vehicle->GetKmh(), time_left);
 	App->window->SetTitle(title);
-
-	if (time_left <= 0)
-		RestartGame();
 
 	return UPDATE_CONTINUE;
 }
@@ -229,3 +223,18 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 
 }
 
+void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
+	vec3 X = (1,0,0);
+	vec3 Y = (0,1,0);
+	vec3 Z = (0,0,1);;
+	sensor->Update();
+	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
+
+	time_left = max_time - timer.Read() * 0.001f;
+
+	timer_cube->Update();
+	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
+	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+}
