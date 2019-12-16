@@ -68,6 +68,16 @@ bool ModuleAudio::CleanUp()
 	return true;
 }
 
+void ModuleAudio::VolumeMusic(int volume)
+{
+	if (music != NULL)
+	{
+		LOG("volume was    : %d\n", Mix_VolumeMusic(MIX_MAX_VOLUME / 2));
+		Mix_VolumeMusic(volume);
+		LOG("volume is now : %d\n", Mix_VolumeMusic(-1));
+	}
+}
+
 // Play a music file
 bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 {

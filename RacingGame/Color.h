@@ -32,4 +32,7 @@ extern Color Yellow;
 extern Color Beige;
 extern Color Black;
 extern Color White;
+extern Color Bright_Grey;
 extern Color Grey;
+extern Color Dark_Grey;
+extern Color Darker_Grey;
