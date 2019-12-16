@@ -557,31 +557,32 @@ void ModuleSceneIntro::CreateFence()
 void ModuleSceneIntro::CreateDecoration()
 {
 	{
-		Cube* sidewalk1 = new Cube({ 35, 1, 45 }, 0);
+		
+		Cube* sidewalk1 = new Cube({ 38, 1, 160 }, 0);
 		sidewalk1->color = Bright_Grey;
-		sidewalk1->SetPos(120, 0, 110);
+		sidewalk1->SetPos(120, 0, 55);
 		primitives.PushBack(sidewalk1);
-		//sidewalk1->body.SetAsSensor(true);
 		/*
-		Cube* city_building2 = new Cube({ 30, 50, 30 }, 10000);
-		city_building2->color = Darker_Grey;
-		city_building2->SetPos(120, 0, 70);
-		primitives.PushBack(city_building2);
+		Cube* sidewalk2 = new Cube({ 35, 1, 30 }, 0);
+		sidewalk2->color = Bright_Grey;
+		sidewalk2->SetPos(120, 0, 80);
+		primitives.PushBack(sidewalk2);
+		*/
+		/*
+		Cube* sidewalk3 = new Cube({ 35, 1, 85 }, 0);
+		sidewalk3->color = Bright_Grey;
+		sidewalk3->SetPos(120, 0, 40);
+		primitives.PushBack(sidewalk3);
+		
+		Cube* sidewalk4 = new Cube({ 35, 1, 35 }, 0);
+		sidewalk4->color = Bright_Grey;
+		sidewalk4->SetPos(120, 0, -60);
+		primitives.PushBack(sidewalk4);
 
-		Cube* city_building3 = new Cube({ 30, 30, 80 }, 10000);
-		city_building3->color = Bright_Grey;
-		city_building3->SetPos(120, 0, 30);
-		primitives.PushBack(city_building3);
-
-		Cube* city_building4 = new Cube({ 30, 30, 30 }, 10000);
-		city_building4->color = Bright_Grey;
-		city_building4->SetPos(120, 0, -70);
-		primitives.PushBack(city_building4);
-
-		Cube* city_building5 = new Cube({ 30, 70, 50 }, 10000);
-		city_building5->color = Darker_Grey;
-		city_building5->SetPos(100, 0, -110);
-		primitives.PushBack(city_building5);
+		Cube* sidewalk5 = new Cube({ 35, 1, 55 }, 0);
+		sidewalk5->color = Darker_Grey;
+		sidewalk5->SetPos(100, 0, -100);
+		primitives.PushBack(sidewalk5);
 		*/
 	}
 }
