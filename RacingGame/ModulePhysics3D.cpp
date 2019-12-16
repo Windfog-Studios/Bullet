@@ -230,18 +230,33 @@ void ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive
 PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 {
 	btCompoundShape* comShape = new btCompoundShape();
-	//shapes.add(comShape);
+	shapes.add(comShape);
 
-	btCollisionShape* colShape = new btBoxShape(btVector3(info.chassis_size.x * 0.5f, info.chassis_size.y * 0.5f, info.chassis_size.z * 0.5f));
-	btCollisionShape* colShape2 = new btBoxShape(btVector3(info.trunk_size.x * 0.5f, info.trunk_size.y * 0.5f, info.trunk_size.z * 0.5f));
-	btCollisionShape* colShape3 = new btBoxShape(btVector3(info.cabin_size.x * 0.5f, info.cabin_size.y * 0.5f, info.cabin_size.z * 0.5f));
+	btCollisionShape* chassisShape = new btBoxShape(btVector3(info.chassis_size.x * 0.5f, info.chassis_size.y * 0.5f, info.chassis_size.z * 0.5f));
+	shapes.add(chassisShape);
+	btTransform chassisTrans;
+	chassisTrans.setIdentity();
+	chassisTrans.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z));
+	comShape->addChildShape(chassisTrans, chassisShape);
+
+	btCollisionShape* trunkShape = new btBoxShape(btVector3(info.trunk_size.x * 0.5f, info.trunk_size.y * 0.5f, info.trunk_size.z * 0.5f));
+	shapes.add(trunkShape);
+	btTransform trunkTrans;
+	trunkTrans.setIdentity();
+	trunkTrans.setOrigin(btVector3(info.trunk_offset.x, info.trunk_offset.y, info.trunk_offset.z));
+	comShape->addChildShape(trunkTrans, trunkShape);
+
+	btCollisionShape* cabinShape = new btBoxShape(btVector3(info.cabin_size.x * 0.5f, info.cabin_size.y * 0.5f, info.cabin_size.z * 0.5f));
+	shapes.add(cabinShape);
+	btTransform cabinTrans;
+	cabinTrans.setIdentity();
+	cabinTrans.setOrigin(btVector3(info.cabin_offset.x, info.cabin_offset.y, info.cabin_offset.z));
+	comShape->addChildShape(cabinTrans, cabinShape);
 	//shapes.add(colShape);
 
 	btTransform trans;
 	trans.setIdentity();
 	trans.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z));
-
-	comShape->addChildShape(trans, colShape);
 
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -282,7 +297,6 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
 	world->addVehicle(vehicle);
-	//vehicles.add(pvehicle);
 
 	return pvehicle;
 }

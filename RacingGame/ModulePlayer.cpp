@@ -109,7 +109,12 @@ bool ModulePlayer::Start()
 
 	motorcycle = App->audio->LoadFx("Motorcycle.wav");
 	start = App->audio->LoadFx("Start.wav");
-	
+
+	btRigidBody* test_body;
+
+	test_body = vehicle->GetBody();
+
+
 	return true;
 }
 
