@@ -61,4 +61,5 @@ public:
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
 	vec3 position;
+	PhysBody3D* body;
 };

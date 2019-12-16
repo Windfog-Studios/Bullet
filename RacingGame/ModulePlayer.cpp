@@ -188,8 +188,11 @@ update_status ModulePlayer::Update(float dt)
 	//sensor->Render();
 
 	char title[80];
-	sprintf_s(title, "Racing Game %.1f Time left %.2f Km/h", vehicle->GetKmh(), time_left);
+	sprintf_s(title, "Racing Game %.1f Km/h Time left %.2f", vehicle->GetKmh(), time_left);
 	App->window->SetTitle(title);
+
+	if (time_left <= 0)
+		RestartGame();
 
 	return UPDATE_CONTINUE;
 }
@@ -197,6 +200,8 @@ update_status ModulePlayer::Update(float dt)
 void ModulePlayer::RestartGame() {
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
 	acceleration = -MAX_ACCELERATION;
+	time_left = max_time;
+	timer.Start();
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
