@@ -26,7 +26,7 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	void VolumeMusic(int volume);
-
+	
 private:
 
 	Mix_Music*			music;
