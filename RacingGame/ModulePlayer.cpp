@@ -45,7 +45,7 @@ bool ModulePlayer::Start()
 	float back_wheels_displacement = -0.4;
 	float wheel_radius = 0.55f;
 	float wheel_width = 0.38f;
-	float suspensionRestLength = 1.2f;
+	float suspensionRestLength = 1.1f;
 
 	// Don't change anything below this line ------------------
 
@@ -112,8 +112,7 @@ bool ModulePlayer::Start()
 
 	btRigidBody* test_body;
 
-	test_body = vehicle->GetBody();
-
+	test_body = (btRigidBody*)vehicle->GetBody();
 
 	return true;
 }
@@ -209,7 +208,7 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::RestartGame() {
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
-	acceleration = -MAX_ACCELERATION;
+	vehicle->Stop();
 	time_left = max_time;
 	timer.Start();
 }
@@ -238,7 +237,7 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 
 	time_left = max_time - timer.Read() * 0.001f;
 
-	timer_cube->Update();
+	//timer_cube->Update();
 	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);

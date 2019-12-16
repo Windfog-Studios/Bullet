@@ -252,11 +252,6 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	cabinTrans.setIdentity();
 	cabinTrans.setOrigin(btVector3(info.cabin_offset.x, info.cabin_offset.y, info.cabin_offset.z));
 	comShape->addChildShape(cabinTrans, cabinShape);
-	//shapes.add(colShape);
-
-	btTransform trans;
-	trans.setIdentity();
-	trans.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z));
 
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -293,6 +288,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 		vehicle->addWheel(conn, dir, axis, info.wheels[i].suspensionRestLength, info.wheels[i].radius, tuning, info.wheels[i].front);
 	}
+
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);

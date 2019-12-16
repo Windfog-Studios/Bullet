@@ -20,6 +20,7 @@ class PhysBody3D
 {
 public:
 	PhysBody3D();
+	PhysBody3D(btRigidBody* body);
 	~PhysBody3D();
 
 	void SetBody(Sphere* primitive, float mass);
@@ -33,6 +34,7 @@ public:
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
+	void SetAngularVelocity(float x, float y, float z);
 
 	void SetSpeed(vec3 speed);
 	void Push(vec3 force);
