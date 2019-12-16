@@ -7,16 +7,16 @@
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 	//pizza positions
-	pizza_position[0] = (0, 0, 0);
-	pizza_position[1] = (1, 1, 1);
-	pizza_position[2] = (2, 2, 2);
-	pizza_position[3] = (3, 3, 3);
-	pizza_position[4] = (4, 4, 4);
-	pizza_position[5] = (5, 5, 5);
-	pizza_position[6] = (6, 6, 6);
-	pizza_position[7] = (7, 7, 7);
-	pizza_position[8] = (8, 8, 8);
-	pizza_position[9] = (9, 9, 9);
+	pizza_position[0] = { 150, 0.1f, 150 }; // top lef corner
+	pizza_position[1] = { -150, 0.1f, -150 }; // bottom right corner
+	pizza_position[2] = {-150, 0.1f, 150}; //top right corner
+	pizza_position[3] = { 150, 0.1f, -150 }; //bottom left corner
+	pizza_position[4] = { 25, 0.1f, -37.5f }; //center
+	pizza_position[5] = { 150, 0.1f, -40.f }; //mid-left
+	pizza_position[6] = { -145, 0.1f, 0 }; //mid right
+	pizza_position[7] = { 95, 0.1f, 85 }; //corner left
+	pizza_position[8] = { -67.5, 0.1, 82.5 };
+	pizza_position[9] = { 9, 9, 9 };
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -152,8 +152,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	pizza_pointer->base->SetPos(pizza_position->x, pizza_position->y -0.1f, pizza_position->z);
-	pizza_pointer->tape->SetPos(pizza_position->x + 1.5f, pizza_position->y + 0.8f, pizza_position->z);
+	//pizza_pointer->base->SetPos(pizza_position->x, pizza_position->y -0.1f, pizza_position->z);
+	//pizza_pointer->tape->SetPos(pizza_position->x + 1.5f, pizza_position->y + 0.8f, pizza_position->z);
 
 	return UPDATE_CONTINUE;
 }
@@ -483,6 +483,7 @@ void ModuleSceneIntro::CreatePizza()
 	float tape_angle = 60.f;
 	Pizza pizza;
 
+	/*
 	pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
 	primitives.PushBack(pizza.base);
 	pizza.base->SetPos(5, 1, 0);
@@ -497,11 +498,12 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.tape->color = Beige;
 	pizza.tape->body.SetAsSensor(true);
 	pizza.tape->body.collision_listeners.PushBack(this);
-
-	pizza.pizza = new Cylinder(0.8, 0.1f, 0);
+	*/
+	pizza.pizza = new Cylinder(2.8, 2.1f, 0);
 	pizza.pizza->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(pizza.pizza);
-	pizza.pizza->SetPos(5, 1.1f, 0);
+	//pizza.pizza->SetPos(pizza_position[p].x, pizza_position[p].y, pizza_position[p].z);
+	pizza.pizza->SetPos(-25, 0.1, -152.5);
 	pizza.pizza->color = Red;
 	pizza.pizza->body.SetAsSensor(true);
 	pizza.pizza->body.collision_listeners.PushBack(this);

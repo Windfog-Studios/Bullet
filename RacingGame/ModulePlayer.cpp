@@ -170,7 +170,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else if (!App->debug)
 	{
-		App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+		//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 	}
 
@@ -220,9 +220,6 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 }
 
 void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
-	vec3 X = (1,0,0);
-	vec3 Y = (0,1,0);
-	vec3 Z = (0,0,1);;
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
