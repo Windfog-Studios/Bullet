@@ -647,6 +647,27 @@ void ModuleSceneIntro::CreateDecoration()
 		primitives.PushBack(sidewalk15);
 	}
 
+	{
+		Cube* sidewalk16 = new Cube({ 25, 1, 25 }, 0);
+		sidewalk16->color = Bright_Grey;
+		sidewalk16->SetPos(0, 0, -20);
+		primitives.PushBack(sidewalk16);
+
+		Cube* sidewalk17 = new Cube({ 25, 1, 15 }, 0);
+		sidewalk17->color = Bright_Grey;
+		sidewalk17->SetPos(0, 0, -50);
+		primitives.PushBack(sidewalk17);
+
+		Cube* sidewalk18 = new Cube({ 25, 1, 25 }, 0);
+		sidewalk18->color = Bright_Grey;
+		sidewalk18->SetPos(50, 0, -20);
+		primitives.PushBack(sidewalk18);
+
+		Cube* sidewalk19 = new Cube({ 25, 1, 15 }, 0);
+		sidewalk19->color = Bright_Grey;
+		sidewalk19->SetPos(50, 0, -50);
+		primitives.PushBack(sidewalk19);
+	}
 }
 
 void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
