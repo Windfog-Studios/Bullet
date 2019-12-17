@@ -159,13 +159,22 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 
 }
 
-void ModuleSceneIntro::addCheckPoint(vec3 pos)
+void ModuleSceneIntro::Save()
 {
-	Cube checkpoint;
-	checkpoint.SetPos(pos.x, pos.y, pos.z);
-	checkpoint.color = Green;
+	saved_position.x = App->player->position.x;
+	saved_position.y = App->player->position.y;
+	saved_position.z = App->player->position.z;
 
-	//checkpointList.PushBack(checkpoint);
+	pizzas_collected = p;
+}
+
+void ModuleSceneIntro::Load()
+{
+	App->player->position.x = saved_position.x;
+	App->player->position.y = saved_position.y;
+	App->player->position.z = saved_position.z;
+
+	p = pizzas_collected;
 }
 
 void ModuleSceneIntro::CreateBuildings()
@@ -641,104 +650,104 @@ void ModuleSceneIntro::CreateFence(int first_cylinder_position)
 void ModuleSceneIntro::CreateDecoration()
 {
 	{
-		Cube* sidewalk1 = new Cube({ 38, 1, 160 }, 0);
+		Cube* sidewalk1 = new Cube({ 38, 0.5f, 160 }, 0);
 		sidewalk1->color = Bright_Grey;
 		sidewalk1->SetPos(120, 0, 55);
 		primitives.PushBack(sidewalk1);
 		
-		Cube* sidewalk2 = new Cube({ 41, 1, 34 }, 0);
+		Cube* sidewalk2 = new Cube({ 41, 0.5f, 34 }, 0);
 		sidewalk2->color = Bright_Grey;
 		sidewalk2->SetPos(120, 0, -66);
 		primitives.PushBack(sidewalk2);
 	}
 	{
-		Cube* sidewalk3 = new Cube({ 77, 1, 55 }, 0);
+		Cube* sidewalk3 = new Cube({ 77, 0.5f, 55 }, 0);
 		sidewalk3->color = Bright_Grey;
 		sidewalk3->SetPos(102, 0, -110);
 		primitives.PushBack(sidewalk3);
 		
-		Cube* sidewalk4 = new Cube({ 60, 1, 55 }, 0);
+		Cube* sidewalk4 = new Cube({ 60, 0.5f, 55 }, 0);
 		sidewalk4->color = Grey;
 		sidewalk4->SetPos(15, 0, -110);
 		primitives.PushBack(sidewalk4);
 		
-		Cube* sidewalk5 = new Cube({ 95, 1, 55 }, 0);
+		Cube* sidewalk5 = new Cube({ 95, 0.5f, 55 }, 0);
 		sidewalk5->color = Bright_Grey;
 		sidewalk5->SetPos(-80, 0, -110);
 		primitives.PushBack(sidewalk5);
 	}
 	{
-		Cube* sidewalk6 = new Cube({ 55, 1, 73 }, 0);
+		Cube* sidewalk6 = new Cube({ 55, 0.5f, 73 }, 0);
 		sidewalk6->color = Bright_Grey;
 		sidewalk6->SetPos(-100, 0, -46);
 		primitives.PushBack(sidewalk6);
 		
-		Cube* sidewalk7 = new Cube({ 55, 1, 117 }, 0);
+		Cube* sidewalk7 = new Cube({ 55, 0.5f, 117 }, 0);
 		sidewalk7->color = Bright_Grey;
 		sidewalk7->SetPos(-100, 0, 68);
 		primitives.PushBack(sidewalk7);
 	}
 	{
-		Cube* sidewalk8 = new Cube({ 72, 1, 35 }, 0);
+		Cube* sidewalk8 = new Cube({ 72, 0.5f, 35 }, 0);
 		sidewalk8->color = Bright_Grey;
 		sidewalk8->SetPos(-36.5f, 0, 110);
 		primitives.PushBack(sidewalk8);
 
-		Cube* sidewalk9 = new Cube({ 55, 1,35 }, 0);
+		Cube* sidewalk9 = new Cube({ 55, 0.5f,35 }, 0);
 		sidewalk9->color = Bright_Grey;
 		sidewalk9->SetPos(50, 0, 110);
 		primitives.PushBack(sidewalk9);
 	}
 	{
-		Cube* sidewalk10 = new Cube({ 25, 1, 45 }, 0);
+		Cube* sidewalk10 = new Cube({ 25, 0.5f, 45 }, 0);
 		sidewalk10->color = Bright_Grey;
 		sidewalk10->SetPos(-40, 0, -40);
 		primitives.PushBack(sidewalk10);
 		
-		Cube* sidewalk11 = new Cube({ 25, 1, 65 }, 0);
+		Cube* sidewalk11 = new Cube({ 25, 0.5f, 65 }, 0);
 		sidewalk11->color = Bright_Grey;
 		sidewalk11->SetPos(-45, 0, 40);
 		primitives.PushBack(sidewalk11);		
 	}
 	{
-		Cube* sidewalk12 = new Cube({ 45, 1, 25 }, 0);
+		Cube* sidewalk12 = new Cube({ 45, 0.5f, 25 }, 0);
 		sidewalk12->color = Bright_Grey;
 		sidewalk12->SetPos(-10, 0, 60);
 		primitives.PushBack(sidewalk12);
 
-		Cube* sidewalk13 = new Cube({ 50, 1, 25 }, 0);
+		Cube* sidewalk13 = new Cube({ 50, 0.5f, 25 }, 0);
 		sidewalk13->color = Bright_Grey;
 		sidewalk13->SetPos(52, 0, 60);
 		primitives.PushBack(sidewalk13);
 	}
 	{
-		Cube* sidewalk14 = new Cube({ 102, 1, 25 }, 0);
+		Cube* sidewalk14 = new Cube({ 102, 0.5f, 25 }, 0);
 		sidewalk14->color = Bright_Grey;
 		sidewalk14->SetPos(50, 0, 20);
 		primitives.PushBack(sidewalk14);
 
-		Cube* sidewalk15 = new Cube({ 25, 1, 25 }, 0);
+		Cube* sidewalk15 = new Cube({ 25, 0.5f, 25 }, 0);
 		sidewalk15->color = Bright_Grey;
 		sidewalk15->SetPos(-20, 0, 20);
 		primitives.PushBack(sidewalk15);
 	}
 	{
-		Cube* sidewalk16 = new Cube({ 25, 1, 25 }, 0);
+		Cube* sidewalk16 = new Cube({ 25, 0.5f, 25 }, 0);
 		sidewalk16->color = Bright_Grey;
 		sidewalk16->SetPos(0, 0, -20);
 		primitives.PushBack(sidewalk16);
 
-		Cube* sidewalk17 = new Cube({ 25, 1, 15 }, 0);
+		Cube* sidewalk17 = new Cube({ 25, 0.5f, 15 }, 0);
 		sidewalk17->color = Bright_Grey;
 		sidewalk17->SetPos(0, 0, -50);
 		primitives.PushBack(sidewalk17);
 
-		Cube* sidewalk18 = new Cube({ 25, 1, 25 }, 0);
+		Cube* sidewalk18 = new Cube({ 25, 0.5f, 25 }, 0);
 		sidewalk18->color = Bright_Grey;
 		sidewalk18->SetPos(50, 0, -20);
 		primitives.PushBack(sidewalk18);
 
-		Cube* sidewalk19 = new Cube({ 25, 1, 15 }, 0);
+		Cube* sidewalk19 = new Cube({ 25, 0.5f, 15 }, 0);
 		sidewalk19->color = Bright_Grey;
 		sidewalk19->SetPos(50, 0, -50);
 		primitives.PushBack(sidewalk19);
