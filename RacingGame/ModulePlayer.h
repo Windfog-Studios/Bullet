@@ -33,7 +33,6 @@ public:
 	Timer timer;
 	Timer timer2;
 
-	float   max_time_in;
 	float	max_time;
 	float	max_time2;
 	float	time_left;

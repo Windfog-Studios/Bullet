@@ -50,6 +50,9 @@ private:
 	Timer					bollard_timer;
 	int						bollard_change_time;
 public:
+	Timer					start_timer;
+	float					max_time;
+	float					time_left;
 	int						p = 0;
 	vec3					pizza_position[MAX_PIZZA_POSITIONS];
 	Pizza					pizza;
