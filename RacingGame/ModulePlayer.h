@@ -25,7 +25,6 @@ public:
 	void UpdateSensorAndBar(vec3 forward);
 
 public:
-
 	PhysVehicle3D* vehicle;
 	Cube* sensor;
 	Cube* timer_cube;

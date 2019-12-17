@@ -44,18 +44,18 @@ public:
 	void Save();
 	void Load();
 private:
-	void HandleDebugInput();
-	void DebugSpawnPrimitive(Primitive* p);
-	p2DynArray<Primitive*> primitives;
-	Timer bollard_timer;
-	int bollard_change_time;
+	void					HandleDebugInput();
+	void					DebugSpawnPrimitive(Primitive* p);
+	p2DynArray<Primitive*>	primitives;
+	Timer					bollard_timer;
+	int						bollard_change_time;
 public:
-	int p = 0;
-	vec3 pizza_position[MAX_PIZZA_POSITIONS];
-	Pizza pizza;
-	unsigned int start = 0;
+	int						p = 0;
+	vec3					pizza_position[MAX_PIZZA_POSITIONS];
+	Pizza					pizza;
+	unsigned int			start = 0;
 
 	//Check points
-	vec3 saved_position;
-	int num_pizzas;
+	vec3					saved_position;
+	int						pizzas_collected;
 };

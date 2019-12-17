@@ -215,8 +215,9 @@ update_status ModulePlayer::Update(float dt)
 }
 
 void ModulePlayer::RestartGame() {
-	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
-	vehicle->Stop();
+	//vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
+	//vehicle->Stop();
+	App->scene_intro->Load();
 	time_left = max_time;
 	timer.Start();
 }
@@ -225,16 +226,12 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 
 	if (body2->isPizza)
 	{
-		if (App->scene_intro->p < MAX_PIZZA_POSITIONS) { App->scene_intro->p++;}
-		else { App->scene_intro->p = 0;}
-
 		App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
 			App->scene_intro->pizza_position[App->scene_intro->p].y,
 			App->scene_intro->pizza_position[App->scene_intro->p].z);
 		time_left = max_time;
 		timer.Start();
 	}
-
 }
 
 void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
@@ -254,5 +251,4 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
-
 }

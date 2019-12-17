@@ -51,6 +51,8 @@ bool ModuleSceneIntro::Start()
 	CreatePizza();
 	CreateBollards();
 	
+	//Save initial position
+	Save();
 	
 	return ret;
 }
@@ -116,6 +118,15 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (App->debug == true)
 		HandleDebugInput();
 
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
+	{
+		Save();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		Load();
+	}
+
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
@@ -160,19 +171,24 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 }
 
 void ModuleSceneIntro::Save()
-{
+{	
 	saved_position.x = App->player->position.x;
 	saved_position.y = App->player->position.y;
 	saved_position.z = App->player->position.z;
+	LOG("Save");
+	LOG("Save X: %f", saved_position.x);
+	LOG("Save Y: %f", saved_position.y);
+	LOG("Save Z: %f", saved_position.z);
 
 	pizzas_collected = p;
 }
 
 void ModuleSceneIntro::Load()
 {
-	App->player->position.x = saved_position.x;
-	App->player->position.y = saved_position.y;
-	App->player->position.z = saved_position.z;
+	App->player->vehicle->SetPos(saved_position.x, saved_position.y, saved_position.z);
+
+	App->player->vehicle->GetBody()->setLinearVelocity({ 0,0,0 });
+	App->player->acceleration = 0;
 
 	p = pizzas_collected;
 }
@@ -759,7 +775,12 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 	pizza.base->SetPos(x, y - 0.2f, z);
 	pizza.pizza->SetPos(x, y, z);
 	pizza.tape->SetPos(x + 1.5f, y + 0.7f, z);
-	p++;	
+	
+	if (p < MAX_PIZZA_POSITIONS) { p++; }
+	else { p = 0; }
+
+	if (p == 3 || p == 6)
+		Save();
 }
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
