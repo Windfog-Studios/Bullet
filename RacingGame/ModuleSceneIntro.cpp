@@ -27,7 +27,8 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	pizza_position[5] = { 30, 1.1f, 0 }; */
 
 	bollard_change_time = 5;
-	max_time = 4;
+	max_time = 3;
+	play_music = false;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -44,11 +45,9 @@ bool ModuleSceneIntro::Start()
 	
 	start = App->audio->LoadFx("Start.wav");
 	App->audio->PlayFx(start);
-	
-	time_left = max_time - start_timer.Read() * 0.001f;
 
-	App->audio->PlayMusic("Italian_music.ogg");
-	App->audio->VolumeMusic(0);
+
+	//App->audio->VolumeMusic(0);
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
@@ -130,29 +129,37 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	/*
-	Cylinder* bollard = bollards.getFirst()->data;
+	if ((start_timer.Read() >= max_time * 1000)&&(start_timer.Read() < (max_time + 1) * 1000))
+	{
+		play_music = true;
+		start_timer.Stop();
+	}
+
+	if (play_music)
+	{
+		App->audio->PlayMusic("Italian_music.ogg");
+		play_music = false;
+	}
+
+	
 	if (bollard_timer.Read() > bollard_change_time * 1000) {
-		for (int i = 0; i < bollards.count(); i++)
+		for (int i = 0; i < bollards.Count(); i++)
 		{
-			bollards.at(i,bollard);
-			if (bollard->GetPos().y > 0)
-			{
-				bollard->SetPos(bollard->GetPos().x, bollard->GetPos().y - 3, bollard->GetPos().z);
-			}
-			else
-			{
-				bollard->SetPos(bollard->GetPos().x, bollard->GetPos().y + 3, bollard->GetPos().z);
-			}
+		if (bollards[i]->GetPos().y > 0)
+		{
+			bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y - 6, bollards[i]->GetPos().z);
+		}
+		else
+		{
+			bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y + 6, bollards[i]->GetPos().z);
+		}
 
 		}
 		bollard_timer.Start();
 	}
-	*/
-	for (int i = 0; i < bollards_c.Count(); i++)
-	{
-		bollards[i]->body.Push(vec3(1, 1, 0));
-	}
+
+	//bollards[i]->body.Push(vec3(1, 1, 0));
+
 
 	return UPDATE_CONTINUE;
 }
@@ -787,7 +794,8 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	Cube* bollard;
-	bollard = new Cube(vec3(0.5, 3, 0.5),1000);
+	//bollard = new Cube(vec3(0.5, 3, 0.5),1000);
+	bollard = new Cube(vec3(0.5, 3, 0.5), 0);
 	primitives.PushBack(bollard);
 	bollard->SetPos(x, 1, z);
 	bollard->color = Yellow;
@@ -799,6 +807,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	bollardBase->SetPos(x, 0, z);
 	bollardBase->color = Grey;
 
+	/*
 	btTransform frameInA, frameInB;
 	
 	btSliderConstraint* constraint;
@@ -820,7 +829,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	constraint->setTargetLinMotorVelocity(10);
 	constraint->setLowerLinLimit(-5.0f);
 	constraint->setUpperLinLimit(5.0f);
-
+	*/
 	/*
 	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);
 	constraint->setAngularLowerLimit(btVector3(0, 0, 0));
