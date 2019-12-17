@@ -47,6 +47,7 @@ public:
 	int p = 0;
 	vec3 pizza_position[MAX_PIZZA_POSITIONS];
 	Pizza* pizza_pointer;
+	Pizza pizza;
 	unsigned int start = 0;
 
 };

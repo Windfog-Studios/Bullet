@@ -228,13 +228,9 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 		if (App->scene_intro->p < MAX_PIZZA_POSITIONS) { App->scene_intro->p++;}
 		else { App->scene_intro->p = 0;}
 
-		body2->SetPos(App->scene_intro->pizza_position[App->scene_intro->p].x,
+		App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
 			App->scene_intro->pizza_position[App->scene_intro->p].y,
 			App->scene_intro->pizza_position[App->scene_intro->p].z);
-
-		/*App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
-			App->scene_intro->pizza_position[App->scene_intro->p].y,
-			App->scene_intro->pizza_position[App->scene_intro->p].z);*/
 	}
 
 }

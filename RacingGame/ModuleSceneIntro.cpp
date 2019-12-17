@@ -453,7 +453,6 @@ void ModuleSceneIntro::CreateBuildings()
 void ModuleSceneIntro::CreatePizza()
 {
 	float tape_angle = 60.f;
-	Pizza pizza;
 
 	pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
 	primitives.PushBack(pizza.base);
@@ -573,7 +572,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk2->SetPos(120, 0, -66);
 		primitives.PushBack(sidewalk2);
 	}
-
 	{
 		Cube* sidewalk3 = new Cube({ 77, 1, 55 }, 0);
 		sidewalk3->color = Bright_Grey;
@@ -590,7 +588,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk5->SetPos(-80, 0, -110);
 		primitives.PushBack(sidewalk5);
 	}
-
 	{
 		Cube* sidewalk6 = new Cube({ 55, 1, 73 }, 0);
 		sidewalk6->color = Bright_Grey;
@@ -602,7 +599,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk7->SetPos(-100, 0, 68);
 		primitives.PushBack(sidewalk7);
 	}
-
 	{
 		Cube* sidewalk8 = new Cube({ 72, 1, 35 }, 0);
 		sidewalk8->color = Bright_Grey;
@@ -614,7 +610,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk9->SetPos(50, 0, 110);
 		primitives.PushBack(sidewalk9);
 	}
-
 	{
 		Cube* sidewalk10 = new Cube({ 25, 1, 45 }, 0);
 		sidewalk10->color = Bright_Grey;
@@ -624,10 +619,8 @@ void ModuleSceneIntro::CreateDecoration()
 		Cube* sidewalk11 = new Cube({ 25, 1, 65 }, 0);
 		sidewalk11->color = Bright_Grey;
 		sidewalk11->SetPos(-45, 0, 40);
-		primitives.PushBack(sidewalk11);
-		
+		primitives.PushBack(sidewalk11);		
 	}
-
 	{
 		Cube* sidewalk12 = new Cube({ 45, 1, 25 }, 0);
 		sidewalk12->color = Bright_Grey;
@@ -639,7 +632,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk13->SetPos(52, 0, 60);
 		primitives.PushBack(sidewalk13);
 	}
-
 	{
 		Cube* sidewalk14 = new Cube({ 102, 1, 25 }, 0);
 		sidewalk14->color = Bright_Grey;
@@ -651,7 +643,6 @@ void ModuleSceneIntro::CreateDecoration()
 		sidewalk15->SetPos(-20, 0, 20);
 		primitives.PushBack(sidewalk15);
 	}
-
 	{
 		Cube* sidewalk16 = new Cube({ 25, 1, 25 }, 0);
 		sidewalk16->color = Bright_Grey;
@@ -679,6 +670,7 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 {
 	pizza_pointer->base->SetPos(x, y, z);
 	pizza_pointer->pizza->SetPos(x, y, z);
+	pizza_pointer->tape->SetPos(x, y, z);
 	p++;	
 }
 
