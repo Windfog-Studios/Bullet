@@ -214,17 +214,29 @@ int	 DebugDrawer::getDebugMode() const
 }
 
 
-void ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
+btPoint2PointConstraint* ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
 	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB);
 	world->addConstraint(constraint);
 	//constraints.add(constraint);
+	return constraint;
 
 }
 
-void ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB) {
+btHingeConstraint* ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB) {
 	btHingeConstraint* constraint = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB, axisInA, axisInB);
 	world->addConstraint(constraint);
 	//constraints.add(constraint);
+	return constraint;
+}
+
+btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA, const Primitive& bodyB, btTransform& frameinA, btTransform& frameinB) {
+	btSliderConstraint* constraint = new btSliderConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), frameinA, frameinB, true);
+	constraint->setLowerLinLimit(0);
+	constraint->setUpperLinLimit(1);
+	constraint->setLowerAngLimit(-0.2);
+	constraint->setUpperAngLimit(0.4);
+	world->addConstraint(constraint);
+	return constraint;
 }
 
 PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)

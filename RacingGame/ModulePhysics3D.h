@@ -32,12 +32,9 @@ public:
 
 	PhysBody3D* RayCast(const vec3& Origin, const vec3& Direction, vec3& HitPoint = vec3());
 
-	//TODO 1: Implement the code to add a Point to Point constraint ( btPoint2PointConstraint )
-	void AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB);
-	
-
-	//TODO 3: Implement the code to add a Hinge constraint ( btHingeConstraint )
-	void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB);
+	btPoint2PointConstraint* AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB);
+	btHingeConstraint* AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB);
+	btSliderConstraint* AddConstraintSlider(const Primitive& bodyA, const Primitive& bodyB, btTransform& frameinA, btTransform& frameinB);
 
 private:
 	btDefaultCollisionConfiguration*		collision_conf;
