@@ -41,7 +41,7 @@ bool ModuleSceneIntro::Start()
 	const float BallDistance = 0.3f;
 
 	CreateDecoration();
-	CreateFence();
+	CreateFence(10);
 	CreateBuildings();
 	CreatePizza();
 	
@@ -475,25 +475,25 @@ void ModuleSceneIntro::CreatePizza()
 
 }
 
-void ModuleSceneIntro::CreateFence()
-{
+void ModuleSceneIntro::CreateFence(int first_cylinder_position)
+{	
 	int k = 0;
-	
-	const int SnakeLength = 12;
-	const float StartingSize = 0.5f;
-	const float SizeIncrement = 0.3f;
+	const int SnakeLength = 24;
 	const float BallDistance = 0.2f;
-
-	float XPos = 0.f;
-	float Size = StartingSize;
+	first_cylinder_position = 2.5;
+	int y = 3;
+	int z = 8.25;
+	float XPos = first_cylinder_position;
+	float Size = 0.25;
 
 	Sphere* last_sphere;
 
+	//first fence
 	Cylinder* c = new Cylinder(0.5, 4, 0);
-	c->transform.rotate(90.f, vec3(0, 0, 1));
+	//c->transform.rotate(90.f, vec3(0, 0, 1));
 	//c->body.SetRotation()
-	primitives.PushBack(c);
-	c->SetPos(XPos, 1.5f, 4.5f);
+	//primitives.PushBack(c);
+	c->SetPos(3, y, z);
 	c->color = Yellow;
 	p2DynArray<Sphere*> spheres;
 
@@ -504,22 +504,52 @@ void ModuleSceneIntro::CreateFence()
 		spheres.PushBack(s);
 		s->SetPos(XPos, 1.f, 4.5f);
 		s->color = Yellow;
-		XPos += Size + Size + SizeIncrement + BallDistance;
+		XPos += Size;
 		if (n > 0)
 		{
 			App->physics->AddConstraintP2P(*last_sphere, *s, btVector3(last_sphere->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
 		}
 		last_sphere = s;
+		k = n;
 	}
 	Sphere* first_sphere = *spheres.At(0);
-	App->physics->AddConstraintP2P(*c, *first_sphere, btVector3(0, c->GetHeight() * 0.28f + Size, 0), btVector3(first_sphere->GetRadius(), 0, 0));
+	App->physics->AddConstraintP2P(*c, *first_sphere, btVector3(c->GetHeight() * 0.25f + Size, 0 , 0), btVector3(first_sphere->GetRadius(), 0, 0));
 
 	Cylinder* c2 = new Cylinder(0.5, 4, 0);
-	c2->transform.rotate(90.f, vec3(0, 0, 1));
-	primitives.PushBack(c2);
-	c2->SetPos(-XPos + c->GetHeight(), 1.5f, 4.5);
+	//c2->transform.rotate(90.f, vec3(0, 0, 1));
+	//primitives.PushBack(c2);
+	c2->SetPos(-2 + - XPos, y, z);
 	c2->color = Yellow;
-	App->physics->AddConstraintP2P(*c2, *last_sphere, btVector3(0, -c2->GetHeight() * 0.28f - Size, 0), btVector3(-last_sphere->GetRadius(), 0, 0));
+	App->physics->AddConstraintP2P(*c2, *last_sphere, btVector3( c2->GetHeight() * 0.25f - Size,0, 0), btVector3(-last_sphere->GetRadius(), 0, 0));
+
+	//seconde fence
+	c = new Cylinder(0.5, 4, 0);
+	c->SetPos(3, y, z);
+	c->color = Yellow;
+
+	for (int n = 0; n < SnakeLength; n++)
+	{
+		Sphere* s = new Sphere(Size);
+		primitives.PushBack(s);
+		spheres.PushBack(s);
+		s->SetPos(XPos, 1.f, 4.5f);
+		s->color = Yellow;
+		XPos += Size;
+		if (n > 0)
+		{
+			App->physics->AddConstraintP2P(*last_sphere, *s, btVector3(last_sphere->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
+		}
+		last_sphere = s;
+		k++;
+	}
+	first_sphere = *spheres.At(k-1);
+	App->physics->AddConstraintP2P(*c, *first_sphere, btVector3(c->GetHeight() * 0.25f + Size, 0, 0), btVector3(first_sphere->GetRadius(), 0, 0));
+
+	c2 = new Cylinder(0.5, 4, 0);
+	c2->SetPos(-2 + -XPos, y, z);
+	c2->color = Yellow;
+	App->physics->AddConstraintP2P(*c2, *last_sphere, btVector3(c2->GetHeight() * 0.25f - Size, 0, 0), btVector3(-last_sphere->GetRadius(), 0, 0));
+
 }
 
 void ModuleSceneIntro::CreateDecoration()

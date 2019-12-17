@@ -30,7 +30,7 @@ public:
 
 	void CreateBuildings();
 	void CreatePizza();
-	void CreateFence();
+	void CreateFence(int first_cylinder_position);
 	void CreateDecoration();
 
 	void changePizzaPosition(int x, int y, int z);
