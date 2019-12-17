@@ -7,6 +7,7 @@
 
 class Primitive;
 class PhysBody3D;
+class btSliderConstraint;
 
 #define MAX_PIZZA_POSITIONS 10
 
@@ -39,7 +40,9 @@ public:
 	void changePizzaPosition(int x, int y, int z);
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
-	p2List<Cylinder*> bollards;
+	p2DynArray<Cube*> bollards;
+	p2DynArray<btSliderConstraint*> bollards_c;
+
 	//Check points
 	void Save();
 	void Load();

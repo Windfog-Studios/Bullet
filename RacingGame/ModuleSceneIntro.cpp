@@ -132,6 +132,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
+	/*
 	Cylinder* bollard = bollards.getFirst()->data;
 	if (bollard_timer.Read() > bollard_change_time * 1000) {
 		for (int i = 0; i < bollards.count(); i++)
@@ -148,6 +149,16 @@ update_status ModuleSceneIntro::Update(float dt)
 
 		}
 		bollard_timer.Start();
+	}
+	*/
+	for (int i = 0; i < bollards_c.Count(); i++)
+	{
+		bollards_c[i]->setPoweredLinMotor(true);
+		bollards_c[i]->setTargetLinMotorVelocity(-2);
+		bollards_c[i]->setMaxLinMotorForce(-2);
+		bollards_c[i]->setMaxLinMotorForce(-2);
+		bollards_c[i]->setMaxAngMotorForce(-2);
+		
 	}
 
 	return UPDATE_CONTINUE;
@@ -783,34 +794,32 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	btSliderConstraint* constraint;
-	Cylinder* bollard;
-	bollard = new Cylinder(0.4, 4, 0);
-	bollard->transform.rotate(90.f, vec3(0, 0, 1));
+	Cube* bollard;
+	bollard = new Cube(vec3(0.5, 1, 0.5));
 	primitives.PushBack(bollard);
 	bollard->SetPos(x, 1, z);
 	bollard->color = Yellow;
-	bollards.add(bollard);
+	bollards.PushBack(bollard);
 
-	Cylinder* bollardBase;
-	bollardBase = new Cylinder(0.8, 0.2, 0);
-	bollardBase->transform.rotate(90.f, vec3(0, 0, 1));
+	Cube* bollardBase;
+	bollardBase = new Cube(vec3(0.8,0.2,0.8),0);
 	primitives.PushBack(bollardBase);
 	bollardBase->SetPos(x, 0, z);
 	bollardBase->color = Grey;
 
-	btVector3 sliderWorldPos(0, 1, 4);
-	btVector3 sliderAxis(0, 0, 1);
+	btVector3 sliderWorldPos(x, 1, z);
+	btVector3 sliderAxis(0, 1, 0);
 
 	btTransform frameInA, frameInB;
 
 	frameInA.setIdentity();
 	frameInB.setIdentity();
-	frameInA.setOrigin(btVector3(0, 1, 4));
-	frameInB.setOrigin(btVector3(0, 1, 4));
+	frameInA.setOrigin(btVector3(x, 1, z));
+	frameInB.setOrigin(btVector3(x, 2, z));
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
-	constraint->setLowerLinLimit(-3);
-	constraint->setUpperLinLimit(6);
+	constraint->setLowerLinLimit(-5);
+	constraint->setUpperLinLimit(8);
 	constraint->setLowerAngLimit(-3);
 	constraint->setUpperAngLimit(3);
 	constraint->setMaxLinMotorForce(-2);
