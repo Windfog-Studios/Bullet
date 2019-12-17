@@ -7,24 +7,24 @@
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 	//pizza positions
-	/*pizza_position[0] = { 150, 0.1f, 150 }; // top left corner
-	pizza_position[1] = { -150, 0.1f, -150 }; // bottom right corner
-	pizza_position[2] = {-150, 0.1f, 150}; //top right corner
-	pizza_position[3] = { 150, 0.1f, -150 }; //bottom left corner
-	pizza_position[4] = { 25, 0.1f, -37.5f }; //center
-	pizza_position[5] = { 150, 0.1f, -40.f }; //mid-left
-	pizza_position[6] = { -145, 0.1f, 0 }; //mid right
-	pizza_position[7] = { 95, 0.1f, 85 }; //corner left
-	pizza_position[8] = { -67.5f, 0.1f, 82.5f }; //corner right
-	pizza_position[9] = { -25, 0.1f, -152.5f }; //mid bottom*/
+	pizza_position[0] = { 150, 1.1f, 150 }; // top left corner
+	pizza_position[1] = { -150, 1.1f, -150 }; // bottom right corner
+	pizza_position[2] = {-150, 1.1f, 150}; //top right corner
+	pizza_position[3] = { 150, 1.1f, -150 }; //bottom left corner
+	pizza_position[4] = { 25, 1.1f, -37.5f }; //center
+	pizza_position[5] = { 150, 1.1f, -40.f }; //mid-left
+	pizza_position[6] = { -145, 1.1f, 0 }; //mid right
+	pizza_position[7] = { 95, 1.1f, 85 }; //corner left
+	pizza_position[8] = { -67.5f, 1.1f, 82.5f }; //corner right
+	pizza_position[9] = { -25, 1.1f, -152.5f }; //mid bottom
 	
 	//Debug for changing pizza position
-	pizza_position[0] = { 5, 1.1f, 0 }; 
+	/*pizza_position[0] = { 5, 1.1f, 0 }; 
 	pizza_position[1] = { 10, 1.1f, 0 }; 
 	pizza_position[2] = { 15, 1.1f, 0 }; 
 	pizza_position[3] = { 20, 1.1f, 0 }; 
 	pizza_position[4] = { 25, 1.1f, 0 }; 
-	pizza_position[5] = { 30, 1.1f, 0 }; 
+	pizza_position[5] = { 30, 1.1f, 0 }; */
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -453,7 +453,6 @@ void ModuleSceneIntro::CreatePizza()
 
 	pizza.base = new Cube({ 2, 0.2f, 2 }, 0);
 	primitives.PushBack(pizza.base);
-	pizza.base->SetPos(5, 1, 0);
 	pizza.base->color = Beige;
 	pizza.base->body.SetAsSensor(true);
 	pizza.base->body.collision_listeners.PushBack(this);
@@ -461,7 +460,6 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.tape = new Cube({ 2, 0.2f, 2 }, 0);
 	pizza.tape->transform.rotate(tape_angle, vec3(0, 0, 1));
 	primitives.PushBack(pizza.tape);
-	pizza.tape->SetPos(6.5f, 1.9f, 0);
 	pizza.tape->color = Beige;
 	pizza.tape->body.SetAsSensor(true);
 	pizza.tape->body.collision_listeners.PushBack(this);
@@ -469,11 +467,15 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza = new Cylinder(0.8, 0.1f, 0);
 	pizza.pizza->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(pizza.pizza);
-	pizza.pizza->SetPos(pizza_position[p].x, pizza_position[p].y, pizza_position[p].z);
 	pizza.pizza->color = Red;
 	pizza.pizza->body.SetAsSensor(true);
 	pizza.pizza->body.collision_listeners.PushBack(this);
 	pizza.pizza->body.isPizza = true;
+
+	//We set the pizza position
+	changePizzaPosition(pizza_position[p].x,
+		pizza_position[p].y,
+		pizza_position[p].z);
 }
 
 void ModuleSceneIntro::CreateFence(int first_cylinder_position)
