@@ -165,7 +165,7 @@ void ModuleSceneIntro::Save()
 	saved_position.y = App->player->position.y;
 	saved_position.z = App->player->position.z;
 
-	pizzas_collected = p;
+	//pizzas_collected = p;
 }
 
 void ModuleSceneIntro::Load()
@@ -174,7 +174,7 @@ void ModuleSceneIntro::Load()
 	App->player->position.y = saved_position.y;
 	App->player->position.z = saved_position.z;
 
-	p = pizzas_collected;
+	//p = pizzas_collected;
 }
 
 void ModuleSceneIntro::CreateBuildings()

@@ -29,6 +29,8 @@ public:
 	PhysVehicle3D* vehicle;
 	Cylinder* sensor;
 	Cube* arrow;
+	Cube* arrowTopHead;
+	Cube* arrowBottomHead;
 	Timer timer;
 	Timer timer2;
 
