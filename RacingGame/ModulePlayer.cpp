@@ -231,6 +231,8 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 		App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
 			App->scene_intro->pizza_position[App->scene_intro->p].y,
 			App->scene_intro->pizza_position[App->scene_intro->p].z);
+		time_left = max_time;
+		timer.Start();
 	}
 
 }

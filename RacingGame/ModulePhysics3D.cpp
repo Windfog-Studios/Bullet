@@ -217,7 +217,7 @@ int	 DebugDrawer::getDebugMode() const
 btPoint2PointConstraint* ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
 	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB);
 	world->addConstraint(constraint);
-	//constraints.add(constraint);
+	//constraints.add((btTypedConstraint*)constraint);
 	return constraint;
 
 }
@@ -236,6 +236,7 @@ btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA,
 	constraint->setLowerAngLimit(-0.2);
 	constraint->setUpperAngLimit(0.4);
 	world->addConstraint(constraint);
+	sliderConstraints.add(constraint);
 	return constraint;
 }
 

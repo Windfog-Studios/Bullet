@@ -33,10 +33,12 @@ public:
 	void CreateFence(int first_cylinder_position);
 	void CreateDecoration();
 	void CreateBollards();
+	void CreateSingleBollard(float x, float z);
 
 	void changePizzaPosition(int x, int y, int z);
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
+	p2List<Cylinder*> bollards;
 	//Check points
 	void addCheckPoint(vec3 pos);
 	//p2DynArray<Cube> checkpointList; //TODO: this crashes

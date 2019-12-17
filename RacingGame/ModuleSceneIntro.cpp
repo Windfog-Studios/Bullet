@@ -42,20 +42,12 @@ bool ModuleSceneIntro::Start()
 	App->audio->VolumeMusic(20);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 
-	const int SnakeLength = 7;
-	const float StartingSize = 0.5f;
-	const float SizeIncrement = 0.2f;
-	const float BallDistance = 0.3f;
-
 	CreateDecoration();
 	CreateFence(10);
 	CreateBuildings();
 	CreatePizza();
 	CreateBollards();
 	
-	
-	float XPos = 10.f;
-	float Size = StartingSize;
 	
 	return ret;
 }
@@ -124,6 +116,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
+	Cylinder* bollard = bollards.getFirst()->data;
+	bollard->transform.translate(bollard->GetPos().x, bollard->GetPos().y, bollard->GetPos().z);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -141,7 +136,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 {
 	Color color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
 
-	body1->parentPrimitive->color = color;
+	//body1->parentPrimitive->color = color;
 	//body2->parentPrimitive->color = color;
 
 }
@@ -740,20 +735,21 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 	p++;	
 }
 
-void ModuleSceneIntro::CreateBollards() {
+void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	btSliderConstraint* constraint;
 	Cylinder* bollard;
 	bollard = new Cylinder(0.4, 4, 0);
 	bollard->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(bollard);
-	bollard->SetPos(0, 1, 4);
+	bollard->SetPos(x, 1, z);
 	bollard->color = Yellow;
+	bollards.add(bollard);
 
 	Cylinder* bollardBase;
 	bollardBase = new Cylinder(0.8, 0.2, 0);
 	bollardBase->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(bollardBase);
-	bollardBase->SetPos(0, 1, 4);
+	bollardBase->SetPos(x, 0, z);
 	bollardBase->color = Grey;
 
 	btVector3 sliderWorldPos(0, 1, 4);
@@ -769,8 +765,12 @@ void ModuleSceneIntro::CreateBollards() {
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
 	constraint->setLowerLinLimit(3);
 	constraint->setUpperLinLimit(6);
-	constraint->setLowerAngLimit(3);
+	constraint->setLowerAngLimit(-3);
 	constraint->setUpperAngLimit(3);
-	bollard->body.Push(vec3(0, 0, 100));
+}
+
+void ModuleSceneIntro::CreateBollards() {
+	CreateSingleBollard(0, 2);
+	CreateSingleBollard(-5, 2);
 }
 

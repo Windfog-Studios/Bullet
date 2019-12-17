@@ -49,6 +49,7 @@ private:
 	p2List<btCollisionShape*>				shapes;
 	p2List<PhysBody3D*>						bodies;
 	p2List<btDefaultMotionState*>			motions;
+	p2List<btSliderConstraint*>				sliderConstraints;
 };
 
 class DebugDrawer : public btIDebugDraw
