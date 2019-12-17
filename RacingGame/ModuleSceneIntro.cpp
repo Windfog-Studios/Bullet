@@ -514,49 +514,51 @@ void ModuleSceneIntro::CreateFence()
 
 	const int SnakeLength = 7;
 	const float StartingSize = 0.5f;
-	const float SizeIncrement = 0.2f;
+	const float SizeIncrement = 0.3f;
 	const float BallDistance = 0.3f;
 
 	float XPos = 0.f;
 	float Size = StartingSize;
-	/*
+	
 	
 	Cylinder* c = new Cylinder(0.5, 4, 0);
 	c->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c);
 	c->SetPos(20, 2, 0);
-	c->color = Red;
-
+	c->color = Yellow;
+	
 	Sphere* s = new Sphere(Size);
 	primitives.PushBack(s);
-		
-	App->physics->AddConstraintP2P(*c, *s, btVector3(c->GetRadius(), 0, 0), btVector3(s->GetRadius(), 0, 0));
-		
-	for (int n = 0; n < SnakeLength; n++)
+	XPos += SizeIncrement;
+
+	//App->physics->AddConstraintP2P(*c, *s, btVector3(c->GetRadius(), 0 , c->GetRadius()), btVector3(s->GetRadius(), 0, s->GetRadius()));
+	Sphere* last_sphere = s;
+	/*
+	for (int n = 1; n < SnakeLength; n++)
 	{
-		//TODO 2: Link all the spheres with your P2P constraints
-		if (n > 0)
-		{			
-			App->physics->AddConstraintP2P(*s, **primitives.At(n - 1), btVector3(s->GetRadius(), 0, 0), btVector3(-s->GetRadius(), 0, 0));
-		}
-				
-		k = n;
-	}
+		Sphere* s = new Sphere(Size);
+		XPos = XPos + SizeIncrement;
+		s->SetPos(XPos, 0, 0);
+		primitives.PushBack(s);			
+		App->physics->AddConstraintP2P(*s, *last_sphere, btVector3(s->GetRadius(), 0, 0), btVector3(-last_sphere->GetRadius(), 0, 0));
+		Sphere* last_sphere = s;
+		//k = n;
+	}*/
 	
 	Cylinder* c2 = new Cylinder(0.5, 4, 0);
 	c2->transform.rotate(90.f, vec3(0, 0, 1));
 	primitives.PushBack(c2);
 	c2->SetPos(30, 2, 0);
-	c2->color = Red;
+	c2->color = Yellow;
 	
-	App->physics->AddConstraintP2P(*c2, **primitives.At(n), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
-	*/
+	//App->physics->AddConstraintP2P(*c2, **primitives.At(n), btVector3(c2->GetRadius(), 2, 0), btVector3(-s->GetRadius(), 0, 0));
+	
 }
 
 void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 {
 	pizza_pointer->base->SetPos(x, y, z);
 	pizza_pointer->pizza->SetPos(x, y, z);
-	
+	p++;	
 }
 

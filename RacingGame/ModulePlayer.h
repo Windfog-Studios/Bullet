@@ -30,15 +30,19 @@ public:
 	Cube* sensor;
 	Cube* timer_cube;
 	Timer timer;
-	float max_time;
-	float time_left;
-	float turn;
-	float acceleration;
-	float brake;
-	int max_speed;
-	vec3 position;
-	vec3 initial_position;
-	bool top_view = false;
+
+	float	max_time;
+	float	time_left;
+	float	turn;
+	float	acceleration;
+	float	brake;
+	int		max_speed;
+
+	vec3	position;
+	vec3	initial_position;
+	vec3	forward;
+
+	bool	top_view = false;
 
 	unsigned int motorcycle = 0;
 	unsigned int mamma_mia = 0;
