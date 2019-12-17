@@ -10,6 +10,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(
 {
 	turn = acceleration = brake = 0.0f;
 	max_time = 20;
+	max_time2 = 4;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -114,7 +115,7 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 0, 0);
 	initial_position = vehicle->position;
 
-	timer.Start();
+	timer2.Start();
 
 	mamma_mia = App->audio->LoadFx("MammaMia.wav");
 
@@ -135,66 +136,68 @@ update_status ModulePlayer::Update(float dt)
 	turn = acceleration = brake = 0.0f;
 	vec3 forward = vehicle->GetForwardVector();
 
+	time_left2 = max_time2 - timer2.Read() * 0.001f;
 	//Input
-
-	if((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)&&(vehicle->GetKmh() < 120))
-	{
-		acceleration = MAX_ACCELERATION;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		if(turn > -TURN_DEGREES)
-			turn -= TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		acceleration = -MAX_ACCELERATION;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		if (vehicle->HasBody())
+	if (time_left2 <= 0)
+	{	
+		if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
 		{
-			vehicle->GetBody()->activate();
-			vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)200, (float)1));
+			acceleration = MAX_ACCELERATION;
 		}
-	}
 
-	//camera control
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		App->camera->LookAt(vec3(position.x, position.y, position.z));
-	}
-	else if (!App->debug)
-	{
-		if (!top_view)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+			if (turn < TURN_DEGREES)
+				turn += TURN_DEGREES;
 		}
-		App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
-	}
 
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-	{
-		if (top_view) {
-			top_view = false;
-		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
-			top_view = true;
-			App->camera->Position.x = 0.0f;
-			App->camera->Position.y = 350.0f;
-			App->camera->Position.z = 0.0f;
+			if (turn > -TURN_DEGREES)
+				turn -= TURN_DEGREES;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			acceleration = -MAX_ACCELERATION;
 		}
 	}
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			if (vehicle->HasBody())
+			{
+				vehicle->GetBody()->activate();
+				vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)200, (float)1));
+			}
+		}
 
+		//camera control
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			App->camera->LookAt(vec3(position.x, position.y, position.z));
+		}
+		else if (!App->debug)
+		{
+			if (!top_view)
+			{
+				App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+			}
+			App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			if (top_view) {
+				top_view = false;
+			}
+			else
+			{
+				top_view = true;
+				App->camera->Position.x = 0.0f;
+				App->camera->Position.y = 350.0f;
+				App->camera->Position.z = 0.0f;
+			}
+		}
+		
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -205,9 +208,12 @@ update_status ModulePlayer::Update(float dt)
 	position = vehicle->position;
 
 	//Render
+	//timer_cube->Render();
+	
 	arrow->Render();
 	//arrowTopHead->Render();
 	//arrowBottomHead->Render();
+
 	vehicle->Render();
 	//sensor->Render();
 
@@ -253,15 +259,24 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
 	time_left = max_time - timer.Read() * 0.001f;
-
+	
 	if (time_left <= 0)
 	{
 		App->audio->PlayFx(mamma_mia);
 	}
 
 	//timer_cube->Update();
-
+	/*
 	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+	
+	arrow->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
+	arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+	timer_cube_position = arrow->GetPos();
+	target = App->scene_intro->pizza_position[App->scene_intro->p];
+	angle = atan((target.z - timer_cube_position.z) / (target.x - timer_cube_position.x));
+	arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
+	*/
 }
