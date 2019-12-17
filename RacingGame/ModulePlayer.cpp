@@ -102,6 +102,14 @@ bool ModulePlayer::Start()
 	arrow = new Cube(vec3(0.75, 0.05, 0.05));
 	arrow->color = Green;
 
+	arrowTopHead = new Cube(vec3(0.25, 0.05, 0.05));
+	arrowTopHead->color = Green;
+	arrowTopHead->transform.rotate(45, vec3(1, 0, 0));
+
+	arrowBottomHead = new Cube(vec3(0.25, 0.05, 0.05));
+	arrowBottomHead->color = Green;
+	arrowBottomHead->transform.rotate(-45, vec3(1, 0, 0));
+
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
 	initial_position = vehicle->position;
@@ -109,10 +117,6 @@ bool ModulePlayer::Start()
 	timer.Start();
 
 	mamma_mia = App->audio->LoadFx("MammaMia.wav");
-
-	btRigidBody* test_body;
-
-	test_body = (btRigidBody*)vehicle->GetBody();
 
 	return true;
 }
@@ -202,6 +206,8 @@ update_status ModulePlayer::Update(float dt)
 
 	//Render
 	arrow->Render();
+	//arrowTopHead->Render();
+	//arrowBottomHead->Render();
 	vehicle->Render();
 	//sensor->Render();
 
