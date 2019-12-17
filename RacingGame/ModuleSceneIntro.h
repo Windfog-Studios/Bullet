@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "Timer.h"
 
 class Primitive;
 class PhysBody3D;
@@ -46,6 +47,8 @@ private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
 	p2DynArray<Primitive*> primitives;
+	Timer bollard_timer;
+	int bollard_change_time;
 public:
 	int p = 0;
 	vec3 pizza_position[MAX_PIZZA_POSITIONS];

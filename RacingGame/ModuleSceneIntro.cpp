@@ -25,6 +25,8 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	pizza_position[3] = { 20, 1.1f, 0 }; 
 	pizza_position[4] = { 25, 1.1f, 0 }; 
 	pizza_position[5] = { 30, 1.1f, 0 }; */
+
+	bollard_change_time = 5;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -41,6 +43,7 @@ bool ModuleSceneIntro::Start()
 	App->audio->PlayMusic("Italian_music.ogg", 1);
 	App->audio->VolumeMusic(20);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	bollard_timer.Start();
 
 	CreateDecoration();
 	CreateFence(10);
@@ -117,7 +120,22 @@ update_status ModuleSceneIntro::Update(float dt)
 		primitives[n]->Update();
 
 	Cylinder* bollard = bollards.getFirst()->data;
-	bollard->transform.translate(bollard->GetPos().x, bollard->GetPos().y, bollard->GetPos().z);
+	if (bollard_timer.Read() > bollard_change_time * 1000) {
+		for (int i = 0; i < bollards.count(); i++)
+		{
+			bollards.at(i,bollard);
+			if (bollard->GetPos().y > 0)
+			{
+				bollard->SetPos(bollard->GetPos().x, bollard->GetPos().y - 3, bollard->GetPos().z);
+			}
+			else
+			{
+				bollard->SetPos(bollard->GetPos().x, bollard->GetPos().y + 3, bollard->GetPos().z);
+			}
+
+		}
+		bollard_timer.Start();
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -770,7 +788,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 }
 
 void ModuleSceneIntro::CreateBollards() {
-	CreateSingleBollard(0, 2);
-	CreateSingleBollard(-5, 2);
+	CreateSingleBollard(-2.5, 8);
+	CreateSingleBollard(-5.5, 8);
 }
 
