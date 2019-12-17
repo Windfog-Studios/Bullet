@@ -112,3 +112,21 @@ protected:
 private:
 	vec3 normal;
 };
+
+// ======================================
+class Cone : public Primitive
+{
+public:
+	Cone(float radius = 1.f, float height = 2.f, float mass = 1.f);
+
+	float GetRadius() const;
+	float GetHeight() const;
+
+	void SetRadius(float radius);
+	void SetHeight(float height);
+protected:
+	void InnerRender() const;
+private:
+	float radius;
+	float height;
+};
