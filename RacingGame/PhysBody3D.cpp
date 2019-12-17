@@ -92,6 +92,16 @@ void PhysBody3D::SetPos(float x, float y, float z)
 	body->activate();
 }
 
+vec3 PhysBody3D::GetPos() const {
+	vec3 position;
+	mat4x4 transform;
+	GetTransform(transform.M);
+	position.x = transform.M[12];
+	position.y = transform.M[13];
+	position.z = transform.M[14];
+	return position;
+}
+
 void PhysBody3D::SetSpeed(vec3 speed)
 {
 	Stop();

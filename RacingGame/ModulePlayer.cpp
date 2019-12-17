@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include <tgmath.h>
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
@@ -95,12 +96,12 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 
-	sensor = new Cube(4);
+	sensor = new Cylinder(3, 4);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
-	timer_cube = new Cube(vec3(0.75, 0.05, 0.05));
-	timer_cube->color = Green;
+	arrow = new Cube(vec3(0.75, 0.05, 0.05));
+	arrow->color = Green;
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
@@ -203,10 +204,10 @@ update_status ModulePlayer::Update(float dt)
 	position = vehicle->position;
 
 	//Render
-	if (time_left2 <= 0)
-	{
-		timer_cube->Render();
-	}
+	//timer_cube->Render();
+	
+	arrow->Render();
+
 	vehicle->Render();
 	//sensor->Render();
 
@@ -222,9 +223,10 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::RestartGame() {
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
-	vehicle->Stop();
+	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
+	App->scene_intro->p = 0;
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
@@ -244,6 +246,9 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 }
 
 void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
+	vec3 target;
+	vec3 timer_cube_position;
+	float angle;
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
@@ -256,9 +261,17 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	}
 
 	//timer_cube->Update();
-
+	/*
 	timer_cube->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	timer_cube->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	timer_cube->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
 	
+	arrow->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
+	arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+	timer_cube_position = arrow->GetPos();
+	target = App->scene_intro->pizza_position[App->scene_intro->p];
+	angle = atan((target.z - timer_cube_position.z) / (target.x - timer_cube_position.x));
+	arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
+	*/
 }

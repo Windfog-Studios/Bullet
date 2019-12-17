@@ -41,8 +41,8 @@ public:
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	p2List<Cylinder*> bollards;
 	//Check points
-	void addCheckPoint(vec3 pos);
-	//p2DynArray<Cube> checkpointList; //TODO: this crashes
+	void Save();
+	void Load();
 private:
 	void HandleDebugInput();
 	void DebugSpawnPrimitive(Primitive* p);
@@ -55,4 +55,7 @@ public:
 	Pizza pizza;
 	unsigned int start = 0;
 
+	//Check points
+	vec3 saved_position;
+	int num_pizzas;
 };

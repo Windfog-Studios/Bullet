@@ -33,6 +33,7 @@ public:
 
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
+	vec3 GetPos() const;
 	void SetPos(float x, float y, float z);
 	void SetAngularVelocity(float x, float y, float z);
 	void SetRotation(float x, float y, float z);
