@@ -9,7 +9,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
-	max_time = 20;
+	max_time = 30;
 	max_time2 = 4;
 }
 
