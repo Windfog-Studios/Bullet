@@ -124,9 +124,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
-	//pizza_pointer->base->SetPos(pizza_position->x, pizza_position->y -0.1f, pizza_position->z);
-	//pizza_pointer->tape->SetPos(pizza_position->x + 1.5f, pizza_position->y + 0.8f, pizza_position->z);
-
 	return UPDATE_CONTINUE;
 }
 
@@ -477,9 +474,6 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza->body.SetAsSensor(true);
 	pizza.pizza->body.collision_listeners.PushBack(this);
 	pizza.pizza->body.isPizza = true;
-
-	pizza_pointer = &pizza;
-
 }
 
 void ModuleSceneIntro::CreateFence(int first_cylinder_position)
@@ -738,9 +732,9 @@ void ModuleSceneIntro::CreateDecoration()
 
 void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 {
-	pizza_pointer->base->SetPos(x, y-0.2f, z);
-	pizza_pointer->pizza->SetPos(x, y, z);
-	pizza_pointer->tape->SetPos(x+1.5f, y+0.7f, z);
+	pizza.base->SetPos(x, y - 0.2f, z);
+	pizza.pizza->SetPos(x, y, z);
+	pizza.tape->SetPos(x + 1.5f, y + 0.7f, z);
 	p++;	
 }
 
