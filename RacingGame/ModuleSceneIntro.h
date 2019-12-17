@@ -60,7 +60,7 @@ public:
 	vec3					pizza_position[MAX_PIZZA_POSITIONS];
 	Pizza					pizza;
 	unsigned int			start = 0;
-
+	
 	//Check points
 	vec3					saved_position;
 	int						pizzas_collected;
