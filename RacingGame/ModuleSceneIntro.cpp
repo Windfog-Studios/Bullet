@@ -28,9 +28,9 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	int k = 0;
-	start = App->audio->LoadFx("Start.wav");
+	//start = App->audio->LoadFx("Start.wav");
 	App->audio->PlayFx(start);
-	App->audio->PlayMusic("Italian_music.ogg", 1);
+	//App->audio->PlayMusic("Italian_music.ogg", 1);
 	App->audio->VolumeMusic(20);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(App->player->position.x, App->player->position.y, App->player->position.z));
@@ -40,10 +40,11 @@ bool ModuleSceneIntro::Start()
 	const float SizeIncrement = 0.2f;
 	const float BallDistance = 0.3f;
 
+	CreateDecoration();
 	CreateFence();
 	CreateBuildings();
 	CreatePizza();
-	CreateDecoration();
+	
 	
 	float XPos = 10.f;
 	float Size = StartingSize;
@@ -557,34 +558,33 @@ void ModuleSceneIntro::CreateFence()
 void ModuleSceneIntro::CreateDecoration()
 {
 	{
-		
 		Cube* sidewalk1 = new Cube({ 38, 1, 160 }, 0);
 		sidewalk1->color = Bright_Grey;
 		sidewalk1->SetPos(120, 0, 55);
 		primitives.PushBack(sidewalk1);
-		/*
-		Cube* sidewalk2 = new Cube({ 35, 1, 30 }, 0);
+		
+		Cube* sidewalk2 = new Cube({ 41, 1, 34 }, 0);
 		sidewalk2->color = Bright_Grey;
-		sidewalk2->SetPos(120, 0, 80);
+		sidewalk2->SetPos(120, 0, -66);
 		primitives.PushBack(sidewalk2);
-		*/
-		/*
-		Cube* sidewalk3 = new Cube({ 35, 1, 85 }, 0);
+
+	}
+
+	{
+		Cube* sidewalk3 = new Cube({ 77, 1, 55 }, 0);
 		sidewalk3->color = Bright_Grey;
-		sidewalk3->SetPos(120, 0, 40);
+		sidewalk3->SetPos(102, 0, -110);
 		primitives.PushBack(sidewalk3);
 		
-		Cube* sidewalk4 = new Cube({ 35, 1, 35 }, 0);
-		sidewalk4->color = Bright_Grey;
-		sidewalk4->SetPos(120, 0, -60);
-		primitives.PushBack(sidewalk4);
-
-		Cube* sidewalk5 = new Cube({ 35, 1, 55 }, 0);
-		sidewalk5->color = Darker_Grey;
-		sidewalk5->SetPos(100, 0, -100);
-		primitives.PushBack(sidewalk5);
+		/*
+		Cube* city_building4 = new Cube({ 55, 1, 50 }, 0);
+		city_building4->color = Grey;
+		city_building4->SetPos(15, 0, -110);
+		primitives.PushBack(city_building4);
 		*/
 	}
+
+
 }
 
 void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
