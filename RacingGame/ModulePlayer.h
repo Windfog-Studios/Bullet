@@ -26,8 +26,10 @@ public:
 
 public:
 	PhysVehicle3D* vehicle;
-	Cube* sensor;
-	Cube* timer_cube;
+	Cylinder* sensor;
+	Cube* arrow;
+	Cube* arrowTopHead;
+	Cube* arrowBottomHead;
 	Timer timer;
 
 	float	max_time;

@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include <tgmath.h>
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
@@ -94,12 +95,20 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 
-	sensor = new Cube(4);
+	sensor = new Cylinder(3, 4);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
-	timer_cube = new Cube(vec3(0.75, 0.05, 0.05));
-	timer_cube->color = Green;
+	arrow = new Cube(vec3(0.75, 0.05, 0.05));
+	arrow->color = Green;
+
+	arrowTopHead = new Cube(vec3(0.25, 0.05, 0.05));
+	arrowTopHead->color = Green;
+	arrowTopHead->transform.rotate(45, vec3(1, 0, 0));
+
+	arrowBottomHead = new Cube(vec3(0.25, 0.05, 0.05));
+	arrowBottomHead->color = Green;
+	arrowBottomHead->transform.rotate(-45, vec3(1, 0, 0));
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
@@ -108,10 +117,6 @@ bool ModulePlayer::Start()
 	timer.Start();
 
 	mamma_mia = App->audio->LoadFx("MammaMia.wav");
-
-	btRigidBody* test_body;
-
-	test_body = (btRigidBody*)vehicle->GetBody();
 
 	return true;
 }
@@ -200,7 +205,9 @@ update_status ModulePlayer::Update(float dt)
 	position = vehicle->position;
 
 	//Render
-	timer_cube->Render();
+	arrow->Render();
+	//arrowTopHead->Render();
+	//arrowBottomHead->Render();
 	vehicle->Render();
 	//sensor->Render();
 
@@ -218,8 +225,11 @@ void ModulePlayer::RestartGame() {
 	//vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
 	//vehicle->Stop();
 	App->scene_intro->Load();
+	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
+	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
+	App->scene_intro->p = 0;
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
@@ -235,6 +245,9 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 }
 
 void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
+	vec3 target;
+	vec3 timer_cube_position;
+	float angle;
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);

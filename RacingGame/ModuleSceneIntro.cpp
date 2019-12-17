@@ -180,7 +180,7 @@ void ModuleSceneIntro::Save()
 	LOG("Save Y: %f", saved_position.y);
 	LOG("Save Z: %f", saved_position.z);
 
-	pizzas_collected = p;
+	//pizzas_collected = p;
 }
 
 void ModuleSceneIntro::Load()
@@ -190,7 +190,7 @@ void ModuleSceneIntro::Load()
 	App->player->vehicle->GetBody()->setLinearVelocity({ 0,0,0 });
 	App->player->acceleration = 0;
 
-	p = pizzas_collected;
+	//p = pizzas_collected;
 }
 
 void ModuleSceneIntro::CreateBuildings()
