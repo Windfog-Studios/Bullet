@@ -159,13 +159,22 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 
 }
 
-void ModuleSceneIntro::addCheckPoint(vec3 pos)
+void ModuleSceneIntro::Save()
 {
-	Cube checkpoint;
-	checkpoint.SetPos(pos.x, pos.y, pos.z);
-	checkpoint.color = Green;
+	saved_position.x = App->player->position.x;
+	saved_position.y = App->player->position.y;
+	saved_position.z = App->player->position.z;
 
-	//checkpointList.PushBack(checkpoint);
+	pizzas_collected = p;
+}
+
+void ModuleSceneIntro::Load()
+{
+	App->player->position.x = saved_position.x;
+	App->player->position.y = saved_position.y;
+	App->player->position.z = saved_position.z;
+
+	p = pizzas_collected;
 }
 
 void ModuleSceneIntro::CreateBuildings()
