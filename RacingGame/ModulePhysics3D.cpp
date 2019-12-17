@@ -232,9 +232,9 @@ btHingeConstraint* ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, c
 btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA, const Primitive& bodyB, btTransform& frameinA, btTransform& frameinB) {
 	btSliderConstraint* constraint = new btSliderConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), frameinA, frameinB, true);
 	constraint->setLowerLinLimit(0);
-	constraint->setUpperLinLimit(1);
+	constraint->setUpperLinLimit(0.4);
 	constraint->setLowerAngLimit(-0.2);
-	constraint->setUpperAngLimit(0.4);
+	constraint->setUpperAngLimit(0.2);
 	world->addConstraint(constraint);
 	sliderConstraints.add(constraint);
 	return constraint;

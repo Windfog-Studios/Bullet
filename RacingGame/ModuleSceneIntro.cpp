@@ -153,12 +153,16 @@ update_status ModuleSceneIntro::Update(float dt)
 	*/
 	for (int i = 0; i < bollards_c.Count(); i++)
 	{
+		bollards_c[i]->setPoweredAngMotor(true);
+		bollards_c[i]->setTargetAngMotorVelocity(10);
+		bollards_c[i]->setLowerAngLimit(0.0f);
+		bollards_c[i]->setUpperAngLimit(1.0f);
+
 		bollards_c[i]->setPoweredLinMotor(true);
-		bollards_c[i]->setTargetLinMotorVelocity(-2);
-		bollards_c[i]->setMaxLinMotorForce(-2);
-		bollards_c[i]->setMaxLinMotorForce(-2);
-		bollards_c[i]->setMaxAngMotorForce(-2);
-		
+		bollards_c[i]->setTargetLinMotorVelocity(1);
+		bollards_c[i]->setLowerLinLimit(-5.0f);
+		bollards_c[i]->setUpperLinLimit(5.0f);
+		bollards[i]->body.Push(vec3(100, 0, 100));
 	}
 
 	return UPDATE_CONTINUE;
@@ -793,9 +797,8 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 }
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
-	btSliderConstraint* constraint;
 	Cube* bollard;
-	bollard = new Cube(vec3(0.5, 1, 0.5));
+	bollard = new Cube(vec3(0.5, 3, 0.5),1000);
 	primitives.PushBack(bollard);
 	bollard->SetPos(x, 1, z);
 	bollard->color = Yellow;
@@ -811,22 +814,16 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	btVector3 sliderAxis(0, 1, 0);
 
 	btTransform frameInA, frameInB;
+	
+	btSliderConstraint* constraint;
 
 	frameInA.setIdentity();
 	frameInB.setIdentity();
-	frameInA.setOrigin(btVector3(x, 1, z));
-	frameInB.setOrigin(btVector3(x, 2, z));
+	frameInA.setOrigin(btVector3(0, 0, 0));
+	frameInB.setOrigin(btVector3(0, 1.6f, 0));
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
-	constraint->setLowerLinLimit(-5);
-	constraint->setUpperLinLimit(8);
-	constraint->setLowerAngLimit(-3);
-	constraint->setUpperAngLimit(3);
-	constraint->setMaxLinMotorForce(-2);
-	constraint->setTargetLinMotorVelocity(-2);
-	constraint->setPoweredLinMotor(true);
-	constraint->setPoweredAngMotor(true);
-	
+	bollards_c.PushBack(constraint);
 }
 
 void ModuleSceneIntro::CreateBollards() {
