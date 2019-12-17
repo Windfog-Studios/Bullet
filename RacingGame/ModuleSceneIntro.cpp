@@ -738,9 +738,9 @@ void ModuleSceneIntro::CreateDecoration()
 
 void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 {
-	pizza_pointer->base->SetPos(x, y, z);
+	pizza_pointer->base->SetPos(x, y-0.2f, z);
 	pizza_pointer->pizza->SetPos(x, y, z);
-	pizza_pointer->tape->SetPos(x, y, z);
+	pizza_pointer->tape->SetPos(x+1.5f, y+0.7f, z);
 	p++;	
 }
 
