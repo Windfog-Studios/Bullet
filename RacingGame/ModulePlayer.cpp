@@ -94,7 +94,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
 
-	sensor = new Cube(4);
+	sensor = new Cylinder(3, 4);
 	sensor->body.collision_listeners.PushBack(this);
 	sensor->body.SetAsSensor(true);
 
@@ -216,7 +216,7 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::RestartGame() {
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
-	vehicle->Stop();
+	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
 }

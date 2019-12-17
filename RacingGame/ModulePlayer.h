@@ -27,7 +27,7 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
-	Cube* sensor;
+	Cylinder* sensor;
 	Cube* timer_cube;
 	Timer timer;
 
