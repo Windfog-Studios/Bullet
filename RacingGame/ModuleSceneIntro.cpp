@@ -39,20 +39,17 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	int k = 0;
-
 	
 	start_timer.Start();
-	time_left = max_time - start_timer.Read() * 0.001f;
-
+	
 	start = App->audio->LoadFx("Start.wav");
 	App->audio->PlayFx(start);
-
-	if (time_left <= 0)
-	{
-		App->audio->PlayMusic("Italian_music.ogg", 1);
-		App->audio->VolumeMusic(20);
-	}
 	
+	time_left = max_time - start_timer.Read() * 0.001f;
+
+	App->audio->PlayMusic("Italian_music.ogg");
+	App->audio->VolumeMusic(0);
+
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
@@ -121,6 +118,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	
 	Plane p(vec3(0, 1, 0));
 	p.color = Dark_Grey;
 	p.axis = true;
@@ -170,7 +168,7 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	{
 		primitives[n]->Render();
 	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
