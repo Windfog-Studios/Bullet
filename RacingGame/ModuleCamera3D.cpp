@@ -11,6 +11,7 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
 	Position = vec3(-1.0f, 1.0f, -7.5f);
+
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 
 }
