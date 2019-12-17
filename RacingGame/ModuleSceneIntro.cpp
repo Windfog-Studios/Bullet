@@ -27,6 +27,7 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	pizza_position[5] = { 30, 1.1f, 0 }; */
 
 	bollard_change_time = 5;
+	max_time = 4;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -38,10 +39,20 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	int k = 0;
+
+	
+	start_timer.Start();
+	time_left = max_time - start_timer.Read() * 0.001f;
+
 	start = App->audio->LoadFx("Start.wav");
 	App->audio->PlayFx(start);
-	App->audio->PlayMusic("Italian_music.ogg", 1);
-	App->audio->VolumeMusic(20);
+
+	if (time_left <= 0)
+	{
+		App->audio->PlayMusic("Italian_music.ogg", 1);
+		App->audio->VolumeMusic(20);
+	}
+	
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
@@ -118,15 +129,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (App->debug == true)
 		HandleDebugInput();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
-	{
-		Save();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		Load();
-	}
-
 	for (uint n = 0; n < primitives.Count(); n++)
 		primitives[n]->Update();
 
@@ -167,7 +169,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D * body1, PhysBody3D * body2)
 
 	//body1->parentPrimitive->color = color;
 	//body2->parentPrimitive->color = color;
-
 }
 
 void ModuleSceneIntro::Save()
@@ -175,12 +176,8 @@ void ModuleSceneIntro::Save()
 	saved_position.x = App->player->position.x;
 	saved_position.y = App->player->position.y;
 	saved_position.z = App->player->position.z;
-	LOG("Save");
-	LOG("Save X: %f", saved_position.x);
-	LOG("Save Y: %f", saved_position.y);
-	LOG("Save Z: %f", saved_position.z);
-
-	//pizzas_collected = p;
+	
+	pizzas_collected = p;
 }
 
 void ModuleSceneIntro::Load()
@@ -189,8 +186,9 @@ void ModuleSceneIntro::Load()
 
 	App->player->vehicle->GetBody()->setLinearVelocity({ 0,0,0 });
 	App->player->acceleration = 0;
+	//App->player->vehicle->SetRotation(0,0,0);
 
-	//p = pizzas_collected;
+	p = pizzas_collected;
 }
 
 void ModuleSceneIntro::CreateBuildings()
