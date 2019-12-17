@@ -232,7 +232,7 @@ void Cylinder::InnerRender() const
 {
 	glPushMatrix();
 	mat4x4 rotateMat = IdentityMatrix;
-	rotateMat.rotate(90.f, vec3(1, 0, 0));
+	//rotateMat.rotate(90, vec3(0, 0, 1));
 	glMultMatrixf(&rotateMat);
 
 	int n = 30;

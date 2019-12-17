@@ -154,3 +154,12 @@ void PhysBody3D::SetAngularVelocity(float x, float y, float z)
 	btVector3 v(x, y, z);
 	body->setAngularVelocity(v);
 }
+
+void PhysBody3D::SetRotation(float x, float y, float z) {
+	btTransform tr;
+	tr.setIdentity();
+	btQuaternion quat;
+	quat.setEuler(y,x,z);
+	tr.setRotation(quat);
+	body->setCenterOfMassTransform(tr);
+}
