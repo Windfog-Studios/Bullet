@@ -50,4 +50,5 @@ public:
 
 	unsigned int motorcycle = 0;
 	unsigned int mamma_mia = 0;
+	unsigned int Delivery = 0;
 };

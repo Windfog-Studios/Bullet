@@ -118,6 +118,7 @@ bool ModulePlayer::Start()
 	timer2.Start();
 
 	mamma_mia = App->audio->LoadFx("MammaMia.wav");
+	Delivery = App->audio->LoadFx("Delivery.wav");
 
 	return true;
 }
@@ -242,6 +243,7 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 
 	if (body2->isPizza)
 	{
+		App->audio->PlayFx(Delivery);
 		App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
 			App->scene_intro->pizza_position[App->scene_intro->p].y,
 			App->scene_intro->pizza_position[App->scene_intro->p].z);

@@ -122,9 +122,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.color = Dark_Grey;
 	p.axis = true;
 	p.Render();
-	
 	/*
-	Cube* p = new Cube({ 500, 1, 500 }, 0);
+	Cube* p = new Cube({ 500, 0.1, 500 }, 0);
 	p->color = Darker_Grey;
 	p->SetPos(0, -1, 0);
 	p->Render();
