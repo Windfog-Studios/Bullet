@@ -179,7 +179,7 @@ update_status ModulePlayer::Update(float dt)
 		{
 			if (!top_view)
 			{
-				App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+				//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 			}
 			App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 		}

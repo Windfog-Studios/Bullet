@@ -151,16 +151,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	*/
 	for (int i = 0; i < bollards_c.Count(); i++)
 	{
-		bollards_c[i]->setPoweredAngMotor(true);
-		bollards_c[i]->setTargetAngMotorVelocity(10);
-		bollards_c[i]->setLowerAngLimit(0.0f);
-		bollards_c[i]->setUpperAngLimit(1.0f);
-
-		bollards_c[i]->setPoweredLinMotor(true);
-		bollards_c[i]->setTargetLinMotorVelocity(1);
-		bollards_c[i]->setLowerLinLimit(-5.0f);
-		bollards_c[i]->setUpperLinLimit(5.0f);
-		bollards[i]->body.Push(vec3(100, 0, 100));
+		bollards[i]->body.Push(vec3(1, 1, 0));
 	}
 
 	return UPDATE_CONTINUE;
@@ -808,12 +799,10 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	bollardBase->SetPos(x, 0, z);
 	bollardBase->color = Grey;
 
-	btVector3 sliderWorldPos(x, 1, z);
-	btVector3 sliderAxis(0, 1, 0);
-
 	btTransform frameInA, frameInB;
 	
 	btSliderConstraint* constraint;
+	//btGeneric6DofConstraint* constraint;
 
 	frameInA.setIdentity();
 	frameInB.setIdentity();
@@ -822,10 +811,76 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
 	bollards_c.PushBack(constraint);
+	constraint->setPoweredAngMotor(true);
+	constraint->setTargetAngMotorVelocity(0);
+	constraint->setLowerAngLimit(0);
+	constraint->setUpperAngLimit(1);
+
+	constraint->setPoweredLinMotor(true);
+	constraint->setTargetLinMotorVelocity(10);
+	constraint->setLowerLinLimit(-5.0f);
+	constraint->setUpperLinLimit(5.0f);
+
+	/*
+	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);
+	constraint->setAngularLowerLimit(btVector3(0, 0, 0));
+	constraint->setAngularUpperLimit(btVector3(0, 0, 0));
+	constraint->setLinearLowerLimit(btVector3(0, 0, 0));
+	constraint->setLinearUpperLimit(btVector3(0,5,0));
+	constraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
+	constraint->getTranslationalLimitMotor()->m_targetVelocity[0] = -5.0f;
+	constraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 6.0;
+	*/
 }
 
 void ModuleSceneIntro::CreateBollards() {
 	CreateSingleBollard(-2.5, 8);
 	CreateSingleBollard(-5.5, 8);
+
+	CreateSingleBollard(25, 50);
+	CreateSingleBollard(22, 50);
+	CreateSingleBollard(19, 50);
+	CreateSingleBollard(16, 50);
+
+	CreateSingleBollard(-17.5, -88.5);
+	CreateSingleBollard(-21.5, -88.5);
+	CreateSingleBollard(-25.5, -88.5);
+	CreateSingleBollard(-29.5, -88.5);
+
+	CreateSingleBollard(46.5, -88.5);
+	CreateSingleBollard(50.5, -88.5);
+	CreateSingleBollard(54.5, -88.5);
+	CreateSingleBollard(58.5, -88.5);
+	CreateSingleBollard(62.5, -88.5);
+
+	CreateSingleBollard(-74, 7);
+	CreateSingleBollard(-74, 2.5);
+	CreateSingleBollard(-74, -2);
+	CreateSingleBollard(-74, -6.5);
+
+	CreateSingleBollard(20.5, 97.5);
+	CreateSingleBollard(17.5, 97.5);
+	CreateSingleBollard(14.5, 97.5);
+	CreateSingleBollard(11.5, 97.5);
+	CreateSingleBollard(8.5, 97.5);
+	CreateSingleBollard(5.5, 97.5);
+	CreateSingleBollard(2.5, 97.5);
+
+	CreateSingleBollard(100, 97.5);
+	CreateSingleBollard(97, 97.5);
+	CreateSingleBollard(94, 97.5);
+	CreateSingleBollard(91, 97.5);
+	CreateSingleBollard(88, 97.5);
+	CreateSingleBollard(85, 97.5);
+	CreateSingleBollard(82, 97.5);
+	CreateSingleBollard(79, 97.5);
+
+	CreateSingleBollard(110, -27.5);
+	CreateSingleBollard(110, -30.5);
+	CreateSingleBollard(110, -33.5);
+	CreateSingleBollard(110, -36.5);
+	CreateSingleBollard(110, -39.5);
+	CreateSingleBollard(110, -42.5);
+	CreateSingleBollard(110, -45.5);
 }
 

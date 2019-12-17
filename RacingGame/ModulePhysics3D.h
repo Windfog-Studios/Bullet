@@ -35,6 +35,8 @@ public:
 	btPoint2PointConstraint* AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB);
 	btHingeConstraint* AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB);
 	btSliderConstraint* AddConstraintSlider(const Primitive& bodyA, const Primitive& bodyB, btTransform& frameinA, btTransform& frameinB);
+	btGeneric6DofConstraint* AddGeneric6DofConstraint(const Primitive& bodyA, const Primitive& bodyB, const btTransform& frameInA, const btTransform& frameInB, bool useLinearReferenceFrameA = true);
+
 
 private:
 	btDefaultCollisionConfiguration*		collision_conf;

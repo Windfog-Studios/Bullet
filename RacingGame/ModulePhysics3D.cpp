@@ -240,6 +240,13 @@ btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA,
 	return constraint;
 }
 
+
+btGeneric6DofConstraint* ModulePhysics3D::AddGeneric6DofConstraint(const Primitive& bodyA, const Primitive& bodyB, const btTransform& frameInA, const btTransform& frameInB, bool useLinearReferenceFrameA) {
+	btGeneric6DofConstraint* constraint = new btGeneric6DofConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), frameInA, frameInB, useLinearReferenceFrameA);
+	world->addConstraint(constraint);
+	return constraint;
+}
+
 PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 {
 	btCompoundShape* comShape = new btCompoundShape();
