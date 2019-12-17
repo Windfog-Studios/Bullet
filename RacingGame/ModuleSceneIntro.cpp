@@ -811,10 +811,15 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	frameInB.setOrigin(btVector3(0, 1, 4));
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
-	constraint->setLowerLinLimit(3);
+	constraint->setLowerLinLimit(-3);
 	constraint->setUpperLinLimit(6);
 	constraint->setLowerAngLimit(-3);
 	constraint->setUpperAngLimit(3);
+	constraint->setMaxLinMotorForce(-2);
+	constraint->setTargetLinMotorVelocity(-2);
+	constraint->setPoweredLinMotor(true);
+	constraint->setPoweredAngMotor(true);
+	
 }
 
 void ModuleSceneIntro::CreateBollards() {
