@@ -124,6 +124,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 	
+	/*
+	Cube* p = new Cube({ 500, 1, 500 }, 0);
+	p->color = Darker_Grey;
+	p->SetPos(0, -1, 0);
+	p->Render();
+	*/
 	if (App->debug == true)
 		HandleDebugInput();
 
@@ -832,6 +838,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	constraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 6.0;
 	*/
 }
+
 
 void ModuleSceneIntro::CreateBollards() {
 	CreateSingleBollard(-2.5, 8);
