@@ -27,7 +27,7 @@ void PhysVehicle3D::Render()
 {
 	Cylinder wheel;
 
-	wheel.color = Black;
+	wheel.color = Dark_Green;
 
 	for(int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -58,7 +58,7 @@ void PhysVehicle3D::Render()
 	cabin.transform.M[12] += cb_offset.getX();
 	cabin.transform.M[13] += cb_offset.getY();
 	cabin.transform.M[14] += cb_offset.getZ();
-	cabin.color = Red;
+	cabin.color = Beige;
 
 	Cube trunk(info.trunk_size);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&trunk.transform);
@@ -68,7 +68,7 @@ void PhysVehicle3D::Render()
 	trunk.transform.M[12] += tr_offset.getX();
 	trunk.transform.M[13] += tr_offset.getY();
 	trunk.transform.M[14] += tr_offset.getZ();
-	trunk.color = Beige;
+	trunk.color = Dark_Red;
 
 	//chassis.Render();
 	trunk.Render();
