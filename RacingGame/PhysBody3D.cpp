@@ -159,6 +159,11 @@ void PhysBody3D::SetAsSensor(bool is_sensor) {
 	}
 }
 
+void PhysBody3D::SetLinearVelocity(float x, float y, float z) {
+	btVector3 v(x, y, z);
+	body->setLinearVelocity(v);
+}
+
 void PhysBody3D::SetAngularVelocity(float x, float y, float z)
 {
 	btVector3 v(x, y, z);

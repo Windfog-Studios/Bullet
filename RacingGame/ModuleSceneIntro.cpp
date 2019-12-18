@@ -43,10 +43,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
+	CreateBollards();
 	CreateDecoration();
 	CreateBuildings();
 	CreatePizza();
-	CreateBollards();
 	
 	//Save initial position
 	Save();
@@ -111,17 +111,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	//App->camera->LookAt(vec3(400, 10, 400));
-	//Plane p(vec3(0, 1, 0));
-	//p.color = Dark_Grey;
-	//p.axis = true;
-	//p.Render();
-	/*
-	Cube* p = new Cube({ 500, 0.1, 500 }, 0);
-	p->color = Darker_Grey;
-	p->SetPos(0, -1, 0);
-	p->Render();
-	*/
+
 	if (App->debug == true)
 		HandleDebugInput();
 
@@ -721,8 +711,10 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 
 void ModuleSceneIntro::CreateBollards() {
 	
+	//initial position
 	CreateSingleBollard(-2.5, 8,1);
 	CreateSingleBollard(-5.5, 8,1);
+
 
 	CreateSingleBollard(25, 50,2);
 	CreateSingleBollard(22, 50,2);

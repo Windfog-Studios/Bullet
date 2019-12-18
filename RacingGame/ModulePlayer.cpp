@@ -27,8 +27,8 @@ bool ModulePlayer::Start()
 
 	// Car properties ----------------------------------------
 	car.mass = 500.0f;
-	car.suspensionStiffness = 15.88f;
-	car.suspensionCompression = 0.83f;
+	car.suspensionStiffness = 13.88f;
+	car.suspensionCompression = 0.93f;
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
@@ -49,7 +49,7 @@ bool ModulePlayer::Start()
 	float back_wheels_displacement = -0.4;
 	float wheel_radius = 0.55f;
 	float wheel_width = 0.38f;
-	float suspensionRestLength = 1.1f;
+	float suspensionRestLength = 1.15f;
 
 	// Don't change anything below this line ------------------
 
@@ -80,7 +80,7 @@ bool ModulePlayer::Start()
 	car.wheels[1].axis = axis;
 	car.wheels[1].suspensionRestLength = suspensionRestLength;
 	car.wheels[1].radius = wheel_radius;
-	car.wheels[1].width = wheel_width * 1.5f;
+	car.wheels[1].width = wheel_width * 1.4f;
 	car.wheels[1].front = false;
 	car.wheels[1].drive = false;
 	car.wheels[1].brake = true;
@@ -92,7 +92,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].axis = axis;
 	car.wheels[2].suspensionRestLength = suspensionRestLength;
 	car.wheels[2].radius = wheel_radius;
-	car.wheels[2].width = wheel_width * 1.5f;
+	car.wheels[2].width = wheel_width * 1.4f;
 	car.wheels[2].front = false;
 	car.wheels[2].drive = false;
 	car.wheels[2].brake = true;
@@ -172,11 +172,22 @@ update_status ModulePlayer::Update(float dt)
 		acceleration = MAX_ACCELERATION * 2;
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		if (vehicle->HasBody())
 		{
-			vehicle->GetBody()->activate();
-			vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)200, (float)1));
+			//vehicle->GetBody()->activate();
+			//vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)1000, (float)1));
+			vehicle->SetAngularVelocity(0, 0, 0);
+			//vehicle->SetLinearVelocity(0, 0, 0);
+			if (floor(vehicle->GetKmh()) > 2)
+			{
+				acceleration = -MAX_ACCELERATION * 10;
+			}
+			else if (floor(vehicle->GetKmh()) < -2)
+			{
+				acceleration = MAX_ACCELERATION * 10;
+			}
+			//vehicle.bo
 		}
 	}
 
@@ -207,16 +218,9 @@ update_status ModulePlayer::Update(float dt)
 			top_view = true;
 			App->camera->Position.x = 0.0f;
 			App->camera->Position.y = 350.0f;
-			App->camera->Position.z = 0.0f;
+			App->camera->Position.z = 30.0f;
 		}
 	}
-	if (time_left2 >= 0)
-	{
-		acceleration = turn = 0;
-	}
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
 
 	//update sensor and timer
 	UpdateSensorAndBar(forward);
@@ -243,6 +247,19 @@ update_status ModulePlayer::Update(float dt)
 		App->window->SetTitle(title);
 	}
 
+	if (time_left2 >= 0)
+	{
+		acceleration = turn = 0;
+		char title[30];
+		sprintf_s(title, "Time to go: %i", (int)time_left2);
+		App->window->SetTitle(title);
+	}
+
+
+	vehicle->ApplyEngineForce(acceleration);
+	vehicle->Turn(turn);
+	vehicle->Brake(brake);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -252,8 +269,8 @@ void ModulePlayer::RestartGame() {
 	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
-	App->scene_intro->p = 0;
-	App->scene_intro->changePizzaPosition(0);
+	App->scene_intro->p = -1;
+	App->scene_intro->changePizzaPosition(-1);
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {

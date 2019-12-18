@@ -134,6 +134,7 @@ update_status ModuleInput::Update(float dt)
 		App->scene_intro->DestroyWinningMap();
 		App->scene_intro->showing_winning_map = false;
 		App->scene_intro->winning_map_created = false;
+		App->scene_intro->p = 0;
 	}
 
 
