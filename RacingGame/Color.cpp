@@ -2,7 +2,9 @@
 #include "Color.h"
 
 Color Red = Color(1.0f, 0.0f, 0.0f);
+Color Dark_Red = Color(0.8f, 0.2f, 0.2f);
 Color Green = Color(0.0f, 1.0f, 0.0f);
+Color Dark_Green = Color(0.2f, 0.5f, 0.2f);
 Color Blue = Color(0.0f, 0.0f, 1.0f);
 Color Yellow = Color(1.0f, 1.0f, 0.0f);
 Color Black = Color(0.0f, 0.0f, 0.0f);
