@@ -43,10 +43,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
+	CreateBollards();
 	CreateDecoration();
 	CreateBuildings();
 	CreatePizza();
-	CreateBollards();
+	
 	
 	//Save initial position
 	Save();
@@ -78,9 +79,7 @@ void ModuleSceneIntro::HandleDebugInput()
 	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		for (uint n = 0; n < primitives.Count(); n++)
 			primitives[n]->body.Push(vec3((float)(std::rand() % 500) - 250, 500, (float)(std::rand() % 500) - 250));
-	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
-		p = 9;
-
+	
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		//Get a vector indicating the direction from the camera viewpoint to the "mouse"
@@ -782,6 +781,7 @@ void ModuleSceneIntro::CreateWinningMap() {
 	primitives.PushBack(winning_floor);
 	winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
 
+	//big pizza
 	{
 		Cube* base = new Cube({ 10, 1, 10 }, 0);
 		winning_primitives.PushBack(base);
@@ -830,6 +830,150 @@ void ModuleSceneIntro::CreateWinningMap() {
 		pepperoni4->color = Dark_Red;
 		pepperoni4->SetPos(400, 2.8f, 398);
 	}
+
+	//you won
+	{
+		//Y
+		{
+			Cube* letras = new Cube({ 2, 6, 2 }, 0);
+			letras->color = Green;
+			letras->SetPos(389, 3, 391);
+			primitives.PushBack(letras);
+
+			Cube* letras2 = new Cube({ 2, 4, 2 }, 0);
+			letras2->transform.rotate(45.f, vec3(1, 0, 0));
+			letras2->color = Green;
+			letras2->SetPos(389, 5.5f, 392);
+			primitives.PushBack(letras2);
+
+			Cube* letras3 = new Cube({ 2, 4, 2 }, 0);
+			letras3->transform.rotate(-45.f, vec3(1, 0, 0));
+			letras3->color = Green;
+			letras3->SetPos(389, 5.5f, 390);
+			primitives.PushBack(letras3);
+
+		}
+
+		//O
+		{
+			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
+			letras4->color = Green;
+			letras4->SetPos(389, 3, 396);
+			primitives.PushBack(letras4);
+			
+			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
+			letras5->color = Green;
+			letras5->SetPos(389, 3, 400);
+			primitives.PushBack(letras5);
+
+			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
+			letras6->transform.rotate(90, vec3(1, 0, 0));
+			letras6->color = Green;
+			letras6->SetPos(389, 1, 398);
+			primitives.PushBack(letras6);
+
+			Cube* letras7 = new Cube({ 2, 5, 2 }, 0);
+			letras7->transform.rotate(90, vec3(1, 0, 0));
+			letras7->color = Green;
+			letras7->SetPos(389, 5, 398);
+			primitives.PushBack(letras7);
+		}
+
+		//U
+		{
+			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
+			letras4->color = Green;
+			letras4->SetPos(389, 3, 403);
+			primitives.PushBack(letras4);
+
+			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
+			letras5->color = Green;
+			letras5->SetPos(389, 3, 407);
+			primitives.PushBack(letras5);
+
+			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
+			letras6->transform.rotate(90, vec3(1, 0, 0));
+			letras6->color = Green;
+			letras6->SetPos(389, 1, 405);
+			primitives.PushBack(letras6);
+
+		}
+
+		//W
+		{
+			Cube* letras7 = new Cube({ 2, 6, 2 }, 0);
+			letras7->transform.rotate(30, vec3(0, 0, 1));
+			letras7->color = Green;
+			letras7->SetPos(392, 3.2, 409);
+			primitives.PushBack(letras7);
+
+			Cube* letras8 = new Cube({ 2, 4, 2 }, 0);
+			letras8->transform.rotate(-30, vec3(0, 0, 1));
+			letras8->color = Green;
+			letras8->SetPos(394, 2.5f, 409);
+			primitives.PushBack(letras8);
+
+			Cube* letras9 = new Cube({ 2, 4, 2 }, 0);
+			letras9->transform.rotate(30, vec3(0, 0, 1));
+			letras9->color = Green;
+			letras9->SetPos(396, 2.5f, 409);
+			primitives.PushBack(letras9);
+
+			Cube* letras10 = new Cube({ 2, 6, 2 }, 0);
+			letras10->transform.rotate(-30, vec3(0, 0, 1));
+			letras10->color = Green;
+			letras10->SetPos(398, 3.2, 409);
+			primitives.PushBack(letras10);
+
+		}
+
+		//O
+		{
+			Cube* letras11 = new Cube({ 2, 6, 2 }, 0);
+			letras11->color = Green;
+			letras11->SetPos(402, 3, 409);
+			primitives.PushBack(letras11);
+
+			Cube* letras12 = new Cube({ 2, 6, 2 }, 0);
+			letras12->color = Green;
+			letras12->SetPos(406, 3, 409);
+			primitives.PushBack(letras12);
+
+			Cube* letras13 = new Cube({ 2, 5, 2 }, 0);
+			letras13->transform.rotate(90, vec3(0, 0, 1));
+			letras13->color = Green;
+			letras13->SetPos(404.5f, 1, 409);
+			primitives.PushBack(letras13);
+
+			Cube* letras14 = new Cube({ 2, 5, 2 }, 0);
+			letras14->transform.rotate(90, vec3(0, 0, 1));
+			letras14->color = Green;
+			letras14->SetPos(404.5f, 5, 409);
+			primitives.PushBack(letras14);
+		}
+
+		//N
+		{
+			Cube* letras15 = new Cube({ 2, 6, 2 }, 0);
+			letras15->color = Green;
+			letras15->SetPos(409, 3, 409);
+			primitives.PushBack(letras15);
+
+			Cube* letras16 = new Cube({ 2, 6, 2 }, 0);
+			letras16->color = Green;
+			letras16->SetPos(413, 3, 409);
+			primitives.PushBack(letras16);
+
+			Cube* letras17 = new Cube({ 2, 6, 2 }, 0);
+			letras17->transform.rotate(37, vec3(0, 0, 1));
+			letras17->color = Green;
+			letras17->SetPos(411, 3, 409);
+			primitives.PushBack(letras17);
+
+		}
+
+	}
+	
 
 	for (int i = 0; i < object_numb; i++)
 	{
