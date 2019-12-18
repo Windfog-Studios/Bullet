@@ -29,6 +29,7 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	bollard_change_time = 5;
 	max_time = 3;
 	play_music = false;
+	bollards_A_up = true;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -147,30 +148,27 @@ update_status ModuleSceneIntro::Update(float dt)
 		play_music = false;
 	}
 
-	/*
-	//if (bollard_timer.Read() > bollard_change_time * 1000) {
-		for (int i = 0; i < bollards.Count(); i++)
-		{
-		if (bollards[i]->GetPos().y > 0)
-		{
-			//bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y - 6, bollards[i]->GetPos().z);
-		}
+	if (bollard_timer.Read() > bollard_change_time * 1000) {
+		bollard_timer.Start();
+		if (bollards_A_up) { bollards_A_up = false; }
 		else
 		{
-			//bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y + 6, bollards[i]->GetPos().z);
+			bollards_A_up = true;
 		}
-		bollards[i]->body.Push(vec3(10, 10, 0));
-		}
-		bollard_timer.Start();
-	//}
-	*/
-
-	for (int i = 0; i < bollards.Count(); i++)
-	{
-		bollards[i]->body.Push(vec3(100,100,100));
 	}
 
-
+	if(bollards_A_up){
+		for (int i = 0; i < bollards_A.Count(); i++) {
+			bollards_A[i]->body.Push(vec3(0, 100000, 0));
+		}
+	}
+	else
+	{
+		for (int i = 0; i < bollards_A.Count(); i++) {
+			bollards_B[i]->body.Push(vec3(0, 100000, 0));
+		}
+	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -802,13 +800,18 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 		Save();
 }
 
-void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
+void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 	Cube* bollard;
-	bollard = new Cube(vec3(0.5, 3, 0.5), 1);
+	bollard = new Cube(vec3(0.5, 3, 0.5), 1000);
 	primitives.PushBack(bollard);
 	bollard->SetPos(x, 1.5f, z);
 	bollard->color = Yellow;
-	bollards.PushBack(bollard);
+
+	if(group == 1)
+		bollards_A.PushBack(bollard);
+
+	if (group == 2)
+		bollards_B.PushBack(bollard);
 
 	Cube* bollardBase;
 	bollardBase = new Cube(vec3(0.8, 0.2, 0.8), 0);
@@ -832,7 +835,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
 	bollards_c.PushBack(constraint);
 	constraint->setPoweredAngMotor(true);
-	constraint->setTargetAngMotorVelocity(20);
+	constraint->setTargetAngMotorVelocity(2);
 	constraint->setLowerAngLimit(-0.1);
 	constraint->setUpperAngLimit(0.1);
 
@@ -855,53 +858,53 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 
 
 void ModuleSceneIntro::CreateBollards() {
-	CreateSingleBollard(-2.5, 8);
-	CreateSingleBollard(-5.5, 8);
+	CreateSingleBollard(-2.5, 8,1);
+	CreateSingleBollard(-5.5, 8,1);
 
-	CreateSingleBollard(25, 50);
-	CreateSingleBollard(22, 50);
-	CreateSingleBollard(19, 50);
-	CreateSingleBollard(16, 50);
+	CreateSingleBollard(25, 50,2);
+	CreateSingleBollard(22, 50,2);
+	CreateSingleBollard(19, 50,2);
+	CreateSingleBollard(16, 50,2);
 
-	CreateSingleBollard(-17.5, -88.5);
-	CreateSingleBollard(-21.5, -88.5);
-	CreateSingleBollard(-25.5, -88.5);
-	CreateSingleBollard(-29.5, -88.5);
+	CreateSingleBollard(-17.5, -88.5,1);
+	CreateSingleBollard(-21.5, -88.5,1);
+	CreateSingleBollard(-25.5, -88.5,1);
+	CreateSingleBollard(-29.5, -88.5,1);
 
-	CreateSingleBollard(46.5, -88.5);
-	CreateSingleBollard(50.5, -88.5);
-	CreateSingleBollard(54.5, -88.5);
-	CreateSingleBollard(58.5, -88.5);
-	CreateSingleBollard(62.5, -88.5);
+	CreateSingleBollard(46.5, -88.5,2);
+	CreateSingleBollard(50.5, -88.5,2);
+	CreateSingleBollard(54.5, -88.5,2);
+	CreateSingleBollard(58.5, -88.5,2);
+	CreateSingleBollard(62.5, -88.5,2);
 
-	CreateSingleBollard(-74, 7);
-	CreateSingleBollard(-74, 2.5);
-	CreateSingleBollard(-74, -2);
-	CreateSingleBollard(-74, -6.5);
+	CreateSingleBollard(-74, 7,2);
+	CreateSingleBollard(-74, 2.5,2);
+	CreateSingleBollard(-74, -2,2);
+	CreateSingleBollard(-74, -6.5,2);
 
-	CreateSingleBollard(20.5, 97.5);
-	CreateSingleBollard(17.5, 97.5);
-	CreateSingleBollard(14.5, 97.5);
-	CreateSingleBollard(11.5, 97.5);
-	CreateSingleBollard(8.5, 97.5);
-	CreateSingleBollard(5.5, 97.5);
-	CreateSingleBollard(2.5, 97.5);
+	CreateSingleBollard(20.5, 97.5,2);
+	CreateSingleBollard(17.5, 97.5,2);
+	CreateSingleBollard(14.5, 97.5,2);
+	CreateSingleBollard(11.5, 97.5,2);
+	CreateSingleBollard(8.5, 97.5,2);
+	CreateSingleBollard(5.5, 97.5,2);
+	CreateSingleBollard(2.5, 97.5,2);
 
-	CreateSingleBollard(100, 97.5);
-	CreateSingleBollard(97, 97.5);
-	CreateSingleBollard(94, 97.5);
-	CreateSingleBollard(91, 97.5);
-	CreateSingleBollard(88, 97.5);
-	CreateSingleBollard(85, 97.5);
-	CreateSingleBollard(82, 97.5);
-	CreateSingleBollard(79, 97.5);
+	CreateSingleBollard(100, 97.5,1);
+	CreateSingleBollard(97, 97.5,1);
+	CreateSingleBollard(94, 97.5,1);
+	CreateSingleBollard(91, 97.5,1);
+	CreateSingleBollard(88, 97.5,1);
+	CreateSingleBollard(85, 97.5,1);
+	CreateSingleBollard(82, 97.5,1);
+	CreateSingleBollard(79, 97.5,1);
 
-	CreateSingleBollard(110, -27.5);
-	CreateSingleBollard(110, -30.5);
-	CreateSingleBollard(110, -33.5);
-	CreateSingleBollard(110, -36.5);
-	CreateSingleBollard(110, -39.5);
-	CreateSingleBollard(110, -42.5);
-	CreateSingleBollard(110, -45.5);
+	CreateSingleBollard(110, -27.5,2);
+	CreateSingleBollard(110, -30.5,2);
+	CreateSingleBollard(110, -33.5,2);
+	CreateSingleBollard(110, -36.5,2);
+	CreateSingleBollard(110, -39.5,2);
+	CreateSingleBollard(110, -42.5,2);
+	CreateSingleBollard(110, -45.5,2);
 }
 

@@ -36,12 +36,13 @@ public:
 	void CreateFence(int first_cylinder_position);
 	void CreateDecoration();
 	void CreateBollards();
-	void CreateSingleBollard(float x, float z);
+	void CreateSingleBollard(float x, float z, int group);
 
 	void changePizzaPosition(int x, int y, int z);
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
-	p2DynArray<Cube*> bollards;
+	p2DynArray<Cube*> bollards_A;
+	p2DynArray<Cube*> bollards_B;
 	p2DynArray<btSliderConstraint*> bollards_c;
 	p2DynArray<btGeneric6DofConstraint*> bollards_b;
 
@@ -54,6 +55,7 @@ private:
 	p2DynArray<Primitive*>	primitives;
 	Timer					bollard_timer;
 	int						bollard_change_time;
+	bool					bollards_A_up;
 public:
 	Timer					start_timer;
 	float					max_time;
