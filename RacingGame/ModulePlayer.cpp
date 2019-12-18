@@ -11,6 +11,8 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(
 	turn = acceleration = brake = 0.0f;
 	max_time = 30;
 	max_time2 = 4;
+	max_time3 = 2;
+	max_time4 = 5;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -116,6 +118,7 @@ bool ModulePlayer::Start()
 	initial_position = vehicle->position;
 
 	timer2.Start();
+	boost_cooldown.Start();
 
 	mamma_mia = App->audio->LoadFx("MammaMia.wav");
 	Delivery = App->audio->LoadFx("Delivery.wav");
@@ -161,6 +164,11 @@ update_status ModulePlayer::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		{
 			acceleration = -MAX_ACCELERATION;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
+		{
+			acceleration = MAX_ACCELERATION * 2;
 		}
 	}
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {

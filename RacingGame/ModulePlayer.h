@@ -32,9 +32,13 @@ public:
 	Cube* arrowBottomHead;
 	Timer timer;
 	Timer timer2;
-
+	Timer boost_duration;
+	Timer boost_cooldown;
+	
 	float	max_time;
 	float	max_time2;
+	float	max_time3;
+	float	max_time4;
 	float	time_left;
 	float	time_left2;
 	float	turn;

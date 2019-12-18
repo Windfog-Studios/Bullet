@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 	start_timer.Start();
 	
 	start = App->audio->LoadFx("Start.wav");
-	App->audio->PlayFx(start);
+	//App->audio->PlayFx(start);
 
 
 	//App->audio->VolumeMusic(0);
@@ -143,6 +143,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (play_music)
 	{
 		App->audio->PlayMusic("Italian_music.ogg");
+		App->audio->VolumeMusic(20);
 		play_music = false;
 	}
 
