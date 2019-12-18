@@ -40,6 +40,7 @@ bool ModuleSceneIntro::Start()
 	start_timer.Start();
 
 	start = App->audio->LoadFx("Start.wav");
+	App->audio->PlayFx(start);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
