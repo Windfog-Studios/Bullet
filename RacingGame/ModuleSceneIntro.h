@@ -33,10 +33,10 @@ public:
 
 	void CreateBuildings();
 	void CreatePizza();
-	void CreateFence(int first_cylinder_position);
 	void CreateDecoration();
 	void CreateBollards();
 	void CreateSingleBollard(float x, float z, int group);
+	void CreateWinningMap();
 
 	void changePizzaPosition(int x, int y, int z);
 
