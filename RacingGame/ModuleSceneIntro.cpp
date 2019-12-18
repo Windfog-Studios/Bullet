@@ -53,10 +53,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
-	CreateDecoration();
-	CreateBuildings();
-	CreatePizza();
-	CreateBollards();
+	//CreateDecoration();
+	//CreateBuildings();
+	//CreatePizza();
+	//CreateBollards();
 	CreateWinningMap();
 	
 	//Save initial position
@@ -118,7 +118,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	
+	App->camera->LookAt(vec3(400, 10, 400));
 	//Plane p(vec3(0, 1, 0));
 	//p.color = Dark_Grey;
 	//p.axis = true;
@@ -762,7 +762,25 @@ void ModuleSceneIntro::CreateBollards() {
 }
 
 void ModuleSceneIntro::CreateWinningMap() {
-	Cube winning_floor(vec3(30, 0.1, 30), 0);
-	winning_floor.SetPos(400, 0, 400);
-	winning_floor.color = Blue;
+	App->camera->Move(vec3(400, 10, 370));
+	
+	int object_numb = 100;
+
+	Cube* winning_floor = new Cube(vec3(30, 0.1, 30), 0);
+	winning_floor->SetPos(400, 0, 400);
+	primitives.PushBack(winning_floor);
+	winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+
+	for (int i = 0; i < object_numb; i++)
+	{
+		float size = std::rand() % 10;
+		size = size * 0.1f;
+		Sphere* ball = new Sphere(size);
+		ball->SetPos((float)(std::rand() % 30) + 385, 45, (float)(std::rand() % 30) + 385);
+		ball->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+		ball->body.Push(vec3((float)(std::rand() % 1), 0, (float)(std::rand() % 1)));
+		ball->body.GetBody()->setRestitution(1);
+		primitives.PushBack(ball);
+	}
+
 }

@@ -182,15 +182,15 @@ update_status ModulePlayer::Update(float dt)
 		//camera control
 		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{
-			App->camera->LookAt(vec3(position.x, position.y, position.z));
+			//App->camera->LookAt(vec3(position.x, position.y, position.z));
 		}
 		else if (!App->debug)
 		{
 			if (!top_view)
 			{
-				App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+				//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 			}
-			App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
+			//App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
