@@ -118,10 +118,10 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 update_status ModuleSceneIntro::Update(float dt)
 {
 	
-	Plane p(vec3(0, 1, 0));
-	p.color = Dark_Grey;
-	p.axis = true;
-	p.Render();
+	//Plane p(vec3(0, 1, 0));
+	//p.color = Dark_Grey;
+	//p.axis = true;
+	//p.Render();
 	/*
 	Cube* p = new Cube({ 500, 0.1, 500 }, 0);
 	p->color = Darker_Grey;
@@ -147,24 +147,38 @@ update_status ModuleSceneIntro::Update(float dt)
 		play_music = false;
 	}
 
-	
-	if (bollard_timer.Read() > bollard_change_time * 1000) {
+	/*
+	//if (bollard_timer.Read() > bollard_change_time * 1000) {
 		for (int i = 0; i < bollards.Count(); i++)
 		{
 		if (bollards[i]->GetPos().y > 0)
 		{
-			bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y - 6, bollards[i]->GetPos().z);
+			//bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y - 6, bollards[i]->GetPos().z);
 		}
 		else
 		{
-			bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y + 6, bollards[i]->GetPos().z);
+			//bollards[i]->SetPos(bollards[i]->GetPos().x, bollards[i]->GetPos().y + 6, bollards[i]->GetPos().z);
 		}
-
+		bollards[i]->body.Push(vec3(10, 10, 0));
 		}
 		bollard_timer.Start();
-	}
+	//}
+	*/
 
-	//bollards[i]->body.Push(vec3(1, 1, 0));
+	for (int i = 0; i < bollards_c.Count(); i++)
+	{
+		bollards_c[i]->setPoweredAngMotor(true);
+		bollards_c[i]->setTargetAngMotorVelocity(10);
+		bollards_c[i]->setLowerAngLimit(0.0f);
+		bollards_c[i]->setUpperAngLimit(1.0f);
+
+		bollards_c[i]->setPoweredLinMotor(true);
+		bollards_c[i]->setTargetLinMotorVelocity(1);
+		bollards_c[i]->setLowerLinLimit(-5.0f);
+		bollards_c[i]->setUpperLinLimit(5.0f);
+		bollards[i]->body.Push(vec3(100, 0, 100));
+		bollards[i]->body.Push(vec3(1, 1, 0));
+	}
 
 
 	return UPDATE_CONTINUE;
@@ -800,8 +814,8 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	Cube* bollard;
-	//bollard = new Cube(vec3(0.5, 3, 0.5),1000);
-	bollard = new Cube(vec3(0.5, 3, 0.5), 0);
+	bollard = new Cube(vec3(0.5, 3, 0.5),1000);
+	//bollard = new Cube(vec3(0.5, 3, 0.5), 0);
 	primitives.PushBack(bollard);
 	bollard->SetPos(x, 1, z);
 	bollard->color = Yellow;
@@ -813,7 +827,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	bollardBase->SetPos(x, 0, z);
 	bollardBase->color = Grey;
 
-	/*
+	
 	btTransform frameInA, frameInB;
 	
 	btSliderConstraint* constraint;
@@ -835,7 +849,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	constraint->setTargetLinMotorVelocity(10);
 	constraint->setLowerLinLimit(-5.0f);
 	constraint->setUpperLinLimit(5.0f);
-	*/
+	
 	/*
 	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);
 	constraint->setAngularLowerLimit(btVector3(0, 0, 0));
