@@ -858,7 +858,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 
 
 void ModuleSceneIntro::CreateBollards() {
-	/*
+	
 	CreateSingleBollard(-2.5, 8,1);
 	CreateSingleBollard(-5.5, 8,1);
 
@@ -871,7 +871,7 @@ void ModuleSceneIntro::CreateBollards() {
 	CreateSingleBollard(-21.5, -88.5,1);
 	CreateSingleBollard(-25.5, -88.5,1);
 	CreateSingleBollard(-29.5, -88.5,1);
-	*/
+	
 	CreateSingleBollard(46.5, -88.5,2);
 	CreateSingleBollard(50.5, -88.5,2);
 	CreateSingleBollard(54.5, -88.5,2);
