@@ -772,8 +772,8 @@ void ModuleSceneIntro::CreateBollards() {
 }
 
 void ModuleSceneIntro::CreateWinningMap() {
-	App->camera->Move(vec3(365, 25, 420));
-	
+	App->camera->Move(vec3(375, 20, 435));
+
 	int object_numb = 150;
 	float tape_angle = 60.f;
 
@@ -836,7 +836,7 @@ void ModuleSceneIntro::CreateWinningMap() {
 		float size = std::rand() % 10;
 		size = size * 0.1f;
 		Sphere* ball = new Sphere(size);
-		ball->SetPos((float)(std::rand() % 30) + 385, 45, (float)(std::rand() % 30) + 385);
+		ball->SetPos((float)(std::rand() % 30) + 385, 35, (float)(std::rand() % 30) + 385);
 		ball->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
 		ball->body.Push(vec3((float)(std::rand() % 10), 0, (float)(std::rand() % 10)));
 		ball->body.GetBody()->setRestitution(1);
