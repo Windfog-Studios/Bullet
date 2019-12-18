@@ -762,14 +762,64 @@ void ModuleSceneIntro::CreateBollards() {
 }
 
 void ModuleSceneIntro::CreateWinningMap() {
-	App->camera->Move(vec3(400, 10, 370));
+	App->camera->Move(vec3(400, 15, 450));
 	
 	int object_numb = 100;
+	float tape_angle = 60.f;
 
 	Cube* winning_floor = new Cube(vec3(30, 0.1, 30), 0);
 	winning_floor->SetPos(400, 0, 400);
 	primitives.PushBack(winning_floor);
 	winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+
+	{
+		Cube* base = new Cube({ 10, 1, 10 }, 0);
+		primitives.PushBack(base);
+		base->color = Beige;
+		base->SetPos(400, 2, 400);
+		
+		Cube* tape = new Cube({ 10, 1, 10 }, 0);
+		tape->transform.rotate(tape_angle, vec3(0, 0, 1));
+		primitives.PushBack(tape);
+		tape->color = Beige;
+		tape->SetPos(407, 6, 400);
+
+		Cylinder* pizza = new Cylinder(3.5, 0.2f, 0);
+		pizza->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pizza);
+		pizza->color = Red;
+		pizza->SetPos(400, 2.7f, 400);
+
+		Cylinder* pizza2 = new Cylinder(4, 0.3f, 0);
+		pizza2->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pizza2);
+		pizza2->color = Beige;
+		pizza2->SetPos(400, 2.5, 400);
+
+		Cylinder* pepperoni1 = new Cylinder(1, 0.2f, 0);
+		pepperoni1->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pepperoni1);
+		pepperoni1->color = Dark_Red;
+		pepperoni1->SetPos(402, 2.8f, 400);
+
+		Cylinder* pepperoni2 = new Cylinder(1, 0.2f, 0);
+		pepperoni2->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pepperoni2);
+		pepperoni2->color = Dark_Red;
+		pepperoni2->SetPos(400, 2.8f, 402);
+
+		Cylinder* pepperoni3 = new Cylinder(1, 0.2f, 0);
+		pepperoni3->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pepperoni3);
+		pepperoni3->color = Dark_Red;
+		pepperoni3->SetPos(398, 2.8f, 400);
+
+		Cylinder* pepperoni4 = new Cylinder(1, 0.2f, 0);
+		pepperoni4->transform.rotate(90.f, vec3(0, 0, 1));
+		primitives.PushBack(pepperoni4);
+		pepperoni4->color = Dark_Red;
+		pepperoni4->SetPos(400, 2.8f, 398);
+	}
 
 	for (int i = 0; i < object_numb; i++)
 	{
