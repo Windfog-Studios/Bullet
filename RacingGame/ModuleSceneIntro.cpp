@@ -17,19 +17,14 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	pizza_position[7] = { 95, 1.1f, 85 }; //corner left
 	pizza_position[8] = { -67.5f, 1.1f, 82.5f }; //corner right
 	pizza_position[9] = { -25, 1.1f, -152.5f }; //mid bottom
-	
-	//Debug for changing pizza position
-	/*pizza_position[0] = { 5, 1.1f, 0 }; 
-	pizza_position[1] = { 10, 1.1f, 0 }; 
-	pizza_position[2] = { 15, 1.1f, 0 }; 
-	pizza_position[3] = { 20, 1.1f, 0 }; 
-	pizza_position[4] = { 25, 1.1f, 0 }; 
-	pizza_position[5] = { 30, 1.1f, 0 }; */
 
 	bollard_change_time = 5;
 	max_time = 3;
 	play_music = false;
 	bollards_A_up = true;
+	winning_map_created = false;
+	showing_winning_map = false;
+	p = 0;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -45,19 +40,13 @@ bool ModuleSceneIntro::Start()
 	start_timer.Start();
 	
 	start = App->audio->LoadFx("Start.wav");
-	//App->audio->PlayFx(start);
-
-
-	//App->audio->VolumeMusic(0);
-
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
-	//CreateDecoration();
-	//CreateBuildings();
-	//CreatePizza();
-	//CreateBollards();
-	CreateWinningMap();
+	CreateDecoration();
+	CreateBuildings();
+	CreatePizza();
+	CreateBollards();
 	
 	//Save initial position
 	Save();
@@ -87,6 +76,8 @@ void ModuleSceneIntro::HandleDebugInput()
 	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		for (uint n = 0; n < primitives.Count(); n++)
 			primitives[n]->body.Push(vec3((float)(std::rand() % 500) - 250, 500, (float)(std::rand() % 500) - 250));
+	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+		p = 9;
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -118,7 +109,7 @@ void ModuleSceneIntro::DebugSpawnPrimitive(Primitive * p)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	App->camera->LookAt(vec3(400, 10, 400));
+	//App->camera->LookAt(vec3(400, 10, 400));
 	//Plane p(vec3(0, 1, 0));
 	//p.color = Dark_Grey;
 	//p.axis = true;
@@ -139,6 +130,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		play_music = true;
 		start_timer.Stop();
+		App->player->timer.Start();
 	}
 
 	if (play_music)
@@ -169,6 +161,16 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 	}
 	
+	if ((p >= 9)&&(!winning_map_created))
+	{
+		CreateWinningMap();
+		winning_map_created = true;
+		p = 0;
+		App->window->SetTitle("You Won! Press R to Restart ");
+		showing_winning_map = true;
+	}
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -528,9 +530,9 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza->body.isPizza = true;
 
 	//We set the pizza position
-	changePizzaPosition(pizza_position[p].x,
-		pizza_position[p].y,
-		pizza_position[p].z);
+	pizza.tape->SetPos(pizza_position[0].x + 1.5f, pizza_position[0].y + 0.7f, pizza_position[0].z);
+	pizza.pizza->SetPos(pizza_position[0].x, pizza_position[0].y, pizza_position[0].z);
+	pizza.base->SetPos(pizza_position[0].x, pizza_position[0].y - 0.2f, pizza_position[0].z);
 }
 
 void ModuleSceneIntro::CreateDecoration()
@@ -640,17 +642,18 @@ void ModuleSceneIntro::CreateDecoration()
 	}
 }
 
-void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
-{
-	pizza.base->SetPos(x, y - 0.2f, z);
-	pizza.pizza->SetPos(x, y, z);
-	pizza.tape->SetPos(x + 1.5f, y + 0.7f, z);
-	
-	if (p < MAX_PIZZA_POSITIONS) { p++; }
+void ModuleSceneIntro::changePizzaPosition(int position)
+{	
+	if (p < MAX_PIZZA_POSITIONS)
+	{ p++; }
 	else { p = 0; }
 
 	if (p == 3 || p == 6)
 		Save();
+
+	pizza.base->SetPos(pizza_position[position].x, pizza_position[position].y - 0.2f, pizza_position[position].z);
+	pizza.pizza->SetPos(pizza_position[position].x, pizza_position[position].y, pizza_position[position].z);
+	pizza.tape->SetPos(pizza_position[position].x + 1.5f, pizza_position[position].y + 0.7f, pizza_position[position].z);
 }
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
@@ -683,7 +686,7 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 	frameInA.getBasis().setEulerZYX(0, 0, M_PI_2);
 	frameInB.getBasis().setEulerZYX(0, 0, M_PI_2);
 	frameInA.setOrigin(btVector3(0.f, 0, 0.f));
-	frameInB.setOrigin(btVector3(0.f, -3.f, 0.f));
+	frameInB.setOrigin(btVector3(0.f, -2.6f, 0.f));
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
 	bollards_c.PushBack(constraint);
@@ -694,8 +697,8 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 
 	constraint->setPoweredLinMotor(true);
 	constraint->setTargetLinMotorVelocity(0);
-	constraint->setLowerLinLimit(-10.0f);
-	constraint->setUpperLinLimit(10.0f);
+	constraint->setLowerLinLimit(-9.6f);
+	constraint->setUpperLinLimit(9.6f);
 	
 	/*
 	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);

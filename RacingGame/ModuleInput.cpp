@@ -127,8 +127,11 @@ update_status ModuleInput::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->renderPrimitives = !App->renderPrimitives;
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		App->player->RestartGame();
+		App->scene_intro->showing_winning_map = false;
+	}
+
 
 	return UPDATE_CONTINUE;
 }

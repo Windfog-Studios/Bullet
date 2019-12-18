@@ -142,71 +142,75 @@ update_status ModulePlayer::Update(float dt)
 
 	time_left2 = max_time2 - timer2.Read() * 0.001f;
 	//Input
-	if (time_left2 <= 0)
-	{	
-		if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
-		{
-			acceleration = MAX_ACCELERATION;
-		}
+	if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
+	{
+		acceleration = MAX_ACCELERATION;
+	}
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		{
-			if (turn < TURN_DEGREES)
-				turn += TURN_DEGREES;
-		}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		if (turn < TURN_DEGREES)
+			turn += TURN_DEGREES;
+	}
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
-			if (turn > -TURN_DEGREES)
-				turn -= TURN_DEGREES;
-		}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		if (turn > -TURN_DEGREES)
+			turn -= TURN_DEGREES;
+	}
 
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		{
-			acceleration = -MAX_ACCELERATION;
-		}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		acceleration = -MAX_ACCELERATION;
+	}
 
-		if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
+	{
+		acceleration = MAX_ACCELERATION * 2;
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (vehicle->HasBody())
 		{
-			acceleration = MAX_ACCELERATION * 2;
+			vehicle->GetBody()->activate();
+			vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)200, (float)1));
 		}
 	}
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			if (vehicle->HasBody())
-			{
-				vehicle->GetBody()->activate();
-				vehicle->GetBody()->applyCentralForce(btVector3((float)1, (float)200, (float)1));
-			}
-		}
 
-		//camera control
+	//camera control
+	if (!App->scene_intro->showing_winning_map)
+	{
 		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{
-			//App->camera->LookAt(vec3(position.x, position.y, position.z));
+			App->camera->LookAt(vec3(position.x, position.y, position.z));
 		}
 		else if (!App->debug)
 		{
 			if (!top_view)
 			{
-				//App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
+				App->camera->Position.Set(vehicle->position.x - forward.x * 10, 5.5f, vehicle->position.z - forward.z * 10);
 			}
-			//App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
+			App->camera->LookAt(vec3(position.x, position.y + 1.5f, position.z));
 		}
+	}
 
-		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-		{
-			if (top_view) {
-				top_view = false;
-			}
-			else
-			{
-				top_view = true;
-				App->camera->Position.x = 0.0f;
-				App->camera->Position.y = 350.0f;
-				App->camera->Position.z = 0.0f;
-			}
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		if (top_view) {
+			top_view = false;
 		}
-		
+		else
+		{
+			top_view = true;
+			App->camera->Position.x = 0.0f;
+			App->camera->Position.y = 350.0f;
+			App->camera->Position.z = 0.0f;
+		}
+	}
+	if (time_left2 >= 0)
+	{
+		acceleration = turn = 0;
+	}
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -229,22 +233,24 @@ update_status ModulePlayer::Update(float dt)
 	if (time_left <= 0)
 		RestartGame();
 
-	char title[80];
-	sprintf_s(title, "Racing Game %.1f Km/h Time left %.2f", vehicle->GetKmh(), time_left);
-	App->window->SetTitle(title);
+	if (!App->scene_intro->showing_winning_map)
+	{
+		char title[80];
+		sprintf_s(title, "Racing Game %.1f Km/h Time left %.2f Pizzas: %i", vehicle->GetKmh(), time_left, App->scene_intro->p);
+		App->window->SetTitle(title);
+	}
 
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::RestartGame() {
-	//vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
-	//vehicle->Stop();
 	App->scene_intro->Load();
 	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
 	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
 	App->scene_intro->p = 0;
+	App->scene_intro->changePizzaPosition(0);
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
@@ -252,9 +258,7 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 	if (body2->isPizza)
 	{
 		App->audio->PlayFx(Delivery);
-		App->scene_intro->changePizzaPosition(App->scene_intro->pizza_position[App->scene_intro->p].x,
-			App->scene_intro->pizza_position[App->scene_intro->p].y,
-			App->scene_intro->pizza_position[App->scene_intro->p].z);
+		App->scene_intro->changePizzaPosition(App->scene_intro->p);
 		time_left = max_time;
 		timer.Start();
 	}
@@ -268,12 +272,10 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
-	time_left = max_time - timer.Read() * 0.001f;
+	//time_left = max_time - timer.Read() * 0.001f;
 	
 	if (time_left <= 0)	
 		App->audio->PlayFx(mamma_mia);
-	
-	
 	
 	//arrow->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
 	arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));

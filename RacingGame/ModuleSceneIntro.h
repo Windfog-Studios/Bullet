@@ -38,7 +38,7 @@ public:
 	void CreateSingleBollard(float x, float z, int group);
 	void CreateWinningMap();
 
-	void changePizzaPosition(int x, int y, int z);
+	void changePizzaPosition(int position);
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	p2DynArray<Cube*> bollards_A;
@@ -60,8 +60,10 @@ public:
 	Timer					start_timer;
 	float					max_time;
 	bool					play_music;
+	bool					winning_map_created;
+	bool					showing_winning_map;
 	float					time_left;
-	int						p = 0;
+	int						p;
 	vec3					pizza_position[MAX_PIZZA_POSITIONS];
 	Pizza					pizza;
 	unsigned int			start = 0;
