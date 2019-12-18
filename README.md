@@ -1,22 +1,32 @@
-# Bullet
-
 ## Introduction
-Car racing game for Physics II subject at university.
+Become the best pizza deliver playing this funny physics game project!
 
-## Controls 
-### Gameplay
+## Controls
+### Movement
+UP - Accelerate
+DOWN - Decelerate / Move backwards 
+LEFT - Turn left
+RIGHT - Turn right
+SPACE - Brake
+
+### Extra
+R - Restart 
 
 ### Debug
+F1 - Enable ebug mode
+F2 - See meshes
+F3 - Finish the game
+ 
+### Gameplay
 
 
 ## Team
 * Pablo Galve: https://github.com/pablogalve
-* Marc Pagès: https://github.com/marcpages2020
 * Silvino Medina: https://github.com/silvino00
+* Marc Pagès: https://github.com/marcpages2020
 
-
-# GitHub Link
-* https://github.com/Windfog-Studios/Bullet
+## Link to our Github repository
+https://github.com/Windfog-Studios/RacingGame
 
 # License
 MIT License
