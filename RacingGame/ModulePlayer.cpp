@@ -130,7 +130,10 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
-
+	delete sensor;
+	delete arrow;
+	delete arrowTopHead;
+	delete arrowBottomHead;
 	return true;
 }
 
@@ -272,7 +275,7 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
 
-	//time_left = max_time - timer.Read() * 0.001f;
+	time_left = max_time - timer.Read() * 0.001f;
 	
 	if (time_left <= 0)	
 		App->audio->PlayFx(mamma_mia);

@@ -37,6 +37,7 @@ public:
 	void CreateBollards();
 	void CreateSingleBollard(float x, float z, int group);
 	void CreateWinningMap();
+	void DestroyWinningMap();
 
 	void changePizzaPosition(int position);
 
@@ -53,6 +54,7 @@ private:
 	void					HandleDebugInput();
 	void					DebugSpawnPrimitive(Primitive* p);
 	p2DynArray<Primitive*>	primitives;
+	p2DynArray<Primitive*>	winning_primitives;
 	Timer					bollard_timer;
 	int						bollard_change_time;
 	bool					bollards_A_up;

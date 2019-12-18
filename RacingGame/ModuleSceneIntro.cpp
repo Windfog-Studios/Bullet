@@ -24,7 +24,7 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	bollards_A_up = true;
 	winning_map_created = false;
 	showing_winning_map = false;
-	p = 0;
+	p = -1;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -58,6 +58,8 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	DestroyWinningMap();
 
 	return true;
 }
@@ -169,7 +171,15 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->window->SetTitle("You Won! Press R to Restart ");
 		showing_winning_map = true;
 	}
-
+	if (showing_winning_map)
+	{
+		App->camera->LookAt(vec3(400, 0, 400));
+		for (int i = 0; i < winning_primitives.Count(); i++)
+		{
+			winning_primitives[i]->Update();
+			winning_primitives[i]->Render();
+		}
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -530,9 +540,7 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza->body.isPizza = true;
 
 	//We set the pizza position
-	pizza.tape->SetPos(pizza_position[0].x + 1.5f, pizza_position[0].y + 0.7f, pizza_position[0].z);
-	pizza.pizza->SetPos(pizza_position[0].x, pizza_position[0].y, pizza_position[0].z);
-	pizza.base->SetPos(pizza_position[0].x, pizza_position[0].y - 0.2f, pizza_position[0].z);
+	changePizzaPosition(-1);
 }
 
 void ModuleSceneIntro::CreateDecoration()
@@ -650,10 +658,9 @@ void ModuleSceneIntro::changePizzaPosition(int position)
 
 	if (p == 3 || p == 6)
 		Save();
-
-	pizza.base->SetPos(pizza_position[position].x, pizza_position[position].y - 0.2f, pizza_position[position].z);
-	pizza.pizza->SetPos(pizza_position[position].x, pizza_position[position].y, pizza_position[position].z);
-	pizza.tape->SetPos(pizza_position[position].x + 1.5f, pizza_position[position].y + 0.7f, pizza_position[position].z);
+	pizza.base->SetPos(pizza_position[p].x, pizza_position[p].y - 0.2f, pizza_position[p].z);
+	pizza.pizza->SetPos(pizza_position[p].x, pizza_position[p].y, pizza_position[p].z);
+	pizza.tape->SetPos(pizza_position[p].x + 1.5f, pizza_position[p].y + 0.7f, pizza_position[p].z);
 }
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
@@ -765,9 +772,9 @@ void ModuleSceneIntro::CreateBollards() {
 }
 
 void ModuleSceneIntro::CreateWinningMap() {
-	App->camera->Move(vec3(400, 15, 450));
+	App->camera->Move(vec3(365, 25, 420));
 	
-	int object_numb = 100;
+	int object_numb = 150;
 	float tape_angle = 60.f;
 
 	Cube* winning_floor = new Cube(vec3(30, 0.1, 30), 0);
@@ -777,49 +784,49 @@ void ModuleSceneIntro::CreateWinningMap() {
 
 	{
 		Cube* base = new Cube({ 10, 1, 10 }, 0);
-		primitives.PushBack(base);
+		winning_primitives.PushBack(base);
 		base->color = Beige;
 		base->SetPos(400, 2, 400);
 		
 		Cube* tape = new Cube({ 10, 1, 10 }, 0);
 		tape->transform.rotate(tape_angle, vec3(0, 0, 1));
-		primitives.PushBack(tape);
+		winning_primitives.PushBack(tape);
 		tape->color = Beige;
 		tape->SetPos(407, 6, 400);
 
 		Cylinder* pizza = new Cylinder(3.5, 0.2f, 0);
 		pizza->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pizza);
+		winning_primitives.PushBack(pizza);
 		pizza->color = Red;
 		pizza->SetPos(400, 2.7f, 400);
 
 		Cylinder* pizza2 = new Cylinder(4, 0.3f, 0);
 		pizza2->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pizza2);
+		winning_primitives.PushBack(pizza2);
 		pizza2->color = Beige;
 		pizza2->SetPos(400, 2.5, 400);
 
 		Cylinder* pepperoni1 = new Cylinder(1, 0.2f, 0);
 		pepperoni1->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pepperoni1);
+		winning_primitives.PushBack(pepperoni1);
 		pepperoni1->color = Dark_Red;
 		pepperoni1->SetPos(402, 2.8f, 400);
 
 		Cylinder* pepperoni2 = new Cylinder(1, 0.2f, 0);
 		pepperoni2->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pepperoni2);
+		winning_primitives.PushBack(pepperoni2);
 		pepperoni2->color = Dark_Red;
 		pepperoni2->SetPos(400, 2.8f, 402);
 
 		Cylinder* pepperoni3 = new Cylinder(1, 0.2f, 0);
 		pepperoni3->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pepperoni3);
+		winning_primitives.PushBack(pepperoni3);
 		pepperoni3->color = Dark_Red;
 		pepperoni3->SetPos(398, 2.8f, 400);
 
 		Cylinder* pepperoni4 = new Cylinder(1, 0.2f, 0);
 		pepperoni4->transform.rotate(90.f, vec3(0, 0, 1));
-		primitives.PushBack(pepperoni4);
+		winning_primitives.PushBack(pepperoni4);
 		pepperoni4->color = Dark_Red;
 		pepperoni4->SetPos(400, 2.8f, 398);
 	}
@@ -831,9 +838,17 @@ void ModuleSceneIntro::CreateWinningMap() {
 		Sphere* ball = new Sphere(size);
 		ball->SetPos((float)(std::rand() % 30) + 385, 45, (float)(std::rand() % 30) + 385);
 		ball->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
-		ball->body.Push(vec3((float)(std::rand() % 1), 0, (float)(std::rand() % 1)));
+		ball->body.Push(vec3((float)(std::rand() % 10), 0, (float)(std::rand() % 10)));
 		ball->body.GetBody()->setRestitution(1);
-		primitives.PushBack(ball);
+		winning_primitives.PushBack(ball);
 	}
 
+}
+
+void ModuleSceneIntro::DestroyWinningMap() {
+	for (int i = 0; i < winning_primitives.Count(); i++)
+	{
+		winning_primitives[i]->body.~PhysBody3D();
+	}
+	winning_primitives.Clear();
 }
