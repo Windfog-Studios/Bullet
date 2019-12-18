@@ -25,7 +25,7 @@ F3 - Finish the game
 * Silvino Medina: https://github.com/silvino00
 * Marc Pagès: https://github.com/marcpages2020
 
-# Link to our Github repository
+## Link to our Github repository
 https://github.com/Windfog-Studios/RacingGame
 
 # License
