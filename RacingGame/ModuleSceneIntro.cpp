@@ -165,19 +165,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	//}
 	*/
 
-	for (int i = 0; i < bollards_c.Count(); i++)
+	for (int i = 0; i < bollards.Count(); i++)
 	{
-		bollards_c[i]->setPoweredAngMotor(true);
-		bollards_c[i]->setTargetAngMotorVelocity(10);
-		bollards_c[i]->setLowerAngLimit(0.0f);
-		bollards_c[i]->setUpperAngLimit(1.0f);
-
-		bollards_c[i]->setPoweredLinMotor(true);
-		bollards_c[i]->setTargetLinMotorVelocity(1);
-		bollards_c[i]->setLowerLinLimit(-5.0f);
-		bollards_c[i]->setUpperLinLimit(5.0f);
-		bollards[i]->body.Push(vec3(100, 0, 100));
-		bollards[i]->body.Push(vec3(1, 1, 0));
+		bollards[i]->body.Push(vec3(100,100,100));
 	}
 
 
@@ -814,41 +804,42 @@ void ModuleSceneIntro::changePizzaPosition(int x, int y, int z)
 
 void ModuleSceneIntro::CreateSingleBollard(float x, float z) {
 	Cube* bollard;
-	bollard = new Cube(vec3(0.5, 3, 0.5),1000);
-	//bollard = new Cube(vec3(0.5, 3, 0.5), 0);
+	bollard = new Cube(vec3(0.5, 3, 0.5), 1);
 	primitives.PushBack(bollard);
-	bollard->SetPos(x, 1, z);
+	bollard->SetPos(x, 1.5f, z);
 	bollard->color = Yellow;
 	bollards.PushBack(bollard);
 
 	Cube* bollardBase;
-	bollardBase = new Cube(vec3(0.8,0.2,0.8),0);
+	bollardBase = new Cube(vec3(0.8, 0.2, 0.8), 0);
+	bollardBase->body.SetAsSensor(true);
 	primitives.PushBack(bollardBase);
-	bollardBase->SetPos(x, 0, z);
+	bollardBase->SetPos(x, 0.2, z);
 	bollardBase->color = Grey;
 
-	
 	btTransform frameInA, frameInB;
-	
+
 	btSliderConstraint* constraint;
 	//btGeneric6DofConstraint* constraint;
 
 	frameInA.setIdentity();
 	frameInB.setIdentity();
-	frameInA.setOrigin(btVector3(0, 0, 0));
-	frameInB.setOrigin(btVector3(0, 1.6f, 0));
+	frameInA.getBasis().setEulerZYX(0, 0, M_PI_2);
+	frameInB.getBasis().setEulerZYX(0, 0, M_PI_2);
+	frameInA.setOrigin(btVector3(0.f, 0, 0.f));
+	frameInB.setOrigin(btVector3(0.f, -3.f, 0.f));
 
 	constraint = App->physics->AddConstraintSlider(*bollard, *bollardBase, frameInA, frameInB);
 	bollards_c.PushBack(constraint);
 	constraint->setPoweredAngMotor(true);
-	constraint->setTargetAngMotorVelocity(0);
-	constraint->setLowerAngLimit(0);
-	constraint->setUpperAngLimit(1);
+	constraint->setTargetAngMotorVelocity(20);
+	constraint->setLowerAngLimit(-0.1);
+	constraint->setUpperAngLimit(0.1);
 
 	constraint->setPoweredLinMotor(true);
-	constraint->setTargetLinMotorVelocity(10);
-	constraint->setLowerLinLimit(-5.0f);
-	constraint->setUpperLinLimit(5.0f);
+	constraint->setTargetLinMotorVelocity(0);
+	constraint->setLowerLinLimit(-10.0f);
+	constraint->setUpperLinLimit(10.0f);
 	
 	/*
 	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);
