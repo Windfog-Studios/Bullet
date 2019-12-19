@@ -223,6 +223,8 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	//update sensor and timer
+	arrow_timer += dt;
+
 	UpdateSensorAndBar(forward);
 
 	position = vehicle->position;
@@ -271,6 +273,7 @@ void ModulePlayer::RestartGame() {
 	timer.Start();
 	App->scene_intro->p = -1;
 	App->scene_intro->changePizzaPosition(-1);
+	arrow_timer = 0;
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
@@ -290,54 +293,32 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
-
+	
 	time_left = max_time - timer.Read() * 0.001f;
 	
 	if (time_left <= 0)	
 		App->audio->PlayFx(mamma_mia);
 	
-	//arrow->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
-	arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
-	arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
-
-	//Red
-	arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
-
-	//Blue
-	arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
-
-	target = App->scene_intro->pizza_position[App->scene_intro->p];
-	angle = atan((target.z - arrow->GetPos().z) / (target.x - arrow->GetPos().x));
-	
-	//Rotation to target
-	arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
-	arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
-	arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
-
-	float number = 0.01f;
-
-	/*LOG("pizza x: %f", target.x);
-	LOG("pizza z: %f", target.z);
-	LOG("arrow x: %f", arrow->GetPos().x);
-	LOG("arrow z: %f", arrow->GetPos().z);
-	LOG("----------------");*/
-	LOG("Rotation z: %f", arrow_rotation);
-	
-	/*if(arrow->GetPos().x > target.x)
+	if (arrow_timer < 10)
 	{
-		//Rotate right
-		LOG("Rotate Right");
-		arrow->transform.rotate((arrow_rotation + number) * RADTODEG, vec3(0, 1, 0));
-		//arrowTopHead->transform.rotate(number, vec3(0, 1, 0));
-		//arrowBottomHead->transform.rotate(number, vec3(0, 1, 0));
-		arrow_rotation += number;
-	}else if (arrow->GetPos().x < target.x)
-	{
-		LOG("Rotate Left");
-		//Rotate left
-		arrow->transform.rotate((arrow_rotation - number) * RADTODEG, vec3(0, 1, 0));
-		//arrowTopHead->transform.rotate(-number, vec3(0, 1, 0));
-		//arrowBottomHead->transform.rotate(-number, vec3(0, 1, 0));
-		arrow_rotation -= number;
-	}*/
+		//arrow->SetSize(vec3(0.75 * (time_left / max_time), 0.05, 0.05));
+		arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+		arrowTopHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+		arrowBottomHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+		arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+
+		//Red
+		arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
+
+		//Blue
+		arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
+
+		target = App->scene_intro->pizza_position[App->scene_intro->p];
+		angle = atan((target.z - vehicle->GetPos().z) / (target.x - vehicle->GetPos().x));
+
+		//Rotation to target
+		arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
+		arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
+		arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
+	}	
 }

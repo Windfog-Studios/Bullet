@@ -642,7 +642,10 @@ void ModuleSceneIntro::CreateDecoration()
 void ModuleSceneIntro::changePizzaPosition(int position)
 {
 	if (p < MAX_PIZZA_POSITIONS)
-	{ p++; }
+	{ 
+		p++; 
+		App->player->arrow_timer = 0;
+	}
 	else { p = 0; }
 
 	if (p == 3 || p == 6)
