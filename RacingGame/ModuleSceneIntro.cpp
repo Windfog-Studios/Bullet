@@ -67,6 +67,11 @@ bool ModuleSceneIntro::CleanUp()
 		bollards_c[i]->~btSliderConstraint();
 	}
 
+	for(int i = 0; i < primitives.Count(); i++)
+	{
+		delete primitives[i];
+	}
+
 	return true;
 }
 
@@ -322,7 +327,6 @@ void ModuleSceneIntro::CreateBuildings()
 		}
 	}
 	//City buildings 1
-
 		{
 			Cube* city_building1 = new Cube({ 30, 40, 40 }, 10000);
 			city_building1->color = Dark_Grey;
@@ -352,7 +356,6 @@ void ModuleSceneIntro::CreateBuildings()
 
 
 	//City buildings 2
-
 		{
 			Cube* city_building6 = new Cube({ 40, 30, 50 }, 10000);
 			city_building6->color = Dark_Grey;
@@ -387,7 +390,6 @@ void ModuleSceneIntro::CreateBuildings()
 			city_building11->color = Darker_Grey;
 			city_building11->SetPos(-100, 0, 90);
 			primitives.PushBack(city_building11);
-
 		}
 
 
@@ -710,7 +712,6 @@ void ModuleSceneIntro::CreateBollards() {
 	CreateSingleBollard(-2.5, 8,1);
 	CreateSingleBollard(-5.5, 8,1);
 
-
 	CreateSingleBollard(25, 50,2);
 	CreateSingleBollard(22, 50,2);
 	CreateSingleBollard(19, 50,2);
@@ -839,7 +840,6 @@ void ModuleSceneIntro::CreateWinningMap() {
 			letras3->color = Green;
 			letras3->SetPos(389, 5.5f, 390);
 			winning_primitives.PushBack(letras3);
-
 		}
 
 		//O
@@ -912,7 +912,6 @@ void ModuleSceneIntro::CreateWinningMap() {
 			letras10->color = Green;
 			letras10->SetPos(398, 3.2, 409);
 			winning_primitives.PushBack(letras10);
-
 		}
 
 		//O
