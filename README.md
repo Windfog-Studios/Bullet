@@ -3,23 +3,20 @@ Become the best pizza deliver playing this funny physics game project!
 
 ## Controls
 ### Movement
-UP - Accelerate
-DOWN - Decelerate / Move backwards 
-LEFT - Turn left
-RIGHT - Turn right
-SPACE - Brake
+* UP - Accelerate
+* DOWN - Decelerate / Move backwards 
+* LEFT - Turn left
+* RIGHT - Turn right
+* SPACE - Brake
 
 ### Extra
 R - Restart 
 
 ### Debug
-F1 - Enable ebug mode
-F2 - See meshes
-F3 - Finish the game
+* F1 - Enable ebug mode
+* F2 - See meshes
+* F3 - Finish the game
  
-### Gameplay
-
-
 ## Team
 * Pablo Galve: https://github.com/pablogalve
 * Silvino Medina: https://github.com/silvino00
