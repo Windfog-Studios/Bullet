@@ -9,7 +9,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
-	max_time = 30;
+	max_time = 20;
 	max_time2 = 4;
 	max_time3 = 2;
 	max_time4 = 5;
@@ -169,7 +169,11 @@ update_status ModulePlayer::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
 	{
-		acceleration = MAX_ACCELERATION * 2;
+		if (vehicle->GetKmh() < 120)
+		{
+			acceleration = MAX_ACCELERATION * 2;
+		}
+		
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
