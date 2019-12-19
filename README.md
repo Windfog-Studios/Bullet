@@ -1,6 +1,9 @@
 ## Introduction
 Become the best pizza deliver playing this funny physics game project!
 
+## Goal
+Try to get the 10 pizzas hidden in the map in the order of appear to win the game. 
+
 ## Controls
 ### Movement
 * UP - Accelerate
@@ -21,7 +24,7 @@ Become the best pizza deliver playing this funny physics game project!
 | <a href="https://github.com/pablogalve" target="_blank">**Pablo Galve**</a> | <a href="https://github.com/silvino00" target="_blank">**Silvino Medina**</a> | <a href="https://github.com/marcpages2020" target="_blank">**Marc Pagès**</a> |
 | :---: |:---:| :---:|
 | [![FVCproductions](https://avatars1.githubusercontent.com/u/30580652?s=400&v=4)](https://github.com/pablogalve)    | [![Pablo Galve](https://avatars1.githubusercontent.com/u/47743896?s=400&v=4)](https://github.com/silvino00) | [![Silvino Medina](https://avatars3.githubusercontent.com/u/47534017?s=400&v=4)](https://github.com/marcpages2020)  |
-| <a href="https://github.com/pablogalve" target="_blank">`github.com/pablogalve`</a> | <a href="https://github.com/silvino00" target="_blank">`github.com/silvino00`</a> | <a href="https://github.com/marcpages2020" target="_blank">`github.com/marcpages00`</a> |
+| <a href="https://github.com/pablogalve" target="_blank">`github.com/pablogalve`</a> | <a href="https://github.com/silvino00" target="_blank">`github.com/silvino00`</a> | <a href="https://github.com/marcpages2020" target="_blank">`github.com/marcpages2020`</a> |
 
 ## Link to our Github repository
 https://github.com/Windfog-Studios/RacingGame

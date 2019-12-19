@@ -60,7 +60,7 @@ private:
 	bool					bollards_A_up;
 public:
 	Timer					start_timer;
-	float					max_time;
+	float					starting_fx_time;
 	bool					play_music;
 	bool					winning_map_created;
 	bool					showing_winning_map;
