@@ -302,39 +302,39 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	if (time_left <= 0)	
 		App->audio->PlayFx(mamma_mia);
 
-		arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
-		arrowTopHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
-		arrowBottomHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	/*arrow->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	arrowTopHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
+	arrowBottomHead->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 
-		//Red
-		//arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
+	//Red
+	//arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
 
-		//Blue
-		//arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
+	//Blue
+	//arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
 		
-		target = App->scene_intro->pizza_position[App->scene_intro->p];
-		reference = vehicle->GetPos();
-		camera_position = App->camera->Position;
+	target = App->scene_intro->pizza_position[App->scene_intro->p];
+	reference = vehicle->GetPos();
+	camera_position = App->camera->Position;
 
-		angle1 = atan((target.z - camera_position.z) / (target.x - camera_position.x));
+	angle1 = atan((target.z - camera_position.z) / (target.x - camera_position.x));
 
-		angle2 = atan((reference.z - camera_position.z) / (reference.x - camera_position.x));
+	angle2 = atan((reference.z - camera_position.z) / (reference.x - camera_position.x));
 
-		final_angle = angle1 - angle2;
+	final_angle = angle1 - angle2;
 
-		//if (vehicle->GetPos().z > target.z)
-			//final_angle += 180;
+	//if (vehicle->GetPos().z > target.z)
+		//final_angle += 180;
 
-		//Rotation to target
-		arrow->transform.look({ 1,0,0 }, { 0,1,0 }, { 0,0,1 });
-		arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
-		arrow->transform.rotate(final_angle * RADTODEG, vec3(0, 1, 0));
-		//arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
-		//arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
-		//arrow->SetPos(-400, -400, -400);
-		//arrowBottomHead->SetPos(-400, -400, -400);
-		//arrowTopHead->SetPos(-400, -400, -400);
-		char title[80];
-		sprintf_s(title, "Angle: %.2f", final_angle * RADTODEG);
-		App->window->SetTitle(title);
+	//Rotation to target
+	arrow->transform.look({ 1,0,0 }, { 0,1,0 }, { 0,0,1 });
+	arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
+	arrow->transform.rotate(final_angle * RADTODEG, vec3(0, 1, 0));
+	//arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
+	//arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
+	//arrow->SetPos(-400, -400, -400);
+	//arrowBottomHead->SetPos(-400, -400, -400);
+	//arrowTopHead->SetPos(-400, -400, -400);
+	char title[80];
+	sprintf_s(title, "Angle: %.2f", final_angle * RADTODEG);
+	App->window->SetTitle(title);*/
 }
