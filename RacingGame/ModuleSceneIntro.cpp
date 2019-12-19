@@ -9,13 +9,13 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	//pizza positions
 	pizza_position[0] = { 150, 1.1f, 150 }; // top left corner
 	pizza_position[1] = { -25, 1.1f, -152.5f }; //mid bottom
-	pizza_position[8] = { 150, 1.1f, -40.f }; //mid-left
-	pizza_position[2] = { -150, 1.1f, 150 }; //top right corner
-	pizza_position[3] = { 150, 1.1f, -150 }; //bottom left corner
-	pizza_position[4] = { -145, 1.1f, 0 }; //mid right
-	pizza_position[5] = { 95, 1.1f, 85 }; //corner left
-	pizza_position[6] = { 25, 1.1f, -37.5f }; //center
-	pizza_position[7] = { -150, 1.1f, -150 }; // bottom right corner
+	pizza_position[2] = { 150, 1.1f, -40.f }; //mid-left
+	pizza_position[3] = { -150, 1.1f, 150 }; //top right corner
+	pizza_position[4] = { 150, 1.1f, -150 }; //bottom left corner
+	pizza_position[5] = { -145, 1.1f, 0 }; //mid right
+	pizza_position[6] = { 95, 1.1f, 85 }; //corner left
+	pizza_position[7] = { 25, 1.1f, -37.5f }; //center
+	pizza_position[8] = { -150, 1.1f, -150 }; // bottom right corner
 	pizza_position[9] = { -67.5f, 1.1f, 82.5f }; //corner right
 
 	bollard_change_time = 5;
@@ -24,7 +24,7 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	bollards_A_up = true;
 	winning_map_created = false;
 	showing_winning_map = false;
-	p = -2;
+	p = 0;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -44,10 +44,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
+	CreatePizza();
 	CreateBollards();
 	CreateDecoration();
 	CreateBuildings();
-	CreatePizza();
 
 	//Save initial position
 	Save();
@@ -535,7 +535,7 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza->body.isPizza = true;
 
 	//We set the pizza position
-	changePizzaPosition(-1);
+	changePizzaPosition();
 }
 
 void ModuleSceneIntro::CreateDecoration()
@@ -645,17 +645,11 @@ void ModuleSceneIntro::CreateDecoration()
 	}
 }
 
-void ModuleSceneIntro::changePizzaPosition(int position)
+void ModuleSceneIntro::changePizzaPosition()
 {
-	if (p < MAX_PIZZA_POSITIONS)
-	{
-		p++;
-		App->player->arrow_timer = 0;
-	}
-	else { p = 0; }
-
 	if (p == 3 || p == 6)
 		Save();
+
 	pizza.base->SetPos(pizza_position[p].x, pizza_position[p].y - 0.2f, pizza_position[p].z);
 	pizza.pizza->SetPos(pizza_position[p].x, pizza_position[p].y, pizza_position[p].z);
 	pizza.tape->SetPos(pizza_position[p].x + 1.5f, pizza_position[p].y + 0.7f, pizza_position[p].z);

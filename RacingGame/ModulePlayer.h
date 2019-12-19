@@ -46,8 +46,6 @@ public:
 	vec3	position;
 	vec3	initial_position;
 	vec3	forward;
-	double	arrow_rotation = 0;
-	float	arrow_timer = 0;
 
 	bool	top_view = false;
 
