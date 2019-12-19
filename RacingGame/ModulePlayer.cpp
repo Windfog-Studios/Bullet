@@ -315,10 +315,17 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 
 		target = App->scene_intro->pizza_position[App->scene_intro->p];
 		angle = atan((target.z - vehicle->GetPos().z) / (target.x - vehicle->GetPos().x));
+		if (vehicle->GetPos().z > target.z)
+			angle += 180;
 
 		//Rotation to target
 		arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
 		arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
 		arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
-	}	
+	}else
+	{
+		arrow->SetPos(-400, -400, -400);
+		arrowBottomHead->SetPos(-400, -400, -400);
+		arrowTopHead->SetPos(-400, -400, -400);
+	}
 }
