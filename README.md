@@ -10,7 +10,7 @@ Become the best pizza deliver playing this funny physics game project!
 * SPACE - Brake
 
 ### Extra
-R - Restart 
+* R - Restart 
 
 ### Debug
 * F1 - Enable ebug mode
