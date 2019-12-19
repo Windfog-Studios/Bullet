@@ -8,11 +8,11 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 	//pizza positions
 	pizza_position[0] = { 150, 1.1f, 150 }; // top left corner
-	pizza_position[1] = { -150, 1.1f, -150 }; // bottom right corner
-	pizza_position[2] = {-150, 1.1f, 150}; //top right corner
+	pizza_position[1] = { 25, 1.1f, -37.5f }; //center
+	pizza_position[2] = { -150, 1.1f, -150 }; // bottom right corner
 	pizza_position[3] = { 150, 1.1f, -150 }; //bottom left corner
-	pizza_position[4] = { 25, 1.1f, -37.5f }; //center
-	pizza_position[5] = { 150, 1.1f, -40.f }; //mid-left
+	pizza_position[4] = { 150, 1.1f, -40.f }; //mid-left
+	pizza_position[5] = {-150, 1.1f, 150}; //top right corner
 	pizza_position[6] = { -145, 1.1f, 0 }; //mid right
 	pizza_position[7] = { 95, 1.1f, 85 }; //corner left
 	pizza_position[8] = { -67.5f, 1.1f, 82.5f }; //corner right
