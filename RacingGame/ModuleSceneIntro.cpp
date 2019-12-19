@@ -849,24 +849,24 @@ void ModuleSceneIntro::CreateWinningMap() {
 		//O
 		{
 			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
-			letras4->color = Green;
+			letras4->color = White;
 			letras4->SetPos(389, 3, 396);
 			primitives.PushBack(letras4);
 
 			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
-			letras5->color = Green;
+			letras5->color = White;
 			letras5->SetPos(389, 3, 400);
 			primitives.PushBack(letras5);
 
 			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
 			letras6->transform.rotate(90, vec3(1, 0, 0));
-			letras6->color = Green;
+			letras6->color = White;
 			letras6->SetPos(389, 1, 398);
 			primitives.PushBack(letras6);
 
 			Cube* letras7 = new Cube({ 2, 5, 2 }, 0);
 			letras7->transform.rotate(90, vec3(1, 0, 0));
-			letras7->color = Green;
+			letras7->color = White;
 			letras7->SetPos(389, 5, 398);
 			primitives.PushBack(letras7);
 		}
@@ -874,18 +874,18 @@ void ModuleSceneIntro::CreateWinningMap() {
 		//U
 		{
 			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
-			letras4->color = Green;
+			letras4->color = Red;
 			letras4->SetPos(389, 3, 403);
 			primitives.PushBack(letras4);
 
 			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
-			letras5->color = Green;
+			letras5->color = Red;
 			letras5->SetPos(389, 3, 407);
 			primitives.PushBack(letras5);
 
 			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
 			letras6->transform.rotate(90, vec3(1, 0, 0));
-			letras6->color = Green;
+			letras6->color = Red;
 			letras6->SetPos(389, 1, 405);
 			primitives.PushBack(letras6);
 
@@ -922,24 +922,24 @@ void ModuleSceneIntro::CreateWinningMap() {
 		//O
 		{
 			Cube* letras11 = new Cube({ 2, 6, 2 }, 0);
-			letras11->color = Green;
+			letras11->color = White;
 			letras11->SetPos(402, 3, 409);
 			primitives.PushBack(letras11);
 
 			Cube* letras12 = new Cube({ 2, 6, 2 }, 0);
-			letras12->color = Green;
+			letras12->color = White;
 			letras12->SetPos(406, 3, 409);
 			primitives.PushBack(letras12);
 
 			Cube* letras13 = new Cube({ 2, 5, 2 }, 0);
 			letras13->transform.rotate(90, vec3(0, 0, 1));
-			letras13->color = Green;
+			letras13->color = White;
 			letras13->SetPos(404.5f, 1, 409);
 			primitives.PushBack(letras13);
 
 			Cube* letras14 = new Cube({ 2, 5, 2 }, 0);
 			letras14->transform.rotate(90, vec3(0, 0, 1));
-			letras14->color = Green;
+			letras14->color = White;
 			letras14->SetPos(404.5f, 5, 409);
 			primitives.PushBack(letras14);
 		}
@@ -947,18 +947,18 @@ void ModuleSceneIntro::CreateWinningMap() {
 		//N
 		{
 			Cube* letras15 = new Cube({ 2, 6, 2 }, 0);
-			letras15->color = Green;
+			letras15->color = Red;
 			letras15->SetPos(409, 3, 409);
 			primitives.PushBack(letras15);
 
 			Cube* letras16 = new Cube({ 2, 6, 2 }, 0);
-			letras16->color = Green;
+			letras16->color = Red;
 			letras16->SetPos(413, 3, 409);
 			primitives.PushBack(letras16);
 
 			Cube* letras17 = new Cube({ 2, 6, 2 }, 0);
 			letras17->transform.rotate(37, vec3(0, 0, 1));
-			letras17->color = Green;
+			letras17->color = Red;
 			letras17->SetPos(411, 3, 409);
 			primitives.PushBack(letras17);
 
