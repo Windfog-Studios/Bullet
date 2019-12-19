@@ -39,7 +39,7 @@ public:
 	void CreateWinningMap();
 	void DestroyWinningMap();
 
-	void changePizzaPosition(int position);
+	void changePizzaPosition();
 
 	p2DynArray<Primitive*> GetPrimitivesList() const { return primitives; };
 	p2DynArray<Cube*> bollards_A;

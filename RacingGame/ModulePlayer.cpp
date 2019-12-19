@@ -27,7 +27,7 @@ bool ModulePlayer::Start()
 
 	// Car properties ----------------------------------------
 	car.mass = 500.0f;
-	car.suspensionStiffness = 13.88f;
+	car.suspensionStiffness = 12.88f;
 	car.suspensionCompression = 0.93f;
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
@@ -244,12 +244,10 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::RestartGame() {
 	App->scene_intro->Load();
-	vehicle->SetPos(initial_position.x, initial_position.y, initial_position.z);
 	vehicle->GetBody()->setLinearVelocity(btVector3(0, 0, 0));
 	time_left = max_time;
 	timer.Start();
-	App->scene_intro->p = -1;
-	App->scene_intro->changePizzaPosition(-1);
+	App->scene_intro->changePizzaPosition();
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
@@ -257,9 +255,10 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 	if (body2->isPizza)
 	{
 		App->audio->PlayFx(Delivery);
-		App->scene_intro->changePizzaPosition(App->scene_intro->p);
 		time_left = max_time;
 		timer.Start();
+		App->scene_intro->p++;
+		App->scene_intro->changePizzaPosition();
 	}
 }
 

@@ -8,15 +8,15 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 	//pizza positions
 	pizza_position[0] = { 150, 1.1f, 150 }; // top left corner
-	pizza_position[1] = { 25, 1.1f, -37.5f }; //center
-	pizza_position[2] = { -150, 1.1f, -150 }; // bottom right corner
-	pizza_position[3] = { 150, 1.1f, -40.f }; //mid-left
-	pizza_position[4] = {-150, 1.1f, 150}; //top right corner
+	pizza_position[1] = { -25, 1.1f, -152.5f }; //mid bottom
+	pizza_position[2] = { 150, 1.1f, -40.f }; //mid-left
+	pizza_position[3] = { -150, 1.1f, 150 }; //top right corner
+	pizza_position[4] = { 150, 1.1f, -150 }; //bottom left corner
 	pizza_position[5] = { -145, 1.1f, 0 }; //mid right
-	pizza_position[6] = { 150, 1.1f, -150 }; //bottom left corner
-	pizza_position[7] = { 95, 1.1f, 85 }; //corner left
-	pizza_position[8] = { -67.5f, 1.1f, 82.5f }; //corner right
-	pizza_position[9] = { -25, 1.1f, -152.5f }; //mid bottom
+	pizza_position[6] = { 95, 1.1f, 85 }; //corner left
+	pizza_position[7] = { 25, 1.1f, -37.5f }; //center
+	pizza_position[8] = { -150, 1.1f, -150 }; // bottom right corner
+	pizza_position[9] = { -67.5f, 1.1f, 82.5f }; //corner right
 
 	bollard_change_time = 5;
 	starting_fx_time = 3;
@@ -24,7 +24,7 @@ ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 	bollards_A_up = true;
 	winning_map_created = false;
 	showing_winning_map = false;
-	p = -1;
+	p = 0;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -44,10 +44,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
 
+	CreatePizza();
 	CreateBollards();
 	CreateDecoration();
 	CreateBuildings();
-	CreatePizza();
 
 	//Save initial position
 	Save();
@@ -216,7 +216,6 @@ void ModuleSceneIntro::Load()
 
 	App->player->vehicle->GetBody()->setLinearVelocity({ 0,0,0 });
 	App->player->acceleration = 0;
-	//App->player->vehicle->SetRotation(0,0,0);
 
 	p = pizzas_collected;
 }
@@ -536,7 +535,7 @@ void ModuleSceneIntro::CreatePizza()
 	pizza.pizza->body.isPizza = true;
 
 	//We set the pizza position
-	changePizzaPosition(-1);
+	changePizzaPosition();
 }
 
 void ModuleSceneIntro::CreateDecoration()
@@ -646,17 +645,11 @@ void ModuleSceneIntro::CreateDecoration()
 	}
 }
 
-void ModuleSceneIntro::changePizzaPosition(int position)
+void ModuleSceneIntro::changePizzaPosition()
 {
-	if (p < MAX_PIZZA_POSITIONS)
-	{
-		p++;
-		App->player->arrow_timer = 0;
-	}
-	else { p = 0; }
-
 	if (p == 3 || p == 6)
 		Save();
+
 	pizza.base->SetPos(pizza_position[p].x, pizza_position[p].y - 0.2f, pizza_position[p].z);
 	pizza.pizza->SetPos(pizza_position[p].x, pizza_position[p].y, pizza_position[p].z);
 	pizza.tape->SetPos(pizza_position[p].x + 1.5f, pizza_position[p].y + 0.7f, pizza_position[p].z);
@@ -768,7 +761,8 @@ void ModuleSceneIntro::CreateWinningMap() {
 	Cube* winning_floor = new Cube(vec3(30, 0.1, 30), 0);
 	winning_floor->SetPos(400, 0, 400);
 	winning_primitives.PushBack(winning_floor);
-	winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+	//winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+	winning_floor->color = Color(0.33,0.45,0.18);
 
 	//big pizza
 	{
@@ -970,7 +964,13 @@ void ModuleSceneIntro::CreateWinningMap() {
 		size = size * 0.1f;
 		Sphere* ball = new Sphere(size);
 		ball->SetPos((float)(std::rand() % 30) + 385, 35, (float)(std::rand() % 30) + 385);
-		ball->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
+		int color = std::rand() % 3;
+		if (color == 0)
+			ball->color = Red;
+		if (color == 1)
+			ball->color = White;
+		if (color == 2)
+			ball->color = Green;
 		ball->body.Push(vec3((float)(std::rand() % 10), 0, (float)(std::rand() % 10)));
 		ball->body.GetBody()->setRestitution(1);
 		winning_primitives.PushBack(ball);
