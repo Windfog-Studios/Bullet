@@ -13,7 +13,7 @@ Try to get the 10 pizzas hidden in the map in the order of appear to win the gam
 * SPACE - Brake
 
 ### Extra
-R - Restart 
+* R - Restart 
 
 ### Debug
 * F1 - Enable ebug mode
