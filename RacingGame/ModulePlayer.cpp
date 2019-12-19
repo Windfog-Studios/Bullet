@@ -286,7 +286,6 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
 
 void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	vec3 target;
-	vec3 timer_cube_position;
 	double angle;
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
@@ -302,18 +301,38 @@ void ModulePlayer::UpdateSensorAndBar(vec3 forward) {
 	arrow->SetPos(App->camera->Position.x + forward.x, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z);
 
 	//Red
-	arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
+	//arrowTopHead->SetPos(App->camera->Position.x + forward.x + 0.05, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.15);
 
 	//Blue
-	arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
+	//arrowBottomHead->SetPos(App->camera->Position.x + forward.x + 0.15, App->camera->Position.y + 0.175, App->camera->Position.z + forward.z + 0.05);
 
-	timer_cube_position = arrow->GetPos();
 	target = App->scene_intro->pizza_position[App->scene_intro->p];
-	angle = atan((target.z - timer_cube_position.z) / (target.x - timer_cube_position.x));
+	angle = atan((target.z - arrow->GetPos().z) / (target.x - arrow->GetPos().x));
 	
+	float number = 1 * RADTODEG;
+
+	LOG("pizza x: %f", target.x);
+	LOG("pizza z: %f", target.z);
+	LOG("arrow x: %f", arrow->GetPos().x);
+	LOG("arrow z: %f", arrow->GetPos().z);
+	LOG("----------------");
+
+	if(arrow->GetPos().x > target.x)
+	{
+		//Rotate right
+		arrow->transform.rotate(number, vec3(0, 1, 0));
+		//arrowTopHead->transform.rotate(number, vec3(0, 1, 0));
+		//arrowBottomHead->transform.rotate(number, vec3(0, 1, 0));
+	}else if (arrow->GetPos().x < target.x)
+	{
+		//Rotate left
+		arrow->transform.rotate(-number, vec3(0, 1, 0));
+		//arrowTopHead->transform.rotate(-number, vec3(0, 1, 0));
+		//arrowBottomHead->transform.rotate(-number, vec3(0, 1, 0));
+	}
+
 	//Rotation to target
-	arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
-	arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
-	arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));
-	
+	//arrow->transform.rotate(angle * RADTODEG + 90, vec3(0, 1, 0));
+	//arrowTopHead->transform.rotate(angle * RADTODEG + 120, vec3(0, 1, 0));
+	//arrowBottomHead->transform.rotate(angle * RADTODEG + 60, vec3(0, 1, 0));	
 }
