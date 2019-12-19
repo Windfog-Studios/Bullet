@@ -157,7 +157,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		acceleration = MAX_ACCELERATION * 2;
 	}
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		if (vehicle->HasBody())
 		{
@@ -271,9 +271,9 @@ void ModulePlayer::UpdateSensor() {
 	sensor->Update();
 	sensor->body.GetBody()->applyForce(btVector3(0, -GRAVITY.y(), 0), btVector3(0, 0, 0));
 	sensor->SetPos(vehicle->position.x, 2, vehicle->position.z - 0.5);
-	
+
 	time_left = max_time - timer.Read() * 0.001f;
-	
-	if (time_left <= 0)	
+
+	if (time_left <= 0)
 		App->audio->PlayFx(mamma_mia);
 }
