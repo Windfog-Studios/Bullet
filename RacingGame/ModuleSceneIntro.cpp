@@ -62,6 +62,11 @@ bool ModuleSceneIntro::CleanUp()
 
 	DestroyWinningMap();
 
+	for (int i = 0; i < bollards_c.Count(); i++)
+	{
+		bollards_c[i]->~btSliderConstraint();
+	}
+
 	return true;
 }
 
@@ -678,7 +683,6 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 	btTransform frameInA, frameInB;
 
 	btSliderConstraint* constraint;
-	//btGeneric6DofConstraint* constraint;
 
 	frameInA.setIdentity();
 	frameInB.setIdentity();
@@ -698,17 +702,6 @@ void ModuleSceneIntro::CreateSingleBollard(float x, float z, int group) {
 	constraint->setTargetLinMotorVelocity(0);
 	constraint->setLowerLinLimit(-9.6f);
 	constraint->setUpperLinLimit(9.6f);
-
-	/*
-	constraint = App->physics->AddGeneric6DofConstraint(*bollard, *bollardBase, frameInA, frameInB);
-	constraint->setAngularLowerLimit(btVector3(0, 0, 0));
-	constraint->setAngularUpperLimit(btVector3(0, 0, 0));
-	constraint->setLinearLowerLimit(btVector3(0, 0, 0));
-	constraint->setLinearUpperLimit(btVector3(0,5,0));
-	constraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
-	constraint->getTranslationalLimitMotor()->m_targetVelocity[0] = -5.0f;
-	constraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 6.0;
-	*/
 }
 
 void ModuleSceneIntro::CreateBollards() {
@@ -773,7 +766,7 @@ void ModuleSceneIntro::CreateWinningMap() {
 
 	Cube* winning_floor = new Cube(vec3(30, 0.1, 30), 0);
 	winning_floor->SetPos(400, 0, 400);
-	primitives.PushBack(winning_floor);
+	winning_primitives.PushBack(winning_floor);
 	winning_floor->color = Color((float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f, (float)(std::rand() % 255) / 255.f);
 
 	//big pizza
@@ -833,19 +826,19 @@ void ModuleSceneIntro::CreateWinningMap() {
 			Cube* letras = new Cube({ 2, 6, 2 }, 0);
 			letras->color = Green;
 			letras->SetPos(389, 3, 391);
-			primitives.PushBack(letras);
+			winning_primitives.PushBack(letras);
 
 			Cube* letras2 = new Cube({ 2, 4, 2 }, 0);
 			letras2->transform.rotate(45.f, vec3(1, 0, 0));
 			letras2->color = Green;
 			letras2->SetPos(389, 5.5f, 392);
-			primitives.PushBack(letras2);
+			winning_primitives.PushBack(letras2);
 
 			Cube* letras3 = new Cube({ 2, 4, 2 }, 0);
 			letras3->transform.rotate(-45.f, vec3(1, 0, 0));
 			letras3->color = Green;
 			letras3->SetPos(389, 5.5f, 390);
-			primitives.PushBack(letras3);
+			winning_primitives.PushBack(letras3);
 
 		}
 
@@ -854,24 +847,24 @@ void ModuleSceneIntro::CreateWinningMap() {
 			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
 			letras4->color = White;
 			letras4->SetPos(389, 3, 396);
-			primitives.PushBack(letras4);
+			winning_primitives.PushBack(letras4);
 
 			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
 			letras5->color = White;
 			letras5->SetPos(389, 3, 400);
-			primitives.PushBack(letras5);
+			winning_primitives.PushBack(letras5);
 
 			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
 			letras6->transform.rotate(90, vec3(1, 0, 0));
 			letras6->color = White;
 			letras6->SetPos(389, 1, 398);
-			primitives.PushBack(letras6);
+			winning_primitives.PushBack(letras6);
 
 			Cube* letras7 = new Cube({ 2, 5, 2 }, 0);
 			letras7->transform.rotate(90, vec3(1, 0, 0));
 			letras7->color = White;
 			letras7->SetPos(389, 5, 398);
-			primitives.PushBack(letras7);
+			winning_primitives.PushBack(letras7);
 		}
 
 		//U
@@ -879,18 +872,18 @@ void ModuleSceneIntro::CreateWinningMap() {
 			Cube* letras4 = new Cube({ 2, 6, 2 }, 0);
 			letras4->color = Red;
 			letras4->SetPos(389, 3, 403);
-			primitives.PushBack(letras4);
+			winning_primitives.PushBack(letras4);
 
 			Cube* letras5 = new Cube({ 2, 6, 2 }, 0);
 			letras5->color = Red;
 			letras5->SetPos(389, 3, 407);
-			primitives.PushBack(letras5);
+			winning_primitives.PushBack(letras5);
 
 			Cube* letras6 = new Cube({ 2, 5, 2 }, 0);
 			letras6->transform.rotate(90, vec3(1, 0, 0));
 			letras6->color = Red;
 			letras6->SetPos(389, 1, 405);
-			primitives.PushBack(letras6);
+			winning_primitives.PushBack(letras6);
 
 		}
 
@@ -900,25 +893,25 @@ void ModuleSceneIntro::CreateWinningMap() {
 			letras7->transform.rotate(30, vec3(0, 0, 1));
 			letras7->color = Green;
 			letras7->SetPos(392, 3.2, 409);
-			primitives.PushBack(letras7);
+			winning_primitives.PushBack(letras7);
 
 			Cube* letras8 = new Cube({ 2, 4, 2 }, 0);
 			letras8->transform.rotate(-30, vec3(0, 0, 1));
 			letras8->color = Green;
 			letras8->SetPos(394, 2.5f, 409);
-			primitives.PushBack(letras8);
+			winning_primitives.PushBack(letras8);
 
 			Cube* letras9 = new Cube({ 2, 4, 2 }, 0);
 			letras9->transform.rotate(30, vec3(0, 0, 1));
 			letras9->color = Green;
 			letras9->SetPos(396, 2.5f, 409);
-			primitives.PushBack(letras9);
+			winning_primitives.PushBack(letras9);
 
 			Cube* letras10 = new Cube({ 2, 6, 2 }, 0);
 			letras10->transform.rotate(-30, vec3(0, 0, 1));
 			letras10->color = Green;
 			letras10->SetPos(398, 3.2, 409);
-			primitives.PushBack(letras10);
+			winning_primitives.PushBack(letras10);
 
 		}
 
@@ -927,24 +920,24 @@ void ModuleSceneIntro::CreateWinningMap() {
 			Cube* letras11 = new Cube({ 2, 6, 2 }, 0);
 			letras11->color = White;
 			letras11->SetPos(402, 3, 409);
-			primitives.PushBack(letras11);
+			winning_primitives.PushBack(letras11);
 
 			Cube* letras12 = new Cube({ 2, 6, 2 }, 0);
 			letras12->color = White;
 			letras12->SetPos(406, 3, 409);
-			primitives.PushBack(letras12);
+			winning_primitives.PushBack(letras12);
 
 			Cube* letras13 = new Cube({ 2, 5, 2 }, 0);
 			letras13->transform.rotate(90, vec3(0, 0, 1));
 			letras13->color = White;
 			letras13->SetPos(404.5f, 1, 409);
-			primitives.PushBack(letras13);
+			winning_primitives.PushBack(letras13);
 
 			Cube* letras14 = new Cube({ 2, 5, 2 }, 0);
 			letras14->transform.rotate(90, vec3(0, 0, 1));
 			letras14->color = White;
 			letras14->SetPos(404.5f, 5, 409);
-			primitives.PushBack(letras14);
+			winning_primitives.PushBack(letras14);
 		}
 
 		//N
@@ -952,18 +945,18 @@ void ModuleSceneIntro::CreateWinningMap() {
 			Cube* letras15 = new Cube({ 2, 6, 2 }, 0);
 			letras15->color = Red;
 			letras15->SetPos(409, 3, 409);
-			primitives.PushBack(letras15);
+			winning_primitives.PushBack(letras15);
 
 			Cube* letras16 = new Cube({ 2, 6, 2 }, 0);
 			letras16->color = Red;
 			letras16->SetPos(413, 3, 409);
-			primitives.PushBack(letras16);
+			winning_primitives.PushBack(letras16);
 
 			Cube* letras17 = new Cube({ 2, 6, 2 }, 0);
 			letras17->transform.rotate(37, vec3(0, 0, 1));
 			letras17->color = Red;
 			letras17->SetPos(411, 3, 409);
-			primitives.PushBack(letras17);
+			winning_primitives.PushBack(letras17);
 
 		}
 

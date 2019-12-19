@@ -136,9 +136,10 @@ bool ModulePhysics3D::CleanUp()
 		world->removeCollisionObject(obj);
 	}
 	
-	for (p2List_item<btTypedConstraintType*>*  item = constraints.getFirst(); item != nullptr; item = item->next)
+	for (p2List_item<btTypedConstraint*>*  item = constraints.getFirst(); item != nullptr; item = item->next)
 	{
-		constraints.del(item);
+		//world->removeConstraint(item->data);
+		//constraints.del(item);
 	}
 
 	delete world;
@@ -217,7 +218,7 @@ int	 DebugDrawer::getDebugMode() const
 btPoint2PointConstraint* ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
 	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB);
 	world->addConstraint(constraint);
-	//constraints.add((btTypedConstraint*)constraint);
+	constraints.add((btTypedConstraint*) constraint);
 	return constraint;
 
 }
@@ -225,18 +226,14 @@ btPoint2PointConstraint* ModulePhysics3D::AddConstraintP2P(const Primitive& body
 btHingeConstraint* ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB) {
 	btHingeConstraint* constraint = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB, axisInA, axisInB);
 	world->addConstraint(constraint);
-	//constraints.add(constraint);
+	constraints.add((btTypedConstraint*)constraint);
 	return constraint;
 }
 
 btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA, const Primitive& bodyB, btTransform& frameinA, btTransform& frameinB) {
 	btSliderConstraint* constraint = new btSliderConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), frameinA, frameinB, true);
-	constraint->setLowerLinLimit(0);
-	constraint->setUpperLinLimit(0.4);
-	constraint->setLowerAngLimit(-0.2);
-	constraint->setUpperAngLimit(0.2);
 	world->addConstraint(constraint);
-	sliderConstraints.add(constraint);
+	constraints.add((btTypedConstraint*)constraint);
 	return constraint;
 }
 
@@ -244,6 +241,7 @@ btSliderConstraint* ModulePhysics3D::AddConstraintSlider(const Primitive& bodyA,
 btGeneric6DofConstraint* ModulePhysics3D::AddGeneric6DofConstraint(const Primitive& bodyA, const Primitive& bodyB, const btTransform& frameInA, const btTransform& frameInB, bool useLinearReferenceFrameA) {
 	btGeneric6DofConstraint* constraint = new btGeneric6DofConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), frameInA, frameInB, useLinearReferenceFrameA);
 	world->addConstraint(constraint);
+	constraints.add((btTypedConstraint*)constraint);
 	return constraint;
 }
 

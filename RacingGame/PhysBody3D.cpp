@@ -49,6 +49,7 @@ void PhysBody3D::SetBody(Cube* primitive, float mass) {
 		primitive,mass);
 }
 
+
 bool PhysBody3D::HasBody() const
 {
 	return body != nullptr;

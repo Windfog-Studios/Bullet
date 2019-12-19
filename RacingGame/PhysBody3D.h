@@ -26,7 +26,6 @@ public:
 	void SetBody(Sphere* primitive, float mass);
 	void SetBody(Cube* primitive, float mass);
 	void SetBody(Cylinder* primitive, float mass);
-	void SetBody(Plane* primitive, float mass);
 	void SetAsSensor(bool is_sensor);
 	bool HasBody() const;
 	btRigidBody* GetBody() const;

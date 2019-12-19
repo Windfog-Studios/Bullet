@@ -47,7 +47,7 @@ private:
 	DebugDrawer*							debug_draw;
 	btDefaultVehicleRaycaster*				vehicle_raycaster;
 
-	p2List<btTypedConstraintType*>			constraints;
+	p2List<btTypedConstraint*>				constraints;
 	p2List<btCollisionShape*>				shapes;
 	p2List<PhysBody3D*>						bodies;
 	p2List<btDefaultMotionState*>			motions;
