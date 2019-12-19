@@ -9,7 +9,7 @@
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
-	max_time = 30;
+	max_time = 25;
 	max_time2 = 4;
 	max_time3 = 2;
 	max_time4 = 5;
@@ -32,7 +32,7 @@ bool ModulePlayer::Start()
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
-	car.maxSuspensionForce = 6000.0f;
+	car.maxSuspensionForce = 5500.0f;
 
 	//Chassis
 	car.chassis_size.Set(1, 1, 3.5);
