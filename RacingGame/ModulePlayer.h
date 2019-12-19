@@ -22,14 +22,11 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void RestartGame();
-	void UpdateSensorAndBar(vec3 forward);
+	void UpdateSensor();
 
 public:
 	PhysVehicle3D* vehicle;
 	Cylinder* sensor;
-	Cube* arrow;
-	Cube* arrowTopHead;
-	Cube* arrowBottomHead;
 	Timer timer;
 	Timer timer2;
 	Timer boost_duration;

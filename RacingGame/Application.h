@@ -12,9 +12,6 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
-#include "ModuleUI.h"
-#include "ModuleFonts.h"
-#include "ModuleTextures.h"
 
 class Application
 {
@@ -22,14 +19,11 @@ public:
 	ModuleWindow*		window;
 	ModuleInput*		input;
 	ModuleAudio*		audio;
-	ModuleTextures*		textures;
 	ModuleSceneIntro*	scene_intro;
 	ModuleRenderer3D*	renderer3D;
 	ModuleCamera3D*		camera;
 	ModulePhysics3D*	physics;
 	ModulePlayer*		player;
-	ModuleFonts*		fonts;
-	ModuleUI*			ui;
 
 	bool debug;
 	bool renderPrimitives;

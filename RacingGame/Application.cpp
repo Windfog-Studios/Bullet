@@ -5,14 +5,11 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.16f)
 	window = new ModuleWindow();
 	input = new ModuleInput();
 	audio = new ModuleAudio();
-	textures = new ModuleTextures(this);
 	scene_intro = new ModuleSceneIntro();
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	player = new ModulePlayer();
-	fonts = new ModuleFonts(this);
-	ui = new ModuleUI();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -23,12 +20,9 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.16f)
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	//AddModule(textures);
 	AddModule(physics);
 	AddModule(player);
 	AddModule(scene_intro);
-	//AddModule(fonts);
-	//AddModule(ui);
 
 	// Renderer last!
 	AddModule(renderer3D);
