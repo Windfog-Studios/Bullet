@@ -39,7 +39,7 @@ bool ModuleSceneIntro::Start()
 
 	start_timer.Start();
 
-	start = App->audio->LoadFx("Start.wav");
+	start = App->audio->LoadFx("Assets/Start.wav");
 	App->audio->PlayFx(start);
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	bollard_timer.Start();
@@ -136,7 +136,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (play_music)
 	{
-		App->audio->PlayMusic("Italian_music.ogg");
+		App->audio->PlayMusic("Assets/Italian_music.ogg");
 		App->audio->VolumeMusic(20);
 		play_music = false;
 	}

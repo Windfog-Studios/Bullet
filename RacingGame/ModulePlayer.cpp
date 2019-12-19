@@ -10,9 +10,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), vehicle(
 {
 	turn = acceleration = brake = 0.0f;
 	max_time = 20;
-	max_time2 = 4;
-	max_time3 = 2;
-	max_time4 = 5;
+	movement_blocking_max_time = 4;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -109,8 +107,8 @@ bool ModulePlayer::Start()
 	timer2.Start();
 	boost_cooldown.Start();
 
-	mamma_mia = App->audio->LoadFx("MammaMia.wav");
-	Delivery = App->audio->LoadFx("Delivery.wav");
+	mamma_mia = App->audio->LoadFx("Assets/MammaMia.wav");
+	Delivery = App->audio->LoadFx("Assets/Delivery.wav");
 
 	return true;
 }
@@ -129,7 +127,7 @@ update_status ModulePlayer::Update(float dt)
 	turn = acceleration = brake = 0.0f;
 	vec3 forward = vehicle->GetForwardVector();
 
-	time_left2 = max_time2 - timer2.Read() * 0.001f;
+	left_blocking_time = movement_blocking_max_time - timer2.Read() * 0.001f;
 	//Input
 	if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && (vehicle->GetKmh() < 120))
 	{
@@ -225,11 +223,11 @@ update_status ModulePlayer::Update(float dt)
 		App->window->SetTitle(title);
 	}
 
-	if (time_left2 >= 0)
+	if (left_blocking_time >= 0)
 	{
 		acceleration = turn = 0;
 		char title[30];
-		sprintf_s(title, "Time to go: %i", (int)time_left2);
+		sprintf_s(title, "Time to go: %i", (int)left_blocking_time);
 		App->window->SetTitle(title);
 	}
 

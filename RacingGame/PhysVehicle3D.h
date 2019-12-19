@@ -8,16 +8,16 @@ struct PhysBody3D;
 
 struct Wheel
 {
-	vec3 connection; // origin of the ray. Must come from within the chassis
+	vec3 connection; 
 	vec3 direction; 
 	vec3 axis;
-	float suspensionRestLength; // max length for suspension in meters
+	float suspensionRestLength; 
 	float radius;
 	float width;
-	bool front; // is front wheel ?
-	bool drive; // does this wheel received engine power ?
-	bool brake; // does breakes affect this wheel ?
-	bool steering; // does this wheel turns ?
+	bool front; 
+	bool drive; 
+	bool brake; 
+	bool steering; 
 };
 
 struct VehicleInfo

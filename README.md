@@ -17,7 +17,7 @@ There are check points in the third and sixth pizza delivery.
 
 ### Extra
 * R - Restart 
-* T - Aerial camera view
+* T - Top camera view
 
 ### Debug
 * F1 - Enable ebug mode

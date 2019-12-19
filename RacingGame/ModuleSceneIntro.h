@@ -45,7 +45,6 @@ public:
 	p2DynArray<Cube*> bollards_A;
 	p2DynArray<Cube*> bollards_B;
 	p2DynArray<btSliderConstraint*> bollards_c;
-	p2DynArray<btGeneric6DofConstraint*> bollards_b;
 
 	//Check points
 	void Save();

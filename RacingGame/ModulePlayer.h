@@ -33,11 +33,9 @@ public:
 	Timer boost_cooldown;
 	
 	float	max_time;
-	float	max_time2;
-	float	max_time3;
-	float	max_time4;
+	float	movement_blocking_max_time;
 	float	time_left;
-	float	time_left2;
+	float	left_blocking_time;
 	float	turn;
 	float	acceleration;
 	float	brake;
@@ -49,7 +47,6 @@ public:
 
 	bool	top_view = false;
 
-	unsigned int motorcycle = 0;
 	unsigned int mamma_mia = 0;
 	unsigned int Delivery = 0;
 };
