@@ -5,6 +5,7 @@ Become the best pizza deliver playing this funny physics game project!
 Try to get the 10 pizzas hidden in the map in the order of appear to win the game. 
 You have 20 seconds to deliver each pizza, if you don't arrive at time you will start again from the initial position or from the last check point catched.
 There are check points in the third and sixth pizza delivery.
+When 3 or 6 pizzas are picked up progress is saved. 
 
 ## Controls
 ### Movement

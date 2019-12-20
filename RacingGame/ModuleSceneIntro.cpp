@@ -51,7 +51,6 @@ bool ModuleSceneIntro::Start()
 
 	//Save initial position
 	Save();
-
 	return ret;
 }
 
@@ -137,7 +136,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (play_music)
 	{
 		App->audio->PlayMusic("Assets/Italian_music.ogg");
-		App->audio->VolumeMusic(20);
+		App->audio->VolumeMusic(110);
 		play_music = false;
 	}
 
@@ -166,7 +165,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		CreateWinningMap();
 		winning_map_created = true;
-		p = 0;
 		App->window->SetTitle("You Won! Press R to Restart ");
 		showing_winning_map = true;
 	}
