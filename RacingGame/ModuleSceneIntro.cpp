@@ -981,5 +981,6 @@ void ModuleSceneIntro::DestroyWinningMap() {
 	{
 		winning_primitives[i]->body.~PhysBody3D();
 	}
+	p = 0;
 	winning_primitives.Clear();
 }
