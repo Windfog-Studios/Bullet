@@ -28,7 +28,7 @@ When 3 or 6 pizzas are picked up progress is saved.
 ## Team
 | <a href="https://github.com/pablogalve" target="_blank">**Pablo Galve**</a> | <a href="https://github.com/silvino00" target="_blank">**Silvino Medina**</a> | <a href="https://github.com/marcpages2020" target="_blank">**Marc Pagès**</a> |
 | :---: |:---:| :---:|
-| [![FVCproductions](https://avatars1.githubusercontent.com/u/30580652?s=400&v=4)](https://github.com/pablogalve)    | [![Pablo Galve](https://avatars1.githubusercontent.com/u/47743896?s=400&v=4)](https://github.com/silvino00) | [![Silvino Medina](https://avatars3.githubusercontent.com/u/47534017?s=400&v=4)](https://github.com/marcpages2020)  |
+| [![Pablo Galve](https://avatars1.githubusercontent.com/u/30580652?s=400&v=4)](https://github.com/pablogalve)    | [![Silvino Medina](https://avatars1.githubusercontent.com/u/47743896?s=400&v=4)](https://github.com/silvino00) | [![Marc Pagès](https://avatars3.githubusercontent.com/u/47534017?s=400&v=4)](https://github.com/marcpages2020)  |
 | <a href="https://github.com/pablogalve" target="_blank">`github.com/pablogalve`</a> | <a href="https://github.com/silvino00" target="_blank">`github.com/silvino00`</a> | <a href="https://github.com/marcpages2020" target="_blank">`github.com/marcpages2020`</a> |
 
 ## Link to our Github repository
