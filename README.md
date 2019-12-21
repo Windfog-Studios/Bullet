@@ -21,7 +21,7 @@ When 3 or 6 pizzas are picked up progress is saved.
 * T - Top camera view
 
 ### Debug
-* F1 - Enable ebug mode
+* F1 - Enable debug mode
 * F2 - See meshes
 * F3 - Finish the game
  
